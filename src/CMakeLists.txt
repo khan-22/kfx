@@ -7,7 +7,16 @@ add_executable(
   ${SOURCES}
 )
 target_include_directories(kfx PRIVATE "${PROJECT_SOURCE_DIR}/include")
-target_link_libraries(
-  kfx
-  ${PROJECT_SOURCE_DIR}/lib/libglfw.so
-)
+link_directories("${PROJECT_SOURCE_DIR}/lib")
+
+if(UNIX)
+  target_link_libraries(
+    kfx
+    ${PROJECT_SOURCE_DIR}/lib/libglfw.so
+  )
+elseif(WIN32)
+  target_link_libraries(
+    kfx
+    ${PROJECT_SOURCE_DIR}/lib/libglfw.lib
+  )
+endif()
