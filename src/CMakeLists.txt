@@ -9,6 +9,8 @@ add_executable(
 target_include_directories(kfx PRIVATE "${PROJECT_SOURCE_DIR}/include")
 link_directories("${PROJECT_SOURCE_DIR}/lib")
 
+add_definitions(-DGLFW_DLL)
+
 if(UNIX)
   target_link_libraries(
     kfx
@@ -17,6 +19,6 @@ if(UNIX)
 elseif(WIN32)
   target_link_libraries(
     kfx
-    ${PROJECT_SOURCE_DIR}/lib/libglfw.lib
+    glfw3dll.lib opengl32.lib
   )
 endif()

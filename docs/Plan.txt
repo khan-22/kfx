@@ -1,0 +1,99 @@
+>Resources:
+	>Meshes:
+		>Data:
+			Vertices
+			Indices
+		>Use:
+			Render
+			Collision(?)
+
+	>Textures:
+		>Data:
+			Pixels
+			Type(2D/3D or Albedo/Metalness?)
+		>Use:
+			Render Materials (PBR Albedo+Metal...)
+			Data (eg. Heightmaps)
+			
+	>Audio:
+		>Data:
+			Sound Buffer
+			Positions+Velocity (Sources)
+			
+		>Use:
+			Audio FX for env or player cues
+	
+	>Shaders:
+		>Data:
+			Source code
+			(Process into accessible units such
+			 as uniforms?)
+		 
+		 >Use:
+			Render meshes and materials
+
+>Constraint:		
+	Separate game logic from rendering
+	(Make a library?)
+				
+>Notes:
+	Shaders, Meshes and Textures are inherently
+	connected. How do I separate these without
+	causing annoying performance deteriorating
+	jumps through the code?
+	
+	>Solution 1:
+		Load all resources into their own buffers.
+		Let objects use components which in turn
+		refer to these handles.
+		Components could simply be data and contain
+		no(?) logic. Might be harder than the typical
+		setup, but it's data-oriented...
+		
+		GameObject has components. Fixed.
+		GameObject has basic data (transform-component?).
+		GameObject has a message-box.
+		Component recieves a message-box from GO
+		and places messages there. (ORDER MATTERS).
+		
+		(Warn me if a message isn't picked up that frame?)
+		
+		Components may also observe external systems?
+		(Or every GO does and submits the data to
+		 the components).
+		Messages COULD perhaps be read-once-only,
+		so only one component may use a message.
+		This could be troublesome though.
+		(Consider Audio and collision).
+		
+		>Subsystems:
+			Do these fit into the component scheme?
+			Components are data-less... So do they
+			message these subsystems to do their thing,
+			just as some subsystems may message GO's?
+			
+			>Input:
+				Takes input and places them in a global
+				Message-box. (Event-like system).
+				Cmd-line?
+				
+			>Graphics:
+				How do I handle this?
+				Do I do basic functions?
+				Internal or External scene graph?
+				Render optimizations? (Quad-tree)
+				Rendering lines for debugging?
+				
+			>Audio:
+				Play sounds when told to?
+				
+			
+
+			
+		
+	
+	
+			
+		
+			
+	
