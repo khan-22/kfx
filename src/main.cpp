@@ -3,6 +3,8 @@
 #include <string>
 #include <unistd.h>
 
+#include <fstream>
+
 #include <GLFW/glfw3.h>
 
 #include "keyboard.h"
@@ -28,7 +30,7 @@ int main()
   A test;
   test.a = 100;
   std::cout << test.a << std::endl;
-
+  
   MyClass mc(5,5);
   std::cout << mc.calcArea() << std::endl;
 
