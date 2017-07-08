@@ -14,11 +14,12 @@ add_definitions(-DGLFW_DLL)
 if(UNIX)
   target_link_libraries(
     kfx
-    ${PROJECT_SOURCE_DIR}/lib/libglfw.so
+    #${PROJECT_SOURCE_DIR}/lib/libglfw.so
+    libglfw.so libGLEW.a libGL.so
   )
 elseif(WIN32)
   target_link_libraries(
     kfx
-    glfw3dll.lib opengl32.lib
+    glfw3dll.lib glew32s.lib opengl32.lib
   )
 endif()
