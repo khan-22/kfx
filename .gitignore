@@ -32,7 +32,8 @@
 *.app
 
 
-
+glew-2.0.0.zip
+glew-2.0.0
 glfw-master.zip
 glfw_backup
 .vscode
