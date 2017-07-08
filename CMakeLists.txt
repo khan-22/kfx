@@ -12,6 +12,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+message("Current Platform: ${CMAKE_SYSTEM_NAME}")
+
 ## To enable me building glfw from source
 #include(ExternalProject)
 #ExternalProject_Add(
