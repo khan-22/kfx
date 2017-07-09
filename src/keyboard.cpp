@@ -1,11 +1,5 @@
-#include "keyboard.h"
+#include "kfx/keyboard.h"
 
-int MyClass::calcArea()
-{
-  return _x * _y;
-}
+int MyClass::calcArea() { return _x * _y; }
 
-int num_msg()
-{
-  return 5;
-}
+int num_msg() { return 5; }
