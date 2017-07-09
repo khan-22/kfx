@@ -72,6 +72,18 @@
 			message these subsystems to do their thing,
 			just as some subsystems may message GO's?
 			
+			Each subsystem is probably either pure input or pure output...
+			There may be exceptions, but I don't know which. I'll assume there
+			are none for now...
+
+			Subsystems register into the global messaging system by saying that:
+				A. They exist and are ready to take messages,
+				or
+				B. They exist and are ready to recieve messages.
+			
+			They do this with some form of callback... Polymorphism? Save pointer
+			and what they are listening to?
+
 			>Input:
 				Takes input and places them in a global
 				Message-box. (Event-like system).
@@ -86,6 +98,9 @@
 				
 			>Audio:
 				Play sounds when told to?
+			
+				
+			
 				
 			
 
