@@ -20,7 +20,7 @@ struct Message {
   union {
     // Debug message
     struct {
-      char msg[80];
+      char debug_msg[80];
     };
 
     //
