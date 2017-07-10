@@ -18,11 +18,13 @@ void MessageBox::registerListener(Listener* listener, Message::Type type) {
 }
 
 void MessageBox::unregisterListener(Listener* listener) {
-  for (auto category : m_registered_listeners) {
-    auto it = std::find(category.begin(), category.end(), listener);
-
-    if (it != category.end()) {
-      category.erase(it);
+  for (auto& listener_category : m_registered_listeners) {
+    auto it =
+        std::find(listener_category.begin(), listener_category.end(), listener);
+    while (it != listener_category.end()) {
+      listener_category.erase(it);
+      it = std::find(listener_category.begin(), listener_category.end(),
+                     listener);
     }
   }
 }
