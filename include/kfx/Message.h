@@ -6,26 +6,24 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include <string>
-
 namespace kfx {
-class Message {
+struct Message {
  public:
   enum Type { DEBUG, NUM_TYPES };
 
  public:
+  // Debug Ctor (Is this a good idea?)
   Message(Type type);
 
-  Type getType();
-
- private:
-  Type m_type;
+  Type type;
 
   union {
     // Debug message
     struct {
-      std::string msg;
+      char msg[80];
     };
+
+    //
   };
 };
 }
