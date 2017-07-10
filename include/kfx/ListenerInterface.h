@@ -3,21 +3,23 @@
 /*************************/
 #pragma once
 
-#ifndef LISTENER_H
-#define LISTENER_H
+#ifndef LISTENER_INTERFACE_H
+#define LISTENER_INTERFACE_H
 
 #include "kfx/Message.h"
 
 namespace kfx {
-class Listener {
+class ListenerInterface {
  public:
-  Listener() = default;
-  virtual ~Listener() = default;
+  virtual ~ListenerInterface() = default;
 
   virtual void tell(Message message) = 0;
+
+ protected:
+  ListenerInterface() = default;
 
  private:
 };
 }
 
-#endif  // LISTENER_H
+#endif  // LISTENER_INTERFACE_H

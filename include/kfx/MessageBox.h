@@ -5,7 +5,7 @@
 #ifndef MESSAGE_BOX_H
 #define MESSAGE_BOX_H
 
-#include "kfx/Listener.h"
+#include "kfx/ListenerInterface.h"
 #include "kfx/Message.h"
 
 #include <array>
@@ -16,10 +16,10 @@ namespace kfx {
 class MessageBox {
  public:
   // Register a listener object for a specific type of message
-  void registerListener(Listener* listener, Message::Type type);
+  void registerListener(ListenerInterface* listener, Message::Type type);
 
   // Unregister a listener object for all types of messages
-  void unregisterListener(Listener* listener);
+  void unregisterListener(ListenerInterface* listener);
 
   // Post a message to the queue
   void postMessage(Message message);
@@ -30,7 +30,7 @@ class MessageBox {
  private:
   std::queue<Message> m_message_queue;
 
-  std::array<std::vector<Listener*>, Message::Type::NUM_TYPES>
+  std::array<std::vector<ListenerInterface*>, Message::Type::NUM_TYPES>
       m_registered_listeners;
 };
 }
