@@ -19,4 +19,27 @@ Message Message::makeTestMessage(int x, int y, int z) {
   message.test_z = z;
   return message;
 }
+
+Message Message::makeKeyInputMessage(int action, int key, int mods) {
+  Message message(Message::KEY_INPUT);
+  message.key_input_action = action;
+  message.key_input_key = key;
+  message.key_input_mods = mods;
+  return message;
+}
+
+Message Message::makeMouseMoveMessage(double x, double y) {
+  Message message(Message::MOUSE_MOVE);
+  message.mouse_move_x = x;
+  message.mouse_move_y = y;
+  return message;
+}
+
+Message Message::makeMouseInputMessage(int action, int button, int mods) {
+  Message message(Message::MOUSE_INPUT);
+  message.mouse_input_action = action;
+  message.mouse_input_button = button;
+  message.mouse_input_mods = mods;
+  return message;
+}
 }
