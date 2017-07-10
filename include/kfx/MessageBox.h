@@ -5,21 +5,34 @@
 #ifndef MESSAGE_BOX_H
 #define MESSAGE_BOX_H
 
-namespace kfx {
+#include "kfx/Listener.h"
+#include "kfx/Message.h"
 
+#include <array>
+#include <queue>
+#include <vector>
+
+namespace kfx {
 class MessageBox {
  public:
-  MessageBox();
-  ~MessageBox();
+  // Register a listener object for a specific type of message
+  void registerListener(Listener* listener, Message::Type type);
 
-  void registerListener();
-  void postMessage();
+  // Unregister a listener object for all types of messages
+  void unregisterListener(Listener* listener);
+
+  // Post a message to the queue
+  void postMessage(Message message);
+
+  // Empty the queue by distributing the messages to all relevant parties
   void distributeMessages();
 
  private:
-};
+  std::queue<Message> m_message_queue;
 
-class MessageBox;
+  std::array<std::vector<Listener*>, Message::Type::NUM_TYPES>
+      m_registered_listeners;
+};
 }
 
 #endif  // MESSAGE_BOX_H
