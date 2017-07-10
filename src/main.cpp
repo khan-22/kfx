@@ -9,7 +9,6 @@
 #include <GLFW/glfw3.h>
 
 #include "kfx/MessageBox.h"
-#include "kfx/keyboard.h"
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action,
                          int mods);
@@ -129,14 +128,9 @@ GLuint create_shader() {
 }
 
 int main() {
-  std::cout << "BAP " << num_msg() << std::endl;
-
   A test;
   test.a = 100;
   std::cout << test.a << std::endl;
-
-  MyClass mc(5, 5);
-  std::cout << mc.calcArea() << std::endl;
 
   GLFWwindow* window = initialize();
   if (window == nullptr) {
