@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstring>
 #include <iostream>
 #include <string>
 //#include <unistd.h>
@@ -8,7 +9,34 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "kfx/Listener.h"
 #include "kfx/MessageBox.h"
+
+namespace kfx {
+class DebugListener : public Listener {
+ public:
+  DebugListener(MessageBox& message_box) : Listener(message_box) {}
+  ~DebugListener() override {}
+
+  void tell(Message message) final override {
+    std::cout << message.debug_msg << std::endl;
+  }
+
+ private:
+};
+class TestListener : public Listener {
+ public:
+  TestListener(MessageBox& message_box) : Listener(message_box) {}
+  ~TestListener() override {}
+
+  void tell(Message message) final override {
+    std::cout << "(" << message.test_x << "," << message.test_y << ","
+              << message.test_z << ")" << std::endl;
+  }
+
+ private:
+};
+}
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action,
                          int mods);
@@ -164,6 +192,46 @@ int main() {
   glBindVertexArray(0);
 
   GLuint program = create_shader();
+
+  using namespace kfx;
+  MessageBox message_box;
+  DebugListener debug_listener(message_box);
+  TestListener test_listener(message_box);
+
+  message_box.registerListener(&debug_listener, Message::DEBUG);
+
+  Message debug_message = Message::makeDebugMessage(
+      "Hello Message Box! "
+      "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      "dddddd");
+  Message test_message = Message::makeTestMessage(1, 2, 3);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.distributeMessages();
+
+  message_box.registerListener(&test_listener, Message::TEST);
+
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.distributeMessages();
+
+  message_box.unregisterListener(&debug_listener);
+
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(debug_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.postMessage(test_message);
+  message_box.distributeMessages();
 
   glClearColor(0.6f, 0.2f, 0.3f, 1.0f);
   while (!glfwWindowShouldClose(window)) {

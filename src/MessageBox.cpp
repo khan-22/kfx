@@ -1,12 +1,12 @@
 #include "kfx/MessageBox.h"
 
+#include "kfx/Listener.h"
 #include "kfx/Message.h"
 
 #include <algorithm>
 
 namespace kfx {
-void MessageBox::registerListener(ListenerInterface* listener,
-                                  Message::Type type) {
+void MessageBox::registerListener(Listener* listener, Message::Type type) {
   // If the listener already exists in this category, ignore the request...
   for (auto registered_listener : m_registered_listeners[type]) {
     if (listener == registered_listener) {
@@ -18,7 +18,7 @@ void MessageBox::registerListener(ListenerInterface* listener,
   m_registered_listeners[type].push_back(listener);
 }
 
-void MessageBox::unregisterListener(ListenerInterface* listener) {
+void MessageBox::unregisterListener(Listener* listener) {
   for (auto& listener_category : m_registered_listeners) {
     auto it =
         std::find(listener_category.begin(), listener_category.end(), listener);
