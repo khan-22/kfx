@@ -20,7 +20,6 @@ void InputSystem::key_callback(GLFWwindow *window, int key, int scancode,
   Message message = Message::makeKeyInputMessage(action, key, scancode);
   message_box->postMessage(message);
 }
-}
 
 void InputSystem::cursor_position_callback(GLFWwindow *window, double xpos,
                                            double ypos)
@@ -30,4 +29,5 @@ void InputSystem::cursor_position_callback(GLFWwindow *window, double xpos,
 
   Message message = Message::makeMouseMoveMessage(xpos, ypos);
   message_box->postMessage(message);
+}
 }
