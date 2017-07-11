@@ -1,15 +1,25 @@
-file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+#file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+
+set(SOURCES 
+	main.cpp 
+	Message.cpp 
+	MessageBox.cpp 
+	input/InputSystem.cpp)
+
+FOREACH(SRC ${SOURCES})
+  LIST(APPEND SRC2 "${PROJECT_SOURCE_DIR}/src/${SRC}")
+ENDFOREACH()
 
 #message("Source files: ${SOURCES}")
 
 add_executable(
   kfx
-  ${SOURCES}
+  ${SRC2}
 )
 target_include_directories(kfx PRIVATE "${PROJECT_SOURCE_DIR}/include")
 link_directories("${PROJECT_SOURCE_DIR}/lib")
 
-add_definitions(-DGLFW_DLL)
+add_definitions(-DGLFW_DLL -DGLEW_STATIC)
 
 if(UNIX)
   target_link_libraries(

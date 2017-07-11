@@ -12,6 +12,8 @@
 #include "kfx/Listener.h"
 #include "kfx/MessageBox.h"
 
+#include "kfx/input/InputSystem.h"
+
 namespace kfx {
 class DebugListener : public Listener {
  public:
@@ -25,16 +27,35 @@ class DebugListener : public Listener {
  private:
 };
 class TestListener : public Listener {
- public:
-  TestListener(MessageBox& message_box) : Listener(message_box) {}
-  ~TestListener() override {}
+public:
+	TestListener(MessageBox& message_box) : Listener(message_box) {}
+	~TestListener() override {}
 
-  void tell(Message message) final override {
-    std::cout << "(" << message.test_x << "," << message.test_y << ","
-              << message.test_z << ")" << std::endl;
-  }
+	void tell(Message message) final override {
+		std::cout << "(" << message.test_x << "," << message.test_y << ","
+			<< message.test_z << ")" << std::endl;
+	}
 
- private:
+private:
+};
+class KeyInputListener : public Listener {
+public:
+	KeyInputListener(MessageBox& message_box) : Listener(message_box) {}
+	~KeyInputListener() override {}
+
+	void tell(Message message) final override {
+		//std::cout << "(" << glfwGetKeyName(message.key_input_key, 0) << ")" << std::endl;
+		printf("%s", message.key_input_action == GLFW_PRESS ? "PRESS: " : message.key_input_action == GLFW_RELEASE ? "RELEASE: " : "REPEAT: ");
+		
+		if (message.key_input_mods & GLFW_MOD_ALT) { printf("%s", "<ALT>"); }
+		if (message.key_input_mods & GLFW_MOD_CONTROL) { printf("%s", "<CTRL>"); }
+		if (message.key_input_mods & GLFW_MOD_SHIFT) { printf("%s", "<SHIFT>"); }
+		if (message.key_input_mods & GLFW_MOD_SUPER) { printf("%s", "<SUPER>"); }
+
+		printf("(%s)\n", glfwGetKeyName(message.key_input_key, 0));
+	}
+
+private:
 };
 }
 
@@ -159,6 +180,8 @@ int main() {
   A test;
   test.a = 100;
   std::cout << test.a << std::endl;
+  GL_VERSION; // 2 + 0*16 + F*16^2 + 1*16^3
+  GL_VERSION_3_3; //
 
   GLFWwindow* window = initialize();
   if (window == nullptr) {
@@ -198,6 +221,11 @@ int main() {
   DebugListener debug_listener(message_box);
   TestListener test_listener(message_box);
 
+	// Only posts messages, so is never registered...
+	InputSystem input_system(message_box);
+	KeyInputListener input_listener(message_box);
+	message_box.registerListener(&input_listener, Message::KEY_INPUT);
+
   message_box.registerListener(&debug_listener, Message::DEBUG);
 
   Message debug_message = Message::makeDebugMessage(
@@ -236,6 +264,7 @@ int main() {
   glClearColor(0.6f, 0.2f, 0.3f, 1.0f);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
+		message_box.distributeMessages();
 
     glBindVertexArray(vao);
     glUseProgram(program);
