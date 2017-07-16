@@ -14,10 +14,13 @@
 
 #include "kfx/input/InputSystem.h"
 
+#include "kfx/GameObjectFactory.h"
+#include "kfx/system/GraphicsSystem3D.h"
+
 namespace kfx {
 class DebugListener : public Listener {
  public:
-  DebugListener(MessageBox& message_box) : Listener(message_box) {}
+  DebugListener(MessageBox &message_box) : Listener(message_box) {}
   ~DebugListener() override {}
 
   void tell(Message message) final override {
@@ -27,42 +30,59 @@ class DebugListener : public Listener {
  private:
 };
 class TestListener : public Listener {
-public:
-	TestListener(MessageBox& message_box) : Listener(message_box) {}
-	~TestListener() override {}
+ public:
+  TestListener(MessageBox &message_box) : Listener(message_box) {}
+  ~TestListener() override {}
 
-	void tell(Message message) final override {
-		std::cout << "(" << message.test_x << "," << message.test_y << ","
-			<< message.test_z << ")" << std::endl;
-	}
+  void tell(Message message) final override {
+    std::cout << "(" << message.test_x << "," << message.test_y << ","
+              << message.test_z << ")" << std::endl;
+  }
 
-private:
+ private:
 };
 class KeyInputListener : public Listener {
-public:
-	KeyInputListener(MessageBox& message_box) : Listener(message_box) {}
-	~KeyInputListener() override {}
+ public:
+  KeyInputListener(MessageBox &message_box) : Listener(message_box) {}
+  ~KeyInputListener() override {}
 
-	void tell(Message message) final override {
-		//std::cout << "(" << glfwGetKeyName(message.key_input_key, 0) << ")" << std::endl;
-		printf("%s", message.key_input_action == GLFW_PRESS ? "PRESS: " : message.key_input_action == GLFW_RELEASE ? "RELEASE: " : "REPEAT: ");
-		
-		if (message.key_input_mods & GLFW_MOD_ALT) { printf("%s", "<ALT>"); }
-		if (message.key_input_mods & GLFW_MOD_CONTROL) { printf("%s", "<CTRL>"); }
-		if (message.key_input_mods & GLFW_MOD_SHIFT) { printf("%s", "<SHIFT>"); }
-		if (message.key_input_mods & GLFW_MOD_SUPER) { printf("%s", "<SUPER>"); }
+  void tell(Message message) final override {
+    // std::cout << "(" << glfwGetKeyName(message.key_input_key, 0) << ")" <<
+    // std::endl;
+    printf("%s", message.key_input_action == GLFW_PRESS
+                     ? "PRESS: "
+                     : message.key_input_action == GLFW_RELEASE ? "RELEASE: "
+                                                                : "REPEAT: ");
 
-		printf("(%s)\n", glfwGetKeyName(message.key_input_key, 0));
-	}
+    if (message.key_input_mods & GLFW_MOD_ALT) {
+      printf("%s", "<ALT>");
+    }
+    if (message.key_input_mods & GLFW_MOD_CONTROL) {
+      printf("%s", "<CTRL>");
+    }
+    if (message.key_input_mods & GLFW_MOD_SHIFT) {
+      printf("%s", "<SHIFT>");
+    }
+    if (message.key_input_mods & GLFW_MOD_SUPER) {
+      printf("%s", "<SUPER>");
+    }
 
-private:
+    printf("(%s)\n", glfwGetKeyName(message.key_input_key, 0));
+
+    if (message.key_input_action == GLFW_PRESS &&
+        message.key_input_key == GLFW_KEY_ESCAPE) {
+      glfwSetWindowShouldClose(glfwGetCurrentContext(), GLFW_TRUE);
+    }
+  }
+
+ private:
 };
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action,
+static void key_callback(GLFWwindow *window, int key, int scancode, int action,
                          int mods);
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action,
+static void key_callback(GLFWwindow *window, int key, int scancode, int action,
                          int mods) {
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
     glfwSetWindowShouldClose(window, GLFW_TRUE);
@@ -74,8 +94,8 @@ struct A {
   int b;
 };
 
-GLFWwindow* initialize();
-GLFWwindow* initialize() {
+GLFWwindow *initialize();
+GLFWwindow *initialize() {
   int glfw_success = glfwInit();
   if (!glfw_success) {
     std::cerr << "Failed to init GLFW!" << std::endl;
@@ -83,7 +103,7 @@ GLFWwindow* initialize() {
   }
   std::cout << glfw_success << std::endl;
 
-  GLFWwindow* window = glfwCreateWindow(640, 480, "kfx", nullptr, nullptr);
+  GLFWwindow *window = glfwCreateWindow(640, 480, "kfx", nullptr, nullptr);
   if (!window) {
     std::cerr << "Failed to create a window!" << std::endl;
     glfwTerminate();
@@ -115,7 +135,7 @@ GLuint create_shader() {
     std::string shaderText((std::istreambuf_iterator<char>(shaderFile)),
                            std::istreambuf_iterator<char>());
     shaderFile.close();
-    const char* shaderTextPtr = shaderText.c_str();
+    const char *shaderTextPtr = shaderText.c_str();
     std::cout << shaderText << std::endl;
     glShaderSource(vs, 1, &shaderTextPtr, nullptr);
     glCompileShader(vs);
@@ -141,7 +161,7 @@ GLuint create_shader() {
     std::string shaderText((std::istreambuf_iterator<char>(shaderFile)),
                            std::istreambuf_iterator<char>());
     shaderFile.close();
-    const char* shaderTextPtr = shaderText.c_str();
+    const char *shaderTextPtr = shaderText.c_str();
     std::cout << shaderText << std::endl;
     glShaderSource(fs, 1, &shaderTextPtr, nullptr);
     glCompileShader(fs);
@@ -180,10 +200,8 @@ int main() {
   A test;
   test.a = 100;
   std::cout << test.a << std::endl;
-  GL_VERSION; // 2 + 0*16 + F*16^2 + 1*16^3
-  GL_VERSION_3_3; //
 
-  GLFWwindow* window = initialize();
+  GLFWwindow *window = initialize();
   if (window == nullptr) {
     std::cin.ignore();
     std::cin.get();
@@ -221,10 +239,10 @@ int main() {
   DebugListener debug_listener(message_box);
   TestListener test_listener(message_box);
 
-	// Only posts messages, so is never registered...
-	InputSystem input_system(message_box);
-	KeyInputListener input_listener(message_box);
-	message_box.registerListener(&input_listener, Message::KEY_INPUT);
+  // Only posts messages, so is never registered...
+  InputSystem input_system(message_box);
+  KeyInputListener input_listener(message_box);
+  message_box.registerListener(&input_listener, Message::KEY_INPUT);
 
   message_box.registerListener(&debug_listener, Message::DEBUG);
 
@@ -261,10 +279,16 @@ int main() {
   message_box.postMessage(test_message);
   message_box.distributeMessages();
 
+  GameObjectFactory factory;
+  GraphicsSystem3D graphics_system(&factory);
+  factory.createTestObject();
+
   glClearColor(0.6f, 0.2f, 0.3f, 1.0f);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
-		message_box.distributeMessages();
+    message_box.distributeMessages();
+
+    graphics_system.update(0.1f);
 
     glBindVertexArray(vao);
     glUseProgram(program);
