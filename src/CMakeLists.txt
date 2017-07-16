@@ -2,9 +2,21 @@
 
 set(SOURCES 
 	main.cpp 
-	Message.cpp 
+	
+  Message.cpp 
 	MessageBox.cpp 
-	input/InputSystem.cpp)
+
+  GameObject.cpp
+  GameObjectFactory.cpp
+  Components.cpp
+
+  Handle.cpp
+  HandleManager.cpp
+
+  input/InputSystem.cpp
+  
+  system/System.cpp
+  system/GraphicsSystem3D.cpp)
 
 FOREACH(SRC ${SOURCES})
   LIST(APPEND SRC2 "${PROJECT_SOURCE_DIR}/src/${SRC}")
