@@ -10,11 +10,9 @@
 
 #include "kfx/Listener.h"
 
-namespace kfx
-{
-class InputSystem : public Listener
-{
-public:
+namespace kfx {
+class InputSystem : public Listener {
+ public:
   InputSystem(MessageBox &message_box);
   ~InputSystem() override;
 
@@ -22,15 +20,15 @@ public:
   // InputSystem listens to no other subsystems
   void tell(Message message) final override;
 
-private:
+ private:
   static void key_callback(GLFWwindow *window, int key, int scancode,
                            int action, int mods);
 
   static void cursor_position_callback(GLFWwindow *window, double xpos,
                                        double ypos);
 
-	static void mouse_button_callback(int button, int action, int mods);
+  static void mouse_button_callback(int button, int action, int mods);
 };
 }
 
-#endif // INPUT_SYSTEM_H
+#endif  // INPUT_SYSTEM_H
