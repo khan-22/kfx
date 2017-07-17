@@ -6,12 +6,21 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include "kfx/Handle.h"
+
 namespace kfx {
-enum ComponentType { TRANSFORM, NUM_TYPES };
+enum ComponentType { TRANSFORM, MESH, NUM_TYPES };
 
 class TransformComponent {
  public:
   float x, y, z;
+
+ private:
+};
+
+class MeshComponent {
+ public:
+  Handle mesh_handle;
 
  private:
 };
