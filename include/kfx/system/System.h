@@ -17,8 +17,8 @@ class System {
   virtual void update(float dt) = 0;
 
  protected:
-  System(GameObjectFactory* game_object_factory);
-  GameObjectFactory* m_game_object_factory;
+  System(GameObjectFactory& game_object_factory);
+  GameObjectFactory& m_game_object_factory;
 };
 }
 #endif  // SYSTEM_H
