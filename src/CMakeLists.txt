@@ -16,7 +16,10 @@ set(SOURCES
   input/InputSystem.cpp
   
   system/System.cpp
-  system/GraphicsSystem3D.cpp)
+  system/GraphicsSystem3D.cpp
+  
+  resources/MeshManager.cpp
+  resources/MeshUtil.cpp)
 
 FOREACH(SRC ${SOURCES})
   LIST(APPEND SRC2 "${PROJECT_SOURCE_DIR}/src/${SRC}")
