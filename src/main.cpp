@@ -15,6 +15,7 @@
 #include "kfx/input/InputSystem.h"
 
 #include "kfx/GameObjectFactory.h"
+#include "kfx/resources/MeshManager.h"
 #include "kfx/system/GraphicsSystem3D.h"
 
 namespace kfx {
@@ -208,29 +209,29 @@ int main() {
     return -1;
   }
 
-  struct Vertex {
-    float x, y, z;
-  };
+  // struct Vertex {
+  //   float x, y, z;
+  // };
 
-  Vertex vertices[] = {
-      Vertex{-1.f, -1.f, 0.f}, Vertex{1.f, -1.f, 0.f}, Vertex{0.f, 1.f, 0.f},
-  };
+  // Vertex vertices[] = {
+  //     Vertex{-1.f, -1.f, 0.f}, Vertex{1.f, -1.f, 0.f}, Vertex{0.f, 1.f, 0.f},
+  // };
 
-  GLuint vao = 0;
-  glGenVertexArrays(1, &vao);
-  glBindVertexArray(vao);
+  // GLuint vao = 0;
+  // glGenVertexArrays(1, &vao);
+  // glBindVertexArray(vao);
 
-  glEnableVertexAttribArray(0);
+  // glEnableVertexAttribArray(0);
 
-  GLuint vbo = 0;
-  glGenBuffers(1, &vbo);
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * 3, vertices,
-               GL_STATIC_DRAW);
+  // GLuint vbo = 0;
+  // glGenBuffers(1, &vbo);
+  // glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * 3, vertices,
+  //              GL_STATIC_DRAW);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 
-  glBindVertexArray(0);
+  // glBindVertexArray(0);
 
   GLuint program = create_shader();
 
@@ -279,10 +280,19 @@ int main() {
   message_box.postMessage(test_message);
   message_box.distributeMessages();
 
-  GameObjectFactory factory;
-  GraphicsSystem3D graphics_system(&factory);
+  MeshManager mesh_manager;
+  std::vector<Vertex3D> vertices = {
+      {{-1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{0.f, 1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+  };
+  mesh_manager.loadMeshFromMemory("test", vertices);
+
+  GameObjectFactory factory(mesh_manager);
+  GraphicsSystem3D graphics_system(factory, mesh_manager);
   factory.createTestObject();
 
+  glUseProgram(program);
   glClearColor(0.6f, 0.2f, 0.3f, 1.0f);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -290,10 +300,10 @@ int main() {
 
     graphics_system.update(0.1f);
 
-    glBindVertexArray(vao);
-    glUseProgram(program);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
+    // glBindVertexArray(vao);
+    // glUseProgram(program);
+    // glDrawArrays(GL_TRIANGLES, 0, 3);
+    // glBindVertexArray(0);
 
     glfwSwapBuffers(window);
 
