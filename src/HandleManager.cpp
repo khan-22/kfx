@@ -32,6 +32,7 @@ void* HandleManager::getEntry(Handle handle) {
   // if (handle.m_index == Handle::MAX_HANDLES) {
   //   return nullptr;
   // }
+  assert(handle.m_is_initialized == true);
 
   assert(handle.m_index >= 0);
   assert(handle.m_index < Handle::MAX_HANDLES);
@@ -43,6 +44,8 @@ void* HandleManager::getEntry(Handle handle) {
 }
 
 void HandleManager::updateEntry(Handle handle, void* data) {
+  assert(handle.m_is_initialized == true);
+
   assert(handle.m_index >= 0);
   assert(handle.m_index < Handle::MAX_HANDLES);
   assert(m_entries[handle.m_index].m_active == true);
@@ -51,6 +54,8 @@ void HandleManager::updateEntry(Handle handle, void* data) {
 }
 
 void HandleManager::removeEntry(Handle handle) {
+  assert(handle.m_is_initialized == true);
+
   assert(handle.m_index >= 0);
   assert(handle.m_index < Handle::MAX_HANDLES);
   assert(m_entries[handle.m_index].m_active == true);
