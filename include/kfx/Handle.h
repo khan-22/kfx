@@ -19,6 +19,11 @@ struct Handle {
   uint32_t m_is_initialized : 1;
 
   static const uint32_t MAX_HANDLES = 65536;  // 2^16
+
+  operator uint32_t();
+  // operator bool();
+
+  static Handle NULL_HANDLE;
 };
 }
 
