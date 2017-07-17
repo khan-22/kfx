@@ -8,24 +8,34 @@
 
 #include <vector>
 
-#include "Components.h"
-#include "GameObject.h"
-#include "Handle.h"
-#include "HandleManager.h"
+#include "kfx/Components.h"
+#include "kfx/GameObject.h"
+#include "kfx/Handle.h"
+#include "kfx/HandleManager.h"
+
+#include "kfx/resources/MeshManager.h"
+
+#include "kfx/resources/HandledResource.h"
 
 namespace kfx {
 class GameObjectFactory {
  public:
+  GameObjectFactory(MeshManager& mesh_manager);
+
   Handle createTestObject();
 
-  HandleManager& getHandleManager();
-  std::vector<GameObject>& getGameObjects();
+  HandledResource<GameObject>& getGameObjects();
+
+  HandledResource<TransformComponent>& getTransformComponents();
+  HandledResource<MeshComponent>& getMeshComponents();
 
  private:
-  std::vector<GameObject> m_game_objects;
-  std::vector<TransformComponent> m_transform_components;
+  HandledResource<GameObject> m_game_objects;
 
-  HandleManager m_handle_manager;
+  HandledResource<TransformComponent> m_transform_components;
+  HandledResource<MeshComponent> m_mesh_components;
+
+  MeshManager& m_mesh_manager;
 };
 }
 #endif  // GAME_OBJECT_FACTORY_H

@@ -1,28 +1,52 @@
 #include "kfx/GameObjectFactory.h"
 
+#include <iostream>
+
 namespace kfx {
+GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager)
+    : m_mesh_manager(mesh_manager) {
+  // ...
+}
+
 Handle GameObjectFactory::createTestObject() {
-  m_game_objects.emplace_back();
-  GameObject &object = m_game_objects.back();
+  // Create component handles
+  Handle transform_component_handle = m_transform_components.addResourceEntry();
+  Handle mesh_component_handle = m_mesh_components.addResourceEntry();
 
-  m_transform_components.emplace_back();
-  TransformComponent &transform_component = m_transform_components.back();
+  // Get Components
+  TransformComponent *transform_component =
+      m_transform_components.getResourceEntry(transform_component_handle);
 
-  Handle transform_component_handle =
-      m_handle_manager.addEntry(&transform_component);
+  MeshComponent *mesh_component =
+      m_mesh_components.getResourceEntry(mesh_component_handle);
 
-  object.addComponent(ComponentType::TRANSFORM, transform_component_handle);
+  // Set up components
+  mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
+  std::cout << mesh_component->mesh_handle << std::endl;
+  assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
-  Handle object_handle = m_handle_manager.addEntry(&object);
+  // Create GameObject
+  Handle object_handle = m_game_objects.addResourceEntry();
 
+  // Add component handles to object
+  GameObject *object = m_game_objects.getResourceEntry(object_handle);
+  object->addComponent(ComponentType::TRANSFORM, transform_component_handle);
+  object->addComponent(ComponentType::MESH, mesh_component_handle);
+
+  // Return object handle
   return object_handle;
 }
 
-HandleManager &GameObjectFactory::getHandleManager() {
-  return m_handle_manager;
+HandledResource<GameObject> &GameObjectFactory::getGameObjects() {
+  return m_game_objects;
 }
 
-std::vector<GameObject> &GameObjectFactory::getGameObjects() {
-  return m_game_objects;
+HandledResource<TransformComponent>
+    &GameObjectFactory::getTransformComponents() {
+  return m_transform_components;
+}
+
+HandledResource<MeshComponent> &GameObjectFactory::getMeshComponents() {
+  return m_mesh_components;
 }
 }
