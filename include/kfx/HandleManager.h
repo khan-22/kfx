@@ -31,7 +31,7 @@ class HandleManager {
           m_data(nullptr) {}
 
     uint32_t m_counter : 15;
-    uint32_t m_next_free_index : 16;
+    uint32_t m_next_free_index : 12;
     uint32_t m_active : 1;
     // uint32_t m_end_of_list : 1;
 

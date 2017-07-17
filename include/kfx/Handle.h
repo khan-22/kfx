@@ -15,10 +15,10 @@ struct Handle {
 
   // Bitfield.
   uint32_t m_counter : 15;
-  uint32_t m_index : 16;
+  uint32_t m_index : 12;
   uint32_t m_is_initialized : 1;
 
-  static const uint32_t MAX_HANDLES = 65536;  // 2^16
+  static const uint32_t MAX_HANDLES = 4096;  // 2^12
 
   operator uint32_t();
   // operator bool();

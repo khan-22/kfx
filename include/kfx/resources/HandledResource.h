@@ -48,6 +48,8 @@ Handle HandledResource<T>::addResourceEntry() {
   Resource<T>& new_resource = resource.back();
 
   Handle new_handle = m_handle_manager.addEntry(&new_resource);
+	new_resource.handle = new_handle;
+
   validate_handles();
   return new_handle;
 }
