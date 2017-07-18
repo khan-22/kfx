@@ -22,7 +22,6 @@ Handle GameObjectFactory::createTestObject() {
 
   // Set up components
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
-  std::cout << mesh_component->mesh_handle << std::endl;
   assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
   // Create GameObject
