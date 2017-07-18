@@ -48,3 +48,6 @@ elseif(WIN32)
     glfw3dll.lib glew32s.lib opengl32.lib
   )
 endif()
+
+# So that VS recognizes our resource files
+set_target_properties(kfx PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
