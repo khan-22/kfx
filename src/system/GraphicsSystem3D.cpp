@@ -23,17 +23,17 @@ void GraphicsSystem3D::update(float dt) {
   HandledResource<Mesh>& meshes = m_mesh_manager.getMeshes();
 
   for (auto& object : game_objects.resource) {
-    std::cout << "Object has component? ["
-              << (object.value.hasComponent(ComponentType::MESH) ? "YES]"
-                                                                 : "NO]")
-              << std::endl;
+    //std::cout << "Object has component? ["
+    //          << (object.value.hasComponent(ComponentType::MESH) ? "YES]"
+    //                                                             : "NO]")
+    //          << std::endl;
 
     TransformComponent* transform_component =
         m_game_object_factory.getTransformComponents().getResourceEntry(
             object.value.getComponent(ComponentType::TRANSFORM));
 
-    transform_component->x += 0.01f;
-    std::cout << "X: " << transform_component->x << std::endl;
+    //transform_component->x += 0.01f;
+    //std::cout << "X: " << transform_component->x << std::endl;
 
     MeshComponent* mesh_component =
         m_game_object_factory.getMeshComponents().getResourceEntry(
