@@ -90,11 +90,6 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action,
   }
 }
 
-struct A {
-  int a;
-  int b;
-};
-
 GLFWwindow *initialize();
 GLFWwindow *initialize() {
   int glfw_success = glfwInit();
@@ -198,9 +193,7 @@ GLuint create_shader() {
 }
 
 int main() {
-  A test;
-  test.a = 100;
-  std::cout << test.a << std::endl;
+	std::cout << "Initializing..." << std::endl;
 
   GLFWwindow *window = initialize();
   if (window == nullptr) {
