@@ -202,30 +202,6 @@ int main() {
     return -1;
   }
 
-  // struct Vertex {
-  //   float x, y, z;
-  // };
-
-  // Vertex vertices[] = {
-  //     Vertex{-1.f, -1.f, 0.f}, Vertex{1.f, -1.f, 0.f}, Vertex{0.f, 1.f, 0.f},
-  // };
-
-  // GLuint vao = 0;
-  // glGenVertexArrays(1, &vao);
-  // glBindVertexArray(vao);
-
-  // glEnableVertexAttribArray(0);
-
-  // GLuint vbo = 0;
-  // glGenBuffers(1, &vbo);
-  // glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * 3, vertices,
-  //              GL_STATIC_DRAW);
-
-  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-
-  // glBindVertexArray(0);
-
   GLuint program = create_shader();
 
   using namespace kfx;

@@ -6,16 +6,29 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtx/transform.hpp>
+
 #include "kfx/Handle.h"
 
 namespace kfx {
 enum ComponentType { TRANSFORM, MESH, NUM_TYPES };
 
 class TransformComponent {
- public:
-  float x, y, z;
+public:
+	TransformComponent();
+	
+	void lookAt(glm::vec3 target, glm::vec3 up);
+	glm::mat4 getModel();
 
- private:
+private:
+	glm::vec3 m_position;
+	glm::vec3 m_rotation;
+	glm::vec3 m_scale;
+
+	glm::mat4 m_model;
+	bool m_should_update;
 };
 
 class MeshComponent {

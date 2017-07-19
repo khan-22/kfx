@@ -32,8 +32,8 @@ void GraphicsSystem3D::update(float dt) {
         m_game_object_factory.getTransformComponents().getResourceEntry(
             object.value.getComponent(ComponentType::TRANSFORM));
 
-    //transform_component->x += 0.01f;
-    //std::cout << "X: " << transform_component->x << std::endl;
+    // transform_component->pos.x += 0.01f;
+    // std::cout << "X: " << transform_component->pos.x << std::endl;
 
     MeshComponent* mesh_component =
         m_game_object_factory.getMeshComponents().getResourceEntry(
