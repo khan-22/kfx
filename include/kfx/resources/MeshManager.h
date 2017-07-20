@@ -22,13 +22,14 @@ class MeshManager {
  public:
   Handle loadMeshFromFile(const std::string path);
   Handle loadMeshFromMemory(const std::string name,
-                            const std::vector<Vertex3D>& vertices);
+                            const std::vector<Vertex3D>& vertices,
+                            const std::vector<GLuint>& indices);
 
   Handle getMeshByName(const std::string name);
 
   HandledResource<Mesh>& getMeshes();
-  
-  //HandleManager& getHandleManager();
+
+  // HandleManager& getHandleManager();
 
  private:
   std::unordered_map<std::string, Handle> m_name_to_handle_map;
