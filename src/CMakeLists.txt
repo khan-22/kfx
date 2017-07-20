@@ -19,6 +19,9 @@ set(SOURCES
   system/GraphicsSystem3D.cpp
   
   resources/MeshManager.cpp
+  resources/ShaderManager.cpp
+  resources/FileUtil.cpp
+  resources/ShaderUtil.cpp
   resources/MeshUtil.cpp)
 
 FOREACH(SRC ${SOURCES})
