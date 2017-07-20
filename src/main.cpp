@@ -99,7 +99,7 @@ GLFWwindow *initialize() {
   }
   std::cout << glfw_success << std::endl;
 
-  GLFWwindow *window = glfwCreateWindow(640, 480, "kfx", nullptr, nullptr);
+  GLFWwindow *window = glfwCreateWindow(640, 640, "kfx", nullptr, nullptr);
   if (!window) {
     std::cerr << "Failed to create a window!" << std::endl;
     glfwTerminate();
@@ -193,7 +193,7 @@ GLuint create_shader() {
 }
 
 int main() {
-	std::cout << "Initializing..." << std::endl;
+  std::cout << "Initializing..." << std::endl;
 
   GLFWwindow *window = initialize();
   if (window == nullptr) {
@@ -202,7 +202,7 @@ int main() {
     return -1;
   }
 
-  GLuint program = create_shader();
+  // GLuint program = create_shader();
 
   using namespace kfx;
   MessageBox message_box;
@@ -250,18 +250,47 @@ int main() {
   message_box.distributeMessages();
 
   MeshManager mesh_manager;
+  // std::vector<Vertex3D> vertices = {
+  //     {{-1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+  //     {{0.f, 1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+  //     {{1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+  // };
   std::vector<Vertex3D> vertices = {
-      {{-1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-      {{0.f, 1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-      {{1.f, -1.f, 0.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-  };
-  mesh_manager.loadMeshFromMemory("test", vertices);
+      {{-1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{-1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
 
-  GameObjectFactory factory(mesh_manager);
-  GraphicsSystem3D graphics_system(factory, mesh_manager);
+      {{-1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{-1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+      {{1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+  };
+  std::vector<GLuint> indices = {
+      0, 1, 2, 0, 2, 3,  // Front
+
+      4, 5, 6, 4, 6, 7,  // Back
+
+      0, 4, 5, 0, 5, 1,  // Left
+
+      3, 7, 6, 3, 6, 2,  // Right
+
+      1, 5, 6, 1, 6, 2,  // Top
+
+      0, 4, 7, 0, 7, 3,  // Bottom
+
+  };
+
+  mesh_manager.loadMeshFromMemory("test", vertices, indices);
+
+  ShaderManager shader_manager;
+  shader_manager.loadShaderFromFile("./res/shaders/basic");
+
+  GameObjectFactory factory(mesh_manager, shader_manager);
+  GraphicsSystem3D graphics_system(factory, mesh_manager, shader_manager);
   factory.createTestObject();
 
-  glUseProgram(program);
+  // glUseProgram(program);
   glClearColor(0.6f, 0.2f, 0.3f, 1.0f);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
