@@ -3,8 +3,9 @@
 #include <iostream>
 
 namespace kfx {
-GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager)
-    : m_mesh_manager(mesh_manager) {
+GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
+                                     ShaderManager &shader_manager)
+    : m_mesh_manager(mesh_manager), m_shader_manager(shader_manager) {
   // ...
 }
 
@@ -22,6 +23,7 @@ Handle GameObjectFactory::createTestObject() {
 
   // Set up components
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
+  mesh_component->shader_handle = m_shader_manager.getShaderByName("basic");
   assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
   // Create GameObject

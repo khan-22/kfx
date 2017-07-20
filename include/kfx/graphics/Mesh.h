@@ -15,12 +15,14 @@
 namespace kfx {
 struct Mesh {
  public:
-  Handle handle;
+  enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
 
   std::vector<Vertex3D> vertices;
 
+  GLuint draw_count;
+
   GLuint vertex_array_object;
-  GLuint vertex_buffer_object;
+  GLuint vertex_buffer_objects[NUM_BUFFERS];
 };
 }
 #endif  // MESH_H
