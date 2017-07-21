@@ -106,8 +106,6 @@ GLFWwindow *initialize() {
     return nullptr;
   }
 
-  glfwSetKeyCallback(window, key_callback);
-
   return window;
 }
 
@@ -120,8 +118,6 @@ int main() {
     std::cin.get();
     return -1;
   }
-
-  // GLuint program = create_shader();
 
   using namespace kfx;
   MessageBox message_box;
