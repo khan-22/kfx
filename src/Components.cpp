@@ -12,10 +12,10 @@ void TransformComponent::lookAt(glm::vec3 target, glm::vec3 up) {
   glm::mat4 look_at_matrix =
       glm::transpose(glm::lookAt(m_position, target, up));
 
-  const float r31 = look_at_matrix[2][0];
-  const float r32 = look_at_matrix[2][1];
+  const float r31 = look_at_matrix[0][2];
+  const float r32 = look_at_matrix[1][2];
   const float r33 = look_at_matrix[2][2];
-  const float r21 = look_at_matrix[1][0];
+  const float r21 = look_at_matrix[0][1];
   const float r11 = look_at_matrix[0][0];
 
   m_rotation.x = atan2(r32, r33);
@@ -46,5 +46,17 @@ glm::mat4 TransformComponent::getModel() {
   }
 
   return m_model;
+}
+
+void TransformComponent::setPosition(glm::vec3 position) {
+  m_position = position;
+  m_should_update = true;
+}
+
+glm::vec3 TransformComponent::getPosition() const { return m_position; }
+
+void TransformComponent::move(glm::vec3 delta) {
+  m_position += delta;
+  m_should_update = true;
 }
 }

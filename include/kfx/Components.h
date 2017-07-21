@@ -22,6 +22,10 @@ class TransformComponent {
   void lookAt(glm::vec3 target, glm::vec3 up);
   glm::mat4 getModel();
 
+  void setPosition(glm::vec3 position);
+  glm::vec3 getPosition() const;
+  void move(glm::vec3 delta);
+
  private:
   glm::vec3 m_position;
   glm::vec3 m_rotation;
