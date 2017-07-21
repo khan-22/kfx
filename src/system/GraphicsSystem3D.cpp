@@ -51,10 +51,13 @@ void GraphicsSystem3D::update(float dt) {
 
     static float total_time = 0.f;
     total_time += 0.05f;
+    // glm::vec3 point_at =
+    //     glm::vec3(sinf(total_time) * 2.f, sinf(total_time / 4.f) * 2.f,
+    //               cosf(total_time) * 2.f);
     glm::vec3 point_at =
-        glm::vec3(sinf(total_time) * 2.f, sinf(total_time / 4.f) * 2.f,
-                  cosf(total_time) * 2.f);
+        glm::vec3(0.f, sinf(total_time) * 2.f, cosf(total_time) * 2.f);
 
+    transform_component->setPosition(glm::vec3(-5.f, 0.f, 0.f));
     transform_component->lookAt(point_at, glm::vec3(0.f, 1.f, 0.f));
     glm::mat4 MVP = transform_component->getModel();
 
@@ -68,7 +71,7 @@ void GraphicsSystem3D::update(float dt) {
 
     // MVP = T * MVP;
 
-    MVP = glm::lookAt(glm::vec3(4.f, 4.f, 4.f), glm::vec3(0.f, 0.f, 0.f),
+    MVP = glm::lookAt(glm::vec3(5.f, 5.f, 5.f), glm::vec3(0, 0, 0),
                       glm::vec3(0.f, 1.f, 0.f)) *
           MVP;
 
