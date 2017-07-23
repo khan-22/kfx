@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libGLEW.so -o lib/libGLEW.so CMakeFiles/glew.dir/usr/storage/projects/kfx/glew-2.0.0/src/glew.c.o -lGLU -lGL 
