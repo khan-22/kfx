@@ -10,8 +10,6 @@ void Engine::init() {
 }
 
 void Engine::update(float dt) {
-  // ...
-
   for (auto& system : m_systems) {
     system->update(dt);
   }
