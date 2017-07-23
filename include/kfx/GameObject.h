@@ -14,14 +14,14 @@
 namespace kfx {
 class GameObject {
  public:
-  GameObject();
-
-  void addComponent(ComponentType type, Handle handle);
+  // void addComponent(ComponentType type, Handle handle);
   Handle getComponent(ComponentType type);
   bool hasComponent(ComponentType type);
 
  private:
   std::array<Handle, ComponentType::NUM_TYPES> m_components;
+
+  friend class GameObjectFactory;
 };
 }
 
