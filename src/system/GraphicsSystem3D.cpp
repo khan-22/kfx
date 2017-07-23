@@ -1,16 +1,13 @@
 #include "kfx/system/GraphicsSystem3D.h"
 
+#include "kfx/Engine.h"
+
 // TEMPORARY!!
 #include <GL/glew.h>
 #include <iostream>
 
 namespace kfx {
-GraphicsSystem3D::GraphicsSystem3D(GameObjectFactory& game_object_factory,
-                                   MeshManager& mesh_manager,
-                                   ShaderManager& shader_manager)
-    : System(game_object_factory),
-      m_mesh_manager(mesh_manager),
-      m_shader_manager(shader_manager) {
+GraphicsSystem3D::GraphicsSystem3D(Engine* engine) : System(engine) {
   // ...
 }
 
@@ -19,13 +16,15 @@ GraphicsSystem3D::~GraphicsSystem3D() {
 }
 
 void GraphicsSystem3D::update(float dt) {
+  GameObjectFactory& game_object_factory = m_engine->getGameObjectFactory();
+
   HandledResource<GameObject>& game_objects =
-      m_game_object_factory.getGameObjects();
+      game_object_factory.getGameObjects();
 
   // HandleManager& mesh_handle_manager = m_mesh_manager.getHandleManager();
-  HandledResource<Mesh>& meshes = m_mesh_manager.getMeshes();
+  HandledResource<Mesh>& meshes = m_engine->getMeshManager().getMeshes();
 
-  HandledResource<Shader>& shaders = m_shader_manager.getShaders();
+  HandledResource<Shader>& shaders = m_engine->getShaderManager().getShaders();
 
   for (auto& object : game_objects.resource) {
     // std::cout << "Object has component? ["
@@ -34,14 +33,14 @@ void GraphicsSystem3D::update(float dt) {
     //          << std::endl;
 
     TransformComponent* transform_component =
-        m_game_object_factory.getTransformComponents().getResourceEntry(
+        game_object_factory.getTransformComponents().getResourceEntry(
             object.value.getComponent(ComponentType::TRANSFORM));
 
     // transform_component->pos.x += 0.01f;
     // std::cout << "X: " << transform_component->pos.x << std::endl;
 
     MeshComponent* mesh_component =
-        m_game_object_factory.getMeshComponents().getResourceEntry(
+        game_object_factory.getMeshComponents().getResourceEntry(
             object.value.getComponent(ComponentType::MESH));
 
     // Mesh* mesh = static_cast<Mesh*>(
@@ -55,9 +54,10 @@ void GraphicsSystem3D::update(float dt) {
     //     glm::vec3(sinf(total_time) * 2.f, sinf(total_time / 4.f) * 2.f,
     //               cosf(total_time) * 2.f);
     glm::vec3 point_at =
-        glm::vec3(0.f, sinf(total_time) * 2.f, cosf(total_time) * 2.f);
+        glm::vec3(sinf(total_time) * 2.f, 0.f, cosf(total_time) * 2.f);
 
-    transform_component->setPosition(glm::vec3(-5.f, 0.f, 0.f));
+    transform_component->setPosition(glm::vec3(
+        sinf(total_time / 3.f) * 4.f, 0.f, cosf(total_time / 3.f) * 4.f));
     transform_component->lookAt(point_at, glm::vec3(0.f, 1.f, 0.f));
     glm::mat4 MVP = transform_component->getModel();
 

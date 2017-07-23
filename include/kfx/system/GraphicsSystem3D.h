@@ -11,17 +11,14 @@
 #include "kfx/system/System.h"
 
 namespace kfx {
-class GraphicsSystem3D : public System {
+class GraphicsSystem3D final : public System {
  public:
-  GraphicsSystem3D(GameObjectFactory& game_object_factory,
-                   MeshManager& mesh_manager, ShaderManager& shader_manager);
-  ~GraphicsSystem3D() override;
+  GraphicsSystem3D(Engine* engine);
+  ~GraphicsSystem3D() final override;
 
   void update(float dt) final override;
 
  private:
-  MeshManager& m_mesh_manager;
-  ShaderManager& m_shader_manager;
 };
 }
 #endif  // 3D_GRAPHICS_SYSTEM_H
