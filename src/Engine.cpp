@@ -3,10 +3,6 @@
 namespace kfx {
 Engine::Engine() : m_game_object_factory(m_mesh_manager, m_shader_manager) {}
 
-Engine::~Engine() {
-  // ...
-}
-
 void Engine::init() {
   // ...
 

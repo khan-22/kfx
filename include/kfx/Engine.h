@@ -22,7 +22,7 @@ namespace kfx {
 class Engine {
  public:
   Engine();
-  virtual ~Engine();
+  virtual ~Engine() = default;
 
   virtual void init();
 
