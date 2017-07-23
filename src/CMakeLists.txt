@@ -13,6 +13,8 @@ set(SOURCES
   Handle.cpp
   HandleManager.cpp
 
+  Engine.cpp
+
   input/InputSystem.cpp
   
   system/System.cpp
