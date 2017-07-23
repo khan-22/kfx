@@ -12,7 +12,7 @@
 #include "kfx/Handle.h"
 
 namespace kfx {
-class HandleManager {
+class HandleManager final {
  public:
   HandleManager();
 

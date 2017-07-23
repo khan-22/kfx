@@ -18,7 +18,7 @@
 #include "kfx/resources/HandledResource.h"
 
 namespace kfx {
-class MeshManager {
+class MeshManager final {
  public:
   Handle loadMeshFromFile(const std::string path);
   Handle loadMeshFromMemory(const std::string name,

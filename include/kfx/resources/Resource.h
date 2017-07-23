@@ -10,7 +10,7 @@
 
 namespace kfx {
 template <typename T>
-struct Resource {
+struct Resource final {
  public:
   Handle handle;
   T value;

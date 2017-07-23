@@ -9,7 +9,7 @@
 #include <cstdint>
 
 namespace kfx {
-struct Handle {
+struct Handle final {
   Handle();
   Handle(uint32_t counter, uint32_t index);
 

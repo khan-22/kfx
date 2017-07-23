@@ -15,7 +15,7 @@
 namespace kfx {
 enum ComponentType { TRANSFORM, MESH, NUM_TYPES };
 
-class TransformComponent {
+class TransformComponent final {
  public:
   TransformComponent();
 
@@ -35,7 +35,7 @@ class TransformComponent {
   bool m_should_update;
 };
 
-class MeshComponent {
+class MeshComponent final {
  public:
   Handle mesh_handle;
   Handle shader_handle;

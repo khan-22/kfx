@@ -14,7 +14,7 @@
 #include "kfx/resources/HandledResource.h"
 
 namespace kfx {
-class ShaderManager {
+class ShaderManager final {
  public:
   Handle loadShaderFromFile(const std::string path);
 
