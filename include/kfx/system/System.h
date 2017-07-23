@@ -9,7 +9,12 @@
 #include "kfx/GameObject.h"
 #include "kfx/GameObjectFactory.h"
 
+// #include "kfx/Engine.h"
+
 namespace kfx {
+// Forward-declaration
+class Engine;
+
 class System {
  public:
   virtual ~System();
@@ -17,8 +22,8 @@ class System {
   virtual void update(float dt) = 0;
 
  protected:
-  System(GameObjectFactory& game_object_factory);
-  GameObjectFactory& m_game_object_factory;
+  System(Engine *engine);
+  Engine *m_engine;
 };
 }
 #endif  // SYSTEM_H
