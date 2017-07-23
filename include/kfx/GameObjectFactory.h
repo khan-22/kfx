@@ -6,8 +6,6 @@
 #ifndef GAME_OBJECT_FACTORY_H
 #define GAME_OBJECT_FACTORY_H
 
-#include <vector>
-
 #include "kfx/Components.h"
 #include "kfx/GameObject.h"
 #include "kfx/Handle.h"
@@ -29,6 +27,9 @@ class GameObjectFactory {
 
   HandledResource<TransformComponent>& getTransformComponents();
   HandledResource<MeshComponent>& getMeshComponents();
+
+  Handle addComponent(Handle game_object_handle, ComponentType component_type);
+  void removeComponent(Handle game_object_handle, ComponentType component_type);
 
  private:
   HandledResource<GameObject> m_game_objects;

@@ -10,9 +10,12 @@ GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
 }
 
 Handle GameObjectFactory::createTestObject() {
-  // Create component handles
-  Handle transform_component_handle = m_transform_components.addResourceEntry();
-  Handle mesh_component_handle = m_mesh_components.addResourceEntry();
+  // Create GameObject and components
+  Handle object_handle = m_game_objects.addResourceEntry();
+  Handle transform_component_handle =
+      addComponent(object_handle, ComponentType::TRANSFORM);
+  Handle mesh_component_handle =
+      addComponent(object_handle, ComponentType::MESH);
 
   // Get Components
   TransformComponent *transform_component =
@@ -25,14 +28,6 @@ Handle GameObjectFactory::createTestObject() {
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
   mesh_component->shader_handle = m_shader_manager.getShaderByName("basic");
   assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
-
-  // Create GameObject
-  Handle object_handle = m_game_objects.addResourceEntry();
-
-  // Add component handles to object
-  GameObject *object = m_game_objects.getResourceEntry(object_handle);
-  object->addComponent(ComponentType::TRANSFORM, transform_component_handle);
-  object->addComponent(ComponentType::MESH, mesh_component_handle);
 
   // Return object handle
   return object_handle;
@@ -49,5 +44,65 @@ HandledResource<TransformComponent>
 
 HandledResource<MeshComponent> &GameObjectFactory::getMeshComponents() {
   return m_mesh_components;
+}
+
+Handle GameObjectFactory::addComponent(Handle game_object_handle,
+                                       ComponentType component_type) {
+  assert(component_type >= 0);
+  assert(component_type < ComponentType::NUM_TYPES);
+  assert(game_object_handle.m_is_initialized == true);
+
+  GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
+  if (!game_object->hasComponent(component_type)) {
+    Handle component_handle = Handle::NULL_HANDLE;
+
+    switch (component_type) {
+      case ComponentType::TRANSFORM:
+        component_handle = m_transform_components.addResourceEntry();
+        break;
+      case ComponentType::MESH:
+        component_handle = m_mesh_components.addResourceEntry();
+        break;
+      default:
+        std::cerr << "A COMPONENT TYPE WAS NOT IMPLEMENTED IN " << __FUNCTION__
+                  << std::endl;
+        abort();
+        break;
+    }
+
+    game_object->m_components[component_type] = component_handle;
+
+    return component_handle;
+  } else {
+    return game_object->getComponent(component_type);
+  }
+}
+
+void GameObjectFactory::removeComponent(Handle game_object_handle,
+                                        ComponentType component_type) {
+  assert(component_type >= 0);
+  assert(component_type < ComponentType::NUM_TYPES);
+  assert(game_object_handle.m_is_initialized == true);
+
+  GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
+  if (game_object->hasComponent(component_type)) {
+    Handle component_handle = game_object->getComponent(component_type);
+
+    switch (component_type) {
+      case ComponentType::TRANSFORM:
+        m_transform_components.removeResourceEntry(component_handle);
+        break;
+      case ComponentType::MESH:
+        m_mesh_components.removeResourceEntry(component_handle);
+        break;
+      default:
+        std::cerr << "A COMPONENT TYPE WAS NOT IMPLEMENTED IN " << __FUNCTION__
+                  << std::endl;
+        abort();
+        break;
+    }
+
+    game_object->m_components[component_type] = Handle::NULL_HANDLE;
+  }
 }
 }
