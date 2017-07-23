@@ -14,7 +14,7 @@ namespace kfx {
 class InputSystem : public Listener {
  public:
   InputSystem(MessageBox &message_box);
-  ~InputSystem() override;
+  ~InputSystem() final override;
 
   // Implementation simply returns since
   // InputSystem listens to no other subsystems
