@@ -6,8 +6,4 @@ namespace kfx {
 System::System(Engine* engine) : m_engine(engine) {
   // ...
 }
-
-System::~System() {
-  // ...
-}
 }

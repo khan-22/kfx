@@ -17,7 +17,7 @@ class Engine;
 
 class System {
  public:
-  virtual ~System();
+  virtual ~System() = default;
 
   virtual void update(float dt) = 0;
 
