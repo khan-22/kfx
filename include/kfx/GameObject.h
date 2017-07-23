@@ -14,7 +14,6 @@
 namespace kfx {
 class GameObject {
  public:
-  // void addComponent(ComponentType type, Handle handle);
   Handle getComponent(ComponentType type);
   bool hasComponent(ComponentType type);
 

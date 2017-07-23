@@ -3,15 +3,13 @@
 #include <cassert>
 
 namespace kfx {
-GameObject::GameObject() {}
+// void GameObject::addComponent(ComponentType type, Handle handle) {
+//   assert(type >= 0);
+//   assert(type < ComponentType::NUM_TYPES);
+//   assert(handle.m_is_initialized == true);
 
-void GameObject::addComponent(ComponentType type, Handle handle) {
-  assert(type >= 0);
-  assert(type < ComponentType::NUM_TYPES);
-  assert(handle.m_is_initialized == true);
-
-  m_components[type] = handle;
-}
+//   m_components[type] = handle;
+// }
 
 Handle GameObject::getComponent(ComponentType type) {
   assert(type >= 0);
