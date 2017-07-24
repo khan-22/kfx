@@ -23,6 +23,6 @@ add_subdirectory(deps/glew-2.0.0/build/cmake)
 add_subdirectory(src/kfx)
 
 # Adds the unit tests
-add_subdirectory(tests)
+add_subdirectory(tests/src)
 enable_testing()
 add_test(NAME kfx_tests COMMAND kfx_tests)
