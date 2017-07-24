@@ -1,6 +1,6 @@
-prefix=/usr/storage/projects/kfx
+prefix=/usr/local
 exec_prefix=${prefix}
-libdir=/usr/storage/projects/kfx/lib
+libdir=/usr/local/lib
 includedir=${prefix}/include
 
 Name: glew
