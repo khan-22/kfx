@@ -1,20 +1,20 @@
 #include "kfx/resources/ShaderUtil.h"
 
-#include <cassert>
 #include <iostream>
+#include "kfx/Assert.h"
 
 namespace kfx {
 namespace util {
 GLuint shaderStageFromData(std::string source, GLenum stage) {
-  assert(stage == GL_VERTEX_SHADER || stage == GL_GEOMETRY_SHADER ||
-         stage == GL_FRAGMENT_SHADER);
+  kfx_assert(stage == GL_VERTEX_SHADER || stage == GL_GEOMETRY_SHADER ||
+             stage == GL_FRAGMENT_SHADER);
 
   if (source.length() == 0) {
     return 0;
   }
 
   GLuint shader = glCreateShader(stage);
-  assert(shader != 0);
+  kfx_assert(shader != 0);
 
   const GLchar* c_source = source.c_str();
 

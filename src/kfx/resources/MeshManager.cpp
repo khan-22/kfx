@@ -2,10 +2,12 @@
 
 #include "kfx/resources/MeshUtil.h"
 
+#include "kfx/Assert.h"
+
 namespace kfx {
 Handle loadMeshFromFile(const std::string path) {
   // Not implemented yet
-  assert(false);
+  kfx_assert(false);
 
   return Handle::NULL_HANDLE;
 }

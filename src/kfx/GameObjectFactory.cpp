@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "kfx/Assert.h"
+
 namespace kfx {
 GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
                                      ShaderManager &shader_manager)
@@ -27,7 +29,7 @@ Handle GameObjectFactory::createTestObject() {
   // Set up components
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
   mesh_component->shader_handle = m_shader_manager.getShaderByName("basic");
-  assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
+  kfx_assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
   // Return object handle
   return object_handle;
@@ -48,9 +50,9 @@ HandledResource<MeshComponent> &GameObjectFactory::getMeshComponents() {
 
 Handle GameObjectFactory::addComponent(Handle game_object_handle,
                                        ComponentType component_type) {
-  assert(component_type >= 0);
-  assert(component_type < ComponentType::NUM_TYPES);
-  assert(game_object_handle.m_is_initialized == true);
+  kfx_assert(component_type >= 0);
+  kfx_assert(component_type < ComponentType::NUM_TYPES);
+  kfx_assert(game_object_handle.m_is_initialized == true);
 
   GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
   if (!game_object->hasComponent(component_type)) {
@@ -80,9 +82,9 @@ Handle GameObjectFactory::addComponent(Handle game_object_handle,
 
 void GameObjectFactory::removeComponent(Handle game_object_handle,
                                         ComponentType component_type) {
-  assert(component_type >= 0);
-  assert(component_type < ComponentType::NUM_TYPES);
-  assert(game_object_handle.m_is_initialized == true);
+  kfx_assert(component_type >= 0);
+  kfx_assert(component_type < ComponentType::NUM_TYPES);
+  kfx_assert(game_object_handle.m_is_initialized == true);
 
   GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
   if (game_object->hasComponent(component_type)) {

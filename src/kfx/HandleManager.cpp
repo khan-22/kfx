@@ -1,6 +1,6 @@
 #include "kfx/HandleManager.h"
 
-#include <cassert>
+#include "kfx/Assert.h"
 
 namespace kfx {
 HandleManager::HandleManager() : m_first_free_index(0) {
@@ -14,11 +14,11 @@ HandleManager::HandleManager() : m_first_free_index(0) {
 }
 
 Handle HandleManager::addEntry(void* data) {
-  assert(m_first_free_index != Handle::MAX_HANDLES);
+  kfx_assert(m_first_free_index != Handle::MAX_HANDLES);
 
   uint32_t index = m_first_free_index;
   m_first_free_index = m_entries[index].m_next_free_index;
-  assert(m_entries[index].m_active == false);
+  kfx_assert(m_entries[index].m_active == false);
 
   m_entries[index].m_counter = m_entries[index].m_counter + 1;
   m_entries[index].m_next_free_index = 0;
@@ -32,33 +32,33 @@ void* HandleManager::getEntry(Handle handle) {
   // if (handle.m_index == Handle::MAX_HANDLES) {
   //   return nullptr;
   // }
-  assert(handle.m_is_initialized == true);
+  kfx_assert(handle.m_is_initialized == true);
 
-  assert(handle.m_index >= 0);
-  assert(handle.m_index < Handle::MAX_HANDLES);
-  assert(m_entries[handle.m_index].m_active == true);
+  kfx_assert(handle.m_index >= 0);
+  kfx_assert(handle.m_index < Handle::MAX_HANDLES);
+  kfx_assert(m_entries[handle.m_index].m_active == true);
 
-  assert(handle.m_counter == m_entries[handle.m_index].m_counter);
+  kfx_assert(handle.m_counter == m_entries[handle.m_index].m_counter);
 
   return m_entries[handle.m_index].m_data;
 }
 
 void HandleManager::updateEntry(Handle handle, void* data) {
-  assert(handle.m_is_initialized == true);
+  kfx_assert(handle.m_is_initialized == true);
 
-  assert(handle.m_index >= 0);
-  assert(handle.m_index < Handle::MAX_HANDLES);
-  assert(m_entries[handle.m_index].m_active == true);
+  kfx_assert(handle.m_index >= 0);
+  kfx_assert(handle.m_index < Handle::MAX_HANDLES);
+  kfx_assert(m_entries[handle.m_index].m_active == true);
 
   m_entries[handle.m_index].m_data = data;
 }
 
 void HandleManager::removeEntry(Handle handle) {
-  assert(handle.m_is_initialized == true);
+  kfx_assert(handle.m_is_initialized == true);
 
-  assert(handle.m_index >= 0);
-  assert(handle.m_index < Handle::MAX_HANDLES);
-  assert(m_entries[handle.m_index].m_active == true);
+  kfx_assert(handle.m_index >= 0);
+  kfx_assert(handle.m_index < Handle::MAX_HANDLES);
+  kfx_assert(m_entries[handle.m_index].m_active == true);
 
   m_entries[handle.m_index].m_active = false;
   m_entries[handle.m_index].m_data = nullptr;

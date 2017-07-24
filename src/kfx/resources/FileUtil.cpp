@@ -1,11 +1,25 @@
 #include "kfx/resources/FileUtil.h"
 
+#include <algorithm>
+#include "kfx/Assert.h"
+
 namespace kfx {
 namespace util {
 std::vector<std::string> breakDownPath(std::string path) {
   std::vector<std::string> path_broken;
 
   std::istringstream string_stream(path);
+
+// Test if the string is a valid path
+#ifndef NDEBUG
+  bool is_valid = true;
+  for (auto it = path.begin(); it != path.end(); it++) {
+    if (std::isspace(*it) != 0) {
+      is_valid = false;
+    }
+  }
+  kfx_assert(is_valid == true);
+#endif  // NDEBUG
 
   std::string token;
   while (std::getline(string_stream, token, '/')) {
@@ -32,6 +46,7 @@ std::stringstream loadFileIntoStream(std::string path) {
   std::stringstream string_stream;
 
   std::ifstream input_stream(path);
+  kfx_assert(input_stream);
 
   if (input_stream.is_open()) {
     string_stream << input_stream.rdbuf();
