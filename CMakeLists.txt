@@ -26,3 +26,6 @@ add_subdirectory(src/kfx)
 add_subdirectory(tests/src)
 enable_testing()
 add_test(NAME kfx_tests COMMAND kfx_tests)
+
+# Adds the examples
+add_subdirectory(examples)
