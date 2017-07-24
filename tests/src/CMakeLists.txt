@@ -3,6 +3,8 @@ add_executable(kfx_tests
 
   # Meta test
   test-test.cpp
+
+  test-file-utilities.cpp
 )
 
 target_include_directories(kfx_tests
