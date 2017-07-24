@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9.0)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-project(kfx)
+project(kfx VERSION 0.1.0)
 
 message("Current Platform: ${CMAKE_SYSTEM_NAME}")
 
@@ -16,3 +16,4 @@ add_subdirectory(deps/glfw)
 add_subdirectory(deps/glew-2.0.0/build/cmake)
 
 add_subdirectory(src)
+
