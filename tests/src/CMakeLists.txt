@@ -13,6 +13,7 @@ add_executable(kfx_tests
   test-shader-manager.cpp
   test-message-box.cpp
   test-handled-resource.cpp
+  test-window.cpp
 )
 
 target_include_directories(kfx_tests
