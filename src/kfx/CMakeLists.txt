@@ -39,6 +39,7 @@ add_library(
   HandleManager.cpp
   Message.cpp 
   MessageBox.cpp 
+  Window.cpp
   
   input/InputSystem.cpp
   
