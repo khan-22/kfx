@@ -36,7 +36,7 @@ Window::~Window() {
   --window_counter;
 }
 
-bool Window::isOpen() { return !glfwWindowShouldClose(m_window); }
+bool Window::isOpen() { return glfwWindowShouldClose(m_window) == GLFW_FALSE; }
 
 void Window::close() { glfwSetWindowShouldClose(m_window, GLFW_TRUE); }
 
