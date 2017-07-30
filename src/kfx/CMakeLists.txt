@@ -30,6 +30,7 @@ add_library(
   
   STATIC
   
+  Assert.cpp
   Components.cpp
   Engine.cpp
   GameObject.cpp

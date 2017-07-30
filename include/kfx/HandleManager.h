@@ -21,19 +21,21 @@ class HandleManager final {
   void updateEntry(Handle handle, void *data);
   void removeEntry(Handle handle);
 
+  bool isFull() const;
+
  private:
   struct HandleEntry {
     HandleEntry()
         : m_counter(0),
           m_next_free_index(0),
           m_active(false),
-          // m_end_of_list(false),
+          m_end_of_list(false),
           m_data(nullptr) {}
 
     uint32_t m_counter : 15;
     uint32_t m_next_free_index : 12;
     uint32_t m_active : 1;
-    // uint32_t m_end_of_list : 1;
+    uint32_t m_end_of_list : 1;
 
     void *m_data;
   };
@@ -41,6 +43,7 @@ class HandleManager final {
   std::array<HandleEntry, Handle::MAX_HANDLES> m_entries;
 
   uint32_t m_first_free_index;
+  uint32_t m_number_of_entries;
 };
 }
 

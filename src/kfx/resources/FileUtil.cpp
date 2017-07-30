@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "kfx/Assert.h"
 
+#include <iostream>
 namespace kfx {
 namespace util {
 std::vector<std::string> breakDownPath(std::string path) {
@@ -18,7 +19,7 @@ std::vector<std::string> breakDownPath(std::string path) {
       is_valid = false;
     }
   }
-  kfx_assert(is_valid == true);
+  kfx_contract(is_valid == true);
 #endif  // NDEBUG
 
   std::string token;
@@ -46,7 +47,7 @@ std::stringstream loadFileIntoStream(std::string path) {
   std::stringstream string_stream;
 
   std::ifstream input_stream(path);
-  kfx_assert(input_stream);
+  // kfx_contract(input_stream.is_open());
 
   if (input_stream.is_open()) {
     string_stream << input_stream.rdbuf();

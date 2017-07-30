@@ -20,8 +20,8 @@ Handle GameObjectFactory::createTestObject() {
       addComponent(object_handle, ComponentType::MESH);
 
   // Get Components
-  TransformComponent *transform_component =
-      m_transform_components.getResourceEntry(transform_component_handle);
+  // TransformComponent *transform_component =
+  //     m_transform_components.getResourceEntry(transform_component_handle);
 
   MeshComponent *mesh_component =
       m_mesh_components.getResourceEntry(mesh_component_handle);
@@ -29,7 +29,7 @@ Handle GameObjectFactory::createTestObject() {
   // Set up components
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
   mesh_component->shader_handle = m_shader_manager.getShaderByName("basic");
-  kfx_assert(mesh_component->mesh_handle != Handle::NULL_HANDLE);
+  kfx_contract(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
   // Return object handle
   return object_handle;
@@ -50,9 +50,9 @@ HandledResource<MeshComponent> &GameObjectFactory::getMeshComponents() {
 
 Handle GameObjectFactory::addComponent(Handle game_object_handle,
                                        ComponentType component_type) {
-  kfx_assert(component_type >= 0);
-  kfx_assert(component_type < ComponentType::NUM_TYPES);
-  kfx_assert(game_object_handle.m_is_initialized == true);
+  kfx_contract(component_type >= 0);
+  kfx_contract(component_type < ComponentType::NUM_TYPES);
+  kfx_contract(game_object_handle.m_is_initialized == true);
 
   GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
   if (!game_object->hasComponent(component_type)) {
@@ -82,9 +82,9 @@ Handle GameObjectFactory::addComponent(Handle game_object_handle,
 
 void GameObjectFactory::removeComponent(Handle game_object_handle,
                                         ComponentType component_type) {
-  kfx_assert(component_type >= 0);
-  kfx_assert(component_type < ComponentType::NUM_TYPES);
-  kfx_assert(game_object_handle.m_is_initialized == true);
+  kfx_contract(component_type >= 0);
+  kfx_contract(component_type < ComponentType::NUM_TYPES);
+  kfx_contract(game_object_handle.m_is_initialized == true);
 
   GameObject *game_object = m_game_objects.getResourceEntry(game_object_handle);
   if (game_object->hasComponent(component_type)) {

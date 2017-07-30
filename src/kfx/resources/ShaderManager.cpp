@@ -8,6 +8,11 @@ namespace kfx {
 Handle ShaderManager::loadShaderFromFile(const std::string path) {
   std::string shader_name = util::breakDownPath(path).back();
 
+  Handle found_handle = getShaderByName(shader_name);
+  if (found_handle != Handle::NULL_HANDLE) {
+    return found_handle;
+  }
+
   std::string vertex_shader_path = path + "/" + shader_name + ".vs";
   std::string geometry_shader_path = path + "/" + shader_name + ".gs";
   std::string fragment_shader_path = path + "/" + shader_name + ".fs";

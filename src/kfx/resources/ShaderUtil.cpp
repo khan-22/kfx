@@ -6,15 +6,15 @@
 namespace kfx {
 namespace util {
 GLuint shaderStageFromData(std::string source, GLenum stage) {
-  kfx_assert(stage == GL_VERTEX_SHADER || stage == GL_GEOMETRY_SHADER ||
-             stage == GL_FRAGMENT_SHADER);
+  kfx_contract(stage == GL_VERTEX_SHADER || stage == GL_GEOMETRY_SHADER ||
+               stage == GL_FRAGMENT_SHADER);
 
   if (source.length() == 0) {
     return 0;
   }
 
   GLuint shader = glCreateShader(stage);
-  kfx_assert(shader != 0);
+  kfx_contract(shader != 0);
 
   const GLchar* c_source = source.c_str();
 
@@ -52,7 +52,7 @@ GLuint shaderStageFromData(std::string source, GLenum stage) {
 
     delete[] compile_log;
 
-    abort();
+    kfx_abort();
   }
 
   return shader;
@@ -64,14 +64,14 @@ Shader shaderProgramFromStages(GLuint vertex_shader, GLuint geometry_shader,
   shader.program = glCreateProgram();
 
   glAttachShader(shader.program, vertex_shader);
-  if (geometry_shader != 0) {
+  if (geometry_shader > 0) {
     glAttachShader(shader.program, geometry_shader);
   }
   glAttachShader(shader.program, fragment_shader);
 
   glLinkProgram(shader.program);
 
-  // If something goes wrong, print the error and simply abort the process...
+  // If something goes wrong, print the error and simply kfx_ the process...
   // I currently don't want the process to continue should there be anything
   // wrong with the shaders.
   GLint link_status = GL_FALSE;
@@ -90,7 +90,7 @@ Shader shaderProgramFromStages(GLuint vertex_shader, GLuint geometry_shader,
 
     delete[] link_log;
 
-    abort();
+    kfx_abort();
   }
 
   return shader;

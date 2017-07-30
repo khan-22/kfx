@@ -2,10 +2,14 @@
 
 #include <GL/glew.h>
 
+#include <kfx/Assert.h>
+
 namespace kfx {
 namespace util {
 Mesh meshFromData(const std::vector<Vertex3D>& vertices,
                   const std::vector<GLuint>& indices) {
+  kfx_contract(vertices.size() > 0);
+  kfx_contract(indices.size() > 0);
   // ...
   Mesh mesh;
   mesh.vertices = vertices;

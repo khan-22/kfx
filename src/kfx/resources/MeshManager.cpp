@@ -7,7 +7,7 @@
 namespace kfx {
 Handle loadMeshFromFile(const std::string path) {
   // Not implemented yet
-  kfx_assert(false);
+  kfx_contract(false);
 
   return Handle::NULL_HANDLE;
 }
@@ -17,7 +17,7 @@ Handle MeshManager::loadMeshFromMemory(const std::string name,
                                        const std::vector<GLuint>& indices) {
   // If the mesh has already been loaded, return the handle
   Handle found_handle = getMeshByName(name);
-  if (found_handle) {
+  if (found_handle != Handle::NULL_HANDLE) {
     return found_handle;
   }
 
@@ -25,6 +25,10 @@ Handle MeshManager::loadMeshFromMemory(const std::string name,
   // m_meshes.emplace_back();
   // Mesh& mesh = m_meshes.back();
   Handle mesh_handle = m_meshes.addResourceEntry();
+  if (mesh_handle == Handle::NULL_HANDLE) {
+    return Handle::NULL_HANDLE;
+  }
+
   Mesh* mesh = m_meshes.getResourceEntry(mesh_handle);
   *mesh = util::meshFromData(vertices, indices);
 

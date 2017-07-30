@@ -5,6 +5,14 @@ add_executable(kfx_tests
   test-test.cpp
 
   test-file-utilities.cpp
+  test-shader-utilities.cpp
+
+  test-mesh-manager.cpp
+  test-handle-manager.cpp
+  test-game-object-factory.cpp
+  test-shader-manager.cpp
+  test-message-box.cpp
+  test-handled-resource.cpp
 )
 
 target_include_directories(kfx_tests

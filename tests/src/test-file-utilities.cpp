@@ -51,9 +51,9 @@ SCENARIO("Function breakDownPath(string) breaks file paths into separate parts",
     std::string not_a_path("hello errors! /What/ is/happening?");
 
     WHEN("the string is broken down") {
-      THEN("the function should assert") {
+      THEN("the function should fail") {
         REQUIRE_THROWS_AS(kfx::util::breakDownPath(not_a_path),
-                          kfx::KfxAssertFailure);
+                          kfx::KfxContractFailure);
       }
     }
   }
@@ -87,14 +87,14 @@ SCENARIO(
     }
   }
 
-  GIVEN("A non-conforming string") {
-    std::string not_a_path("hello errors! /What/ is/happening?");
+  // GIVEN("A non-conforming string") {
+  //   std::string not_a_path("hello errors! /What/ is/happening?");
 
-    WHEN("the string is passed to the function") {
-      THEN("the function should assert") {
-        REQUIRE_THROWS_AS(kfx::util::loadFileIntoStream(not_a_path),
-                          kfx::KfxAssertFailure);
-      }
-    }
-  }
+  //   WHEN("the string is passed to the function") {
+  //     THEN("the function should fail") {
+  //       REQUIRE_THROWS_AS(kfx::util::loadFileIntoStream(not_a_path),
+  //                         kfx::KfxContractFailure);
+  //     }
+  //   }
+  // }
 }

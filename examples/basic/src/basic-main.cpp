@@ -8,6 +8,12 @@
 int main() {
   std::cout << "Example: basic" << std::endl << std::endl;
 
+#ifndef NDEBUG
+  std::cout << "Debug" << std::endl;
+#else
+  std::cout << "Release" << std::endl;
+#endif  // NDEBUG
+
   std::cin.ignore();
   std::cin.get();
 
