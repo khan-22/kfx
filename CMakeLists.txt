@@ -1,14 +1,27 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.9.0)
 
-set(CMAKE_BUILD_TYPE Debug)
+#set(CMAKE_BUILD_TYPE Debug)
 
-project(kfx VERSION 0.1.0)
+message("Current Build Type: ${CMAKE_BUILD_TYPE}")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${kfx_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${kfx_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${kfx_SOURCE_DIR}/lib)
+project(kfx)
+set(kfx_VERSION_MAJOR 0)
+set(kfx_VERSION_MINOR 1)
+set(kfx_VERSION_PATCH 0)
+set(kfx_VERSION ${kfx_VERSION_MAJOR}.${kfx_VERSION_MINOR}.${kfx_VERSION_PATCH})
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${kfx_SOURCE_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${kfx_SOURCE_DIR}/lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${kfx_SOURCE_DIR}/lib")
+
+message("Runtime Output Directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+message("Archive Output Directory ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+message("Library Output Directory ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+
 
 message("Current Platform: ${CMAKE_SYSTEM_NAME}")
+
+
 
 # Glfw dependency
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
