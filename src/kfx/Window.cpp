@@ -50,7 +50,10 @@ void Window::clear() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Window::swapBuffers() { glfwSwapBuffers(m_window); }
+void Window::swapBuffers() {
+  glfwSwapBuffers(m_window);
+  glfwPollEvents();
+}
 
 int Window::getWidth() const { return m_width; }
 int Window::getHeight() const { return m_height; }
