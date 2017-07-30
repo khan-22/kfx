@@ -13,6 +13,11 @@ namespace kfx {
 struct ObserverArgument {
   uint32_t type;
   void* data;
+<<<<<<< HEAD
+=======
+
+  bool containsData() { return data != nullptr; }
+>>>>>>> 5e208c023b0609bf2cc0125c49693fa640a5de73
 };
 
 class ObserverInterface {
