@@ -4,7 +4,7 @@
 
 namespace kfx {
 void ObservableSubject::addObserver(ObserverInterface* observer) {
-  if (std::find(m_observers.begin(), m_observers.end(), observer) !=
+  if (std::find(m_observers.begin(), m_observers.end(), observer) ==
       m_observers.end()) {
     m_observers.push_back(observer);
   }
