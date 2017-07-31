@@ -33,10 +33,15 @@ enum StandardObserverMessage { TEST1, TEST2, CUSTOM_MESSAGE_EXTENSION };
 */
 
 template <StandardObserverMessage T>
-class ObserverArgumentData {};
+struct ObserverArgumentData {};
 
 template <>
-class ObserverArgumentData<TEST1> {
+struct ObserverArgumentData<TEST1> {
+  int a;
+};
+
+template <>
+struct ObserverArgumentData<TEST2> {
   int a;
   int b;
 };
