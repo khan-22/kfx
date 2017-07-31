@@ -1,6 +1,7 @@
 #include "kfx/resources/FileUtil.h"
 
 #include <algorithm>
+#include <cctype>
 #include "kfx/Assert.h"
 
 #include <iostream>
@@ -12,7 +13,6 @@ std::vector<std::string> breakDownPath(std::string path) {
   std::istringstream string_stream(path);
 
 // Test if the string is a valid path
-#ifndef NDEBUG
   bool is_valid = true;
   for (auto it = path.begin(); it != path.end(); it++) {
     if (std::isspace(*it) != 0) {
@@ -20,7 +20,6 @@ std::vector<std::string> breakDownPath(std::string path) {
     }
   }
   kfx_contract(is_valid == true);
-#endif  // NDEBUG
 
   std::string token;
   while (std::getline(string_stream, token, '/')) {

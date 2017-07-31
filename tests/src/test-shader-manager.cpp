@@ -12,6 +12,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <direct.h>
+#include <stdlib.h>
 #include <sys/stat.h>   // no clue why required -- man pages say so
 #include <sys/types.h>  // required for stat.h
 
@@ -40,11 +42,11 @@ SCENARIO("Adding a shader to the shader manager", "[shader]") {
       }
     )");
 
-    mode_t nMode = 0733;
     int nError = 0;
 #if defined(_WIN32)
     nError = _mkdir("test_shader");
 #else
+    mode_t nMode = 0733;
     nError = mkdir("test_shader", nMode);
 #endif
 
@@ -89,11 +91,11 @@ SCENARIO("Adding a shader to the shader manager", "[shader]") {
       }
     )");
 
-    mode_t nMode = 0733;
     int nError = 0;
 #if defined(_WIN32)
     nError = _mkdir("invalid_test_shader");
 #else
+    mode_t nMode = 0733;
     nError = mkdir("invalid_test_shader", nMode);
 #endif
 
