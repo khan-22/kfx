@@ -6,6 +6,7 @@
 #ifndef OBSERVER_INTERFACE_H
 #define OBSERVER_INTERFACE_H
 
+#include <stdint.h>
 #include <vector>
 
 namespace kfx {
