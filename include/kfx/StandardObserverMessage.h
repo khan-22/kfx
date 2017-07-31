@@ -7,7 +7,7 @@
 #define STANDARD_OBSERVER_MESSAGE_H
 
 /*
-  This file collects all the standard types of messages that can be
+  This file contains all the standard types of messages that can be
   sent to observers.
 
   (As far as I know) I had to do it this way to also make it extensible
