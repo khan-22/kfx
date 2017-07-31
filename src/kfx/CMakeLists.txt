@@ -40,6 +40,7 @@ add_library(
   Message.cpp 
   MessageBox.cpp 
   Window.cpp
+  ObservableSubject.cpp
   
   input/InputSystem.cpp
   
