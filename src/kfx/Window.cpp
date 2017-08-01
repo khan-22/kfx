@@ -55,6 +55,14 @@ void Window::swapBuffers() {
   glfwPollEvents();
 }
 
+void Window::setGLFWUserData(void* data) {
+  glfwSetWindowUserPointer(m_window, data);
+}
+
+void Window::setKeyCallback(GLFWkeyfun func) {
+  glfwSetKeyCallback(m_window, func);
+}
+
 int Window::getWidth() const { return m_width; }
 int Window::getHeight() const { return m_height; }
 std::string Window::getTitle() const { return m_title; }

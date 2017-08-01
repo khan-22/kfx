@@ -32,9 +32,13 @@ class Window final {
   void clear();
   void swapBuffers();
 
+  void setGLFWUserData(void* data);
+
   int getWidth() const;
   int getHeight() const;
   std::string getTitle() const;
+
+  void setKeyCallback(GLFWkeyfun func);
 
  private:
   int m_width;
