@@ -18,10 +18,13 @@
 #include "kfx/resources/MeshManager.h"
 #include "kfx/resources/ShaderManager.h"
 
+#include "kfx/KeyboardInputPeripheral.h"
+#include "kfx/Window.h"
+
 namespace kfx {
 class Engine {
  public:
-  Engine();
+  Engine(Window& window);
   virtual ~Engine() = default;
 
   virtual void init();
@@ -34,6 +37,10 @@ class Engine {
   MeshManager& getMeshManager();
   ShaderManager& getShaderManager();
 
+  KeyboardInputPeripheral& getKeyboardInputPeripheral();
+
+  Window& getWindow();
+
  protected:
   std::vector<std::unique_ptr<System>> m_systems;
 
@@ -41,6 +48,10 @@ class Engine {
 
   MeshManager m_mesh_manager;
   ShaderManager m_shader_manager;
+
+  Window& m_window;
+
+  KeyboardInputPeripheral m_keyboard_input_manager;
 };
 }
 #endif  // ENGINE_H

@@ -10,7 +10,7 @@
 
 class MyTest : public kfx::Engine {
  public:
-  MyTest() : Engine() {}
+  MyTest(kfx::Window& window) : Engine(window) {}
   ~MyTest() override {}
 
   void init() override {
@@ -57,7 +57,7 @@ int main() {
 
   kfx::Window window(640, 480, "basic example");
 
-  MyTest my_test;
+  MyTest my_test(window);
   my_test.init();
 
   window.setClearColor(0.f, 0.f, 0.f);

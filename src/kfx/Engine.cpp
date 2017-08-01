@@ -1,7 +1,12 @@
 #include "kfx/Engine.h"
 
 namespace kfx {
-Engine::Engine() : m_game_object_factory(m_mesh_manager, m_shader_manager) {}
+Engine::Engine(Window& window)
+    : m_game_object_factory(m_mesh_manager, m_shader_manager),
+      m_window(window),
+      m_keyboard_input_manager(window) {
+  m_window.setGLFWUserData(this);
+}
 
 void Engine::init() {
   // ...
@@ -29,5 +34,13 @@ MeshManager& Engine::getMeshManager() {
 
 ShaderManager& Engine::getShaderManager() {
   return m_shader_manager;  // <-
+}
+
+KeyboardInputPeripheral& Engine::getKeyboardInputPeripheral() {
+  return m_keyboard_input_manager;  // <-
+}
+
+Window& Engine::getWindow() {
+  return m_window;  // <-
 }
 }
