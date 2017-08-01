@@ -32,26 +32,30 @@ class Engine {
   virtual void update(float dt);
   virtual void render();
 
-  GameObjectFactory& getGameObjectFactory();
+  Window& getWindow();
 
   MeshManager& getMeshManager();
   ShaderManager& getShaderManager();
 
   KeyboardInputPeripheral& getKeyboardInputPeripheral();
 
-  Window& getWindow();
+  GameObjectFactory& getGameObjectFactory();
 
  protected:
   std::vector<std::unique_ptr<System>> m_systems;
 
-  GameObjectFactory m_game_object_factory;
+  // "Outside" references
+  Window& m_window;
 
+  // Resource managers
   MeshManager m_mesh_manager;
   ShaderManager m_shader_manager;
 
-  Window& m_window;
-
+  // Peripherals
   KeyboardInputPeripheral m_keyboard_input_manager;
+
+  // Factory
+  GameObjectFactory m_game_object_factory;
 };
 }
 #endif  // ENGINE_H

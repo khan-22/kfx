@@ -2,8 +2,8 @@
 
 namespace kfx {
 Engine::Engine(Window& window)
-    : m_game_object_factory(m_mesh_manager, m_shader_manager),
-      m_window(window),
+    : m_window(window),
+      m_game_object_factory(m_mesh_manager, m_shader_manager),
       m_keyboard_input_manager(window) {
   m_window.setGLFWUserData(this);
 }
