@@ -6,6 +6,8 @@
 #ifndef STANDARD_OBSERVER_MESSAGE_H
 #define STANDARD_OBSERVER_MESSAGE_H
 
+#include <GLFW/glfw3.h>
+
 /*
   This file contains all the standard types of messages that can be
   sent to observers.
@@ -20,7 +22,16 @@
 */
 
 namespace kfx {
-enum StandardObserverMessage { TEST1, TEST2, CUSTOM_MESSAGE_EXTENSION };
+enum StandardObserverMessage {
+  TEST1,  // Test messages, may be removed at some other point
+  TEST2,  // Test messages, may be removed at some other point
+
+  KEY_PRESSED,
+  KEY_REPEAT,
+  KEY_RELEASED,
+
+  CUSTOM_MESSAGE_EXTENSION
+};
 
 /*
   By using templates I can allow users to gain
@@ -35,15 +46,48 @@ enum StandardObserverMessage { TEST1, TEST2, CUSTOM_MESSAGE_EXTENSION };
 template <StandardObserverMessage T>
 struct ObserverArgumentData {};
 
-template <>
-struct ObserverArgumentData<TEST1> {
-  int a;
-};
+#define ARGUMENT_DATA(enum) \
+  template <>               \
+  struct ObserverArgumentData<enum>
 
-template <>
-struct ObserverArgumentData<TEST2> {
+ARGUMENT_DATA(TEST1) { int a; };
+
+ARGUMENT_DATA(TEST2) {
   int a;
   int b;
+};
+
+ARGUMENT_DATA(KEY_PRESSED) {
+  int key;
+  int scancode;
+  int mods;
+
+  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
+  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
+  bool altPressed() { return mods & GLFW_MOD_ALT; }
+  bool superPressed() { return mods & GLFW_MOD_SUPER; }
+};
+
+ARGUMENT_DATA(KEY_REPEAT) {
+  int key;
+  int scancode;
+  int mods;
+
+  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
+  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
+  bool altPressed() { return mods & GLFW_MOD_ALT; }
+  bool superPressed() { return mods & GLFW_MOD_SUPER; }
+};
+
+ARGUMENT_DATA(KEY_RELEASED) {
+  int key;
+  int scancode;
+  int mods;
+
+  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
+  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
+  bool altPressed() { return mods & GLFW_MOD_ALT; }
+  bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 }
 

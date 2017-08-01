@@ -1,16 +1,27 @@
 #include "kfx/KeyboardInputPeripheral.h"
 
+#include "kfx/Engine.h"
+#include "kfx/StandardObserverMessage.h"
+
 namespace kfx {
-void key_callback(GLFWwindow *window, int key, int scancode, int action,
-                  int mods) {
-  //
+KeyboardInputPeripheral::KeyboardInputPeripheral(Window& window) {
+  window.setKeyCallback(key_callback);
 }
 
-void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
-  //
-}
+void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
+                                           int scancode, int action, int mods) {
+  Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
 
-void mouse_button_callback(int button, int action, int mods) {
-  //
+  ObserverArgument arg;
+  arg.type = StandardObserverMessage::KEY_PRESSED;
+
+  ObserverArgumentData<KEY_PRESSED> data;
+  data.key = key;
+  data.scancode = scancode;
+  data.mods = mods;
+
+  arg.data = &data;
+
+  engine->getKeyboardInputPeripheral().notify(arg);
 }
 }

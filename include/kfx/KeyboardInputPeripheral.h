@@ -6,14 +6,18 @@
 #ifndef KEYBOARD_INPUT_PERIPHERAL_H
 #define KEYBOARD_INPUT_PERIPHERAL_H
 
-#include <kfx/ObservableSubject.h>
-#include <kfx/ObserverInterface.h>
-
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include "kfx/ObservableSubject.h"
+#include "kfx/ObserverInterface.h"
+#include "kfx/Window.h"
 
 namespace kfx {
 class KeyboardInputPeripheral : public ObservableSubject {
  public:
+  KeyboardInputPeripheral(Window &window);
+
  private:
   static void key_callback(GLFWwindow *window, int key, int scancode,
                            int action, int mods);
