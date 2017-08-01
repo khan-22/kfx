@@ -12,7 +12,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#if defined(_WIN32)
 #include <direct.h>
+#endif
+
 #include <stdlib.h>
 #include <sys/stat.h>   // no clue why required -- man pages say so
 #include <sys/types.h>  // required for stat.h
