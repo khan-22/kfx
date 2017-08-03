@@ -37,13 +37,10 @@ add_library(
   GameObjectFactory.cpp
   Handle.cpp
   HandleManager.cpp
-  Message.cpp 
   MessageBox.cpp 
   Window.cpp
   ObservableSubject.cpp
   KeyboardInputPeripheral.cpp
-  
-  input/InputSystem.cpp
   
   resources/FileUtil.cpp
   resources/MeshManager.cpp
