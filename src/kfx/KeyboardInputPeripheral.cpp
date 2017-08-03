@@ -3,6 +3,8 @@
 #include "kfx/Engine.h"
 #include "kfx/StandardObserverMessage.h"
 
+#include "kfx/Assert.h"
+
 namespace kfx {
 KeyboardInputPeripheral::KeyboardInputPeripheral(Window& window) {
   window.setKeyCallback(key_callback);
@@ -13,15 +15,43 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
   Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
 
   ObserverArgument arg;
-  arg.type = StandardObserverMessage::KEY_PRESSED;
+  switch (action) {
+    case GLFW_PRESS: {
+      arg.type = StandardObserverMessage::KEY_PRESSED;
+      ObserverArgumentData<KEY_PRESSED> data;
+      data.key = key;
+      data.scancode = scancode;
+      data.mods = mods;
 
-  ObserverArgumentData<KEY_PRESSED> data;
-  data.key = key;
-  data.scancode = scancode;
-  data.mods = mods;
+      arg.data = &data;
+      engine->getKeyboardInputPeripheral().notify(arg);
+      break;
+    }
+    case GLFW_REPEAT: {
+      arg.type = StandardObserverMessage::KEY_REPEAT;
+      ObserverArgumentData<KEY_REPEAT> data;
+      data.key = key;
+      data.scancode = scancode;
+      data.mods = mods;
 
-  arg.data = &data;
+      arg.data = &data;
+      engine->getKeyboardInputPeripheral().notify(arg);
+      break;
+    }
+    case GLFW_RELEASE: {
+      arg.type = StandardObserverMessage::KEY_RELEASED;
+      ObserverArgumentData<KEY_RELEASED> data;
+      data.key = key;
+      data.scancode = scancode;
+      data.mods = mods;
 
-  engine->getKeyboardInputPeripheral().notify(arg);
+      arg.data = &data;
+      engine->getKeyboardInputPeripheral().notify(arg);
+      break;
+    }
+    default:
+      // This code should never run
+      kfx_abort();
+  }
 }
 }
