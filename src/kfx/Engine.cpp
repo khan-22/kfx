@@ -4,7 +4,7 @@ namespace kfx {
 Engine::Engine(Window& window)
     : m_window(window),
       m_game_object_factory(m_mesh_manager, m_shader_manager),
-      m_keyboard_input_manager(window) {
+      m_keyboard_input_manager(m_message_box, window) {
   m_window.setGLFWUserData(this);
 }
 
@@ -24,8 +24,12 @@ void Engine::render() {
   // ...
 }
 
-GameObjectFactory& Engine::getGameObjectFactory() {
-  return m_game_object_factory;  // <-
+Window& Engine::getWindow() {
+  return m_window;  // <-
+}
+
+MessageBox& Engine::getMessageBox() {
+  return m_message_box;  // <-
 }
 
 MeshManager& Engine::getMeshManager() {
@@ -40,7 +44,7 @@ KeyboardInputPeripheral& Engine::getKeyboardInputPeripheral() {
   return m_keyboard_input_manager;  // <-
 }
 
-Window& Engine::getWindow() {
-  return m_window;  // <-
+GameObjectFactory& Engine::getGameObjectFactory() {
+  return m_game_object_factory;  // <-
 }
 }

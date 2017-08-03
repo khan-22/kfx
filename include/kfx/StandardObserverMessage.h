@@ -6,6 +6,7 @@
 #ifndef STANDARD_OBSERVER_MESSAGE_H
 #define STANDARD_OBSERVER_MESSAGE_H
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 /*
@@ -26,10 +27,6 @@ namespace StandardObserverMessage {
 enum Type {
   TEST1,  // Test messages, may be removed at some other point
   TEST2,  // Test messages, may be removed at some other point
-
-  KEY_PRESSED,
-  KEY_REPEAT,
-  KEY_RELEASED,
 
   CUSTOM_MESSAGE_EXTENSION
 };
@@ -56,39 +53,6 @@ OBSERVER_ARGUMENT_DATA(StandardObserverMessage::TEST1) { int a; };
 OBSERVER_ARGUMENT_DATA(StandardObserverMessage::TEST2) {
   int a;
   int b;
-};
-
-OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_PRESSED) {
-  int key;
-  int scancode;
-  int mods;
-
-  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
-  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
-  bool altPressed() { return mods & GLFW_MOD_ALT; }
-  bool superPressed() { return mods & GLFW_MOD_SUPER; }
-};
-
-OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_REPEAT) {
-  int key;
-  int scancode;
-  int mods;
-
-  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
-  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
-  bool altPressed() { return mods & GLFW_MOD_ALT; }
-  bool superPressed() { return mods & GLFW_MOD_SUPER; }
-};
-
-OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_RELEASED) {
-  int key;
-  int scancode;
-  int mods;
-
-  bool shiftPressed() { return mods & GLFW_MOD_SHIFT; }
-  bool ctrlPressed() { return mods & GLFW_MOD_CONTROL; }
-  bool altPressed() { return mods & GLFW_MOD_ALT; }
-  bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 }
 

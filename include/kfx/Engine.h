@@ -9,6 +9,8 @@
 #include <memory>
 #include <vector>
 
+#include "kfx/MessageBox.h"
+
 #include "kfx/GameObjectFactory.h"
 
 #include "kfx/system/System.h"
@@ -34,6 +36,8 @@ class Engine {
 
   Window& getWindow();
 
+  MessageBox& getMessageBox();
+
   MeshManager& getMeshManager();
   ShaderManager& getShaderManager();
 
@@ -46,6 +50,9 @@ class Engine {
 
   // "Outside" references
   Window& m_window;
+
+  // Message Box
+  MessageBox m_message_box;
 
   // Resource managers
   MeshManager m_mesh_manager;

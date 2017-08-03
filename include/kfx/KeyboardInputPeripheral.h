@@ -9,14 +9,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "kfx/ObservableSubject.h"
-#include "kfx/ObserverInterface.h"
+#include "kfx/InputPeripheral.h"
 #include "kfx/Window.h"
 
 namespace kfx {
-class KeyboardInputPeripheral : public ObservableSubject {
+class KeyboardInputPeripheral : public InputPeripheral {
  public:
-  KeyboardInputPeripheral(Window &window);
+  KeyboardInputPeripheral(MessageBox &message_box, Window &window);
 
  private:
   static void key_callback(GLFWwindow *window, int key, int scancode,
