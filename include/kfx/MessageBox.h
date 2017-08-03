@@ -6,35 +6,38 @@
 #define MESSAGE_BOX_H
 
 //#include "kfx/Listener.h"
-#include "kfx/Message.h"
+#include "kfx/StandardEventMessage.h"
 
 #include <array>
+#include <memory>
 #include <queue>
 #include <vector>
 
 namespace kfx {
 
 // Forward declaration necessary to avoid cycle
-class Listener;
+struct MessageArgument;
+class EventListener;
 
 class MessageBox {
  public:
   // Register a listener object for a specific type of message
-  void registerListener(Listener* listener, Message::Type type);
+  void registerListener(EventListener* listener,
+                        StandardEventMessage::Type type);
 
   // Unregister a listener object for all types of messages
-  void unregisterListener(Listener* listener);
+  void unregisterListener(EventListener* listener);
 
   // Post a message to the queue
-  void postMessage(Message message);
+  void postMessage(MessageArgument& message);
 
   // Empty the queue by distributing the messages to all relevant parties
   void distributeMessages();
 
  private:
-  std::queue<Message> m_message_queue;
+  std::queue<MessageArgument> m_message_queue;
 
-  std::array<std::vector<Listener*>, Message::Type::NUM_TYPES>
+  std::array<std::vector<EventListener*>, StandardEventMessage::NUM_TYPES>
       m_registered_listeners;
 };
 }
