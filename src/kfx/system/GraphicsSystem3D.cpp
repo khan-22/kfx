@@ -1,5 +1,6 @@
 #include "kfx/system/GraphicsSystem3D.h"
 
+#include "kfx/Assert.h"
 #include "kfx/Engine.h"
 
 // TEMPORARY!!
@@ -7,12 +8,17 @@
 #include <iostream>
 
 namespace kfx {
-GraphicsSystem3D::GraphicsSystem3D(Engine* engine) : System(engine) {
+GraphicsSystem3D::GraphicsSystem3D(MessageBox& message_box, Engine* engine)
+    : System(engine), EventListener(message_box), m_total_time(0.f) {
   // ...
+
+  m_message_box.registerListener(this, StandardEventMessage::KEY_ACTION);
 }
 
 GraphicsSystem3D::~GraphicsSystem3D() {
   // ...
+
+  m_message_box.unregisterListener(this);
 }
 
 void GraphicsSystem3D::update(float dt) {
@@ -48,16 +54,15 @@ void GraphicsSystem3D::update(float dt) {
     Mesh* mesh = meshes.getResourceEntry(mesh_component->mesh_handle);
     Shader* shader = shaders.getResourceEntry(mesh_component->shader_handle);
 
-    static float total_time = 0.f;
-    total_time += 0.05f;
+    m_total_time += 0.05f;
     // glm::vec3 point_at =
-    //     glm::vec3(sinf(total_time) * 2.f, sinf(total_time / 4.f) * 2.f,
-    //               cosf(total_time) * 2.f);
+    //     glm::vec3(sinf(m_total_time) * 2.f, sinf(m_total_time / 4.f) * 2.f,
+    //               cosf(m_total_time) * 2.f);
     glm::vec3 point_at =
-        glm::vec3(sinf(total_time) * 2.f, 0.f, cosf(total_time) * 2.f);
+        glm::vec3(sinf(m_total_time) * 2.f, 0.f, cosf(m_total_time) * 2.f);
 
     transform_component->setPosition(glm::vec3(
-        sinf(total_time / 3.f) * 4.f, 0.f, cosf(total_time / 3.f) * 4.f));
+        sinf(m_total_time / 3.f) * 4.f, 0.f, cosf(m_total_time / 3.f) * 4.f));
     transform_component->lookAt(point_at, glm::vec3(0.f, 1.f, 0.f));
     glm::mat4 MVP = transform_component->getModel();
 
@@ -87,6 +92,21 @@ void GraphicsSystem3D::update(float dt) {
     // glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
     glDrawElements(GL_TRIANGLES, mesh->draw_count, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+  }
+}
+
+void GraphicsSystem3D::tell(MessageArgument& arg) {
+  kfx_contract(arg.type == StandardEventMessage::KEY_ACTION);
+
+  auto* data =
+      reinterpret_cast<EventArgumentData<StandardEventMessage::KEY_ACTION>*>(
+          arg.data.get());
+
+  switch (data->action) {
+    case GLFW_PRESS: {
+      m_total_time = 0.f;
+      break;
+    }
   }
 }
 }

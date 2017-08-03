@@ -11,10 +11,12 @@ Engine::Engine(Window& window)
 void Engine::init() {
   // ...
 
-  m_systems.push_back(std::make_unique<GraphicsSystem3D>(this));
+  m_systems.push_back(std::make_unique<GraphicsSystem3D>(m_message_box, this));
 }
 
 void Engine::update(float dt) {
+  m_message_box.distributeMessages();
+
   for (auto& system : m_systems) {
     system->update(dt);
   }
