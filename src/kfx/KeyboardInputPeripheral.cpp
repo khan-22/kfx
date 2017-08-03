@@ -18,7 +18,7 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
   switch (action) {
     case GLFW_PRESS: {
       arg.type = StandardObserverMessage::KEY_PRESSED;
-      ObserverArgumentData<KEY_PRESSED> data;
+      ObserverArgumentData<StandardObserverMessage::KEY_PRESSED> data;
       data.key = key;
       data.scancode = scancode;
       data.mods = mods;
@@ -29,7 +29,7 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
     }
     case GLFW_REPEAT: {
       arg.type = StandardObserverMessage::KEY_REPEAT;
-      ObserverArgumentData<KEY_REPEAT> data;
+      ObserverArgumentData<StandardObserverMessage::KEY_REPEAT> data;
       data.key = key;
       data.scancode = scancode;
       data.mods = mods;
@@ -40,7 +40,7 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
     }
     case GLFW_RELEASE: {
       arg.type = StandardObserverMessage::KEY_RELEASED;
-      ObserverArgumentData<KEY_RELEASED> data;
+      ObserverArgumentData<StandardObserverMessage::KEY_RELEASED> data;
       data.key = key;
       data.scancode = scancode;
       data.mods = mods;

@@ -15,12 +15,16 @@ class TestObserver : public ObserverInterface {
   void onNotify(ObserverArgument arg) final override {
     switch (arg.type) {
       case StandardObserverMessage::TEST1: {
-        auto data = static_cast<ObserverArgumentData<TEST1>*>(arg.data);
+        auto data =
+            static_cast<ObserverArgumentData<StandardObserverMessage::TEST1>*>(
+                arg.data);
         m_counter += data->a;
         break;
       }
       case StandardObserverMessage::TEST2: {
-        auto data = static_cast<ObserverArgumentData<TEST2>*>(arg.data);
+        auto data =
+            static_cast<ObserverArgumentData<StandardObserverMessage::TEST2>*>(
+                arg.data);
         m_counter += data->a + data->b;
         break;
       }

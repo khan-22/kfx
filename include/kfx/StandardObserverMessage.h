@@ -1,5 +1,5 @@
-/* (C) Karl Hansson 2017 */
 /*************************/
+/* (C) Karl Hansson 2017 */
 /*************************/
 #pragma once
 
@@ -22,7 +22,8 @@
 */
 
 namespace kfx {
-enum StandardObserverMessage {
+namespace StandardObserverMessage {
+enum Type {
   TEST1,  // Test messages, may be removed at some other point
   TEST2,  // Test messages, may be removed at some other point
 
@@ -32,7 +33,7 @@ enum StandardObserverMessage {
 
   CUSTOM_MESSAGE_EXTENSION
 };
-
+}
 /*
   By using templates I can allow users to gain
   data in a more standardized way.
@@ -43,21 +44,21 @@ enum StandardObserverMessage {
   where MESSAGE_ENUM is the message type they expected / recieved.
 */
 
-template <StandardObserverMessage T>
+template <StandardObserverMessage::Type T>
 struct ObserverArgumentData {};
 
 #define OBSERVER_ARGUMENT_DATA(enum) \
-  template <>               \
+  template <>                        \
   struct ObserverArgumentData<enum>
 
-OBSERVER_ARGUMENT_DATA(TEST1) { int a; };
+OBSERVER_ARGUMENT_DATA(StandardObserverMessage::TEST1) { int a; };
 
-OBSERVER_ARGUMENT_DATA(TEST2) {
+OBSERVER_ARGUMENT_DATA(StandardObserverMessage::TEST2) {
   int a;
   int b;
 };
 
-OBSERVER_ARGUMENT_DATA(KEY_PRESSED) {
+OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_PRESSED) {
   int key;
   int scancode;
   int mods;
@@ -68,7 +69,7 @@ OBSERVER_ARGUMENT_DATA(KEY_PRESSED) {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
-OBSERVER_ARGUMENT_DATA(KEY_REPEAT) {
+OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_REPEAT) {
   int key;
   int scancode;
   int mods;
@@ -79,7 +80,7 @@ OBSERVER_ARGUMENT_DATA(KEY_REPEAT) {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
-OBSERVER_ARGUMENT_DATA(KEY_RELEASED) {
+OBSERVER_ARGUMENT_DATA(StandardObserverMessage::KEY_RELEASED) {
   int key;
   int scancode;
   int mods;
