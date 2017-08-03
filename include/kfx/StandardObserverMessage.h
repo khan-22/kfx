@@ -1,5 +1,5 @@
-/*************************/
 /* (C) Karl Hansson 2017 */
+/*************************/
 /*************************/
 #pragma once
 
@@ -46,18 +46,18 @@ enum StandardObserverMessage {
 template <StandardObserverMessage T>
 struct ObserverArgumentData {};
 
-#define ARGUMENT_DATA(enum) \
+#define OBSERVER_ARGUMENT_DATA(enum) \
   template <>               \
   struct ObserverArgumentData<enum>
 
-ARGUMENT_DATA(TEST1) { int a; };
+OBSERVER_ARGUMENT_DATA(TEST1) { int a; };
 
-ARGUMENT_DATA(TEST2) {
+OBSERVER_ARGUMENT_DATA(TEST2) {
   int a;
   int b;
 };
 
-ARGUMENT_DATA(KEY_PRESSED) {
+OBSERVER_ARGUMENT_DATA(KEY_PRESSED) {
   int key;
   int scancode;
   int mods;
@@ -68,7 +68,7 @@ ARGUMENT_DATA(KEY_PRESSED) {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
-ARGUMENT_DATA(KEY_REPEAT) {
+OBSERVER_ARGUMENT_DATA(KEY_REPEAT) {
   int key;
   int scancode;
   int mods;
@@ -79,7 +79,7 @@ ARGUMENT_DATA(KEY_REPEAT) {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
-ARGUMENT_DATA(KEY_RELEASED) {
+OBSERVER_ARGUMENT_DATA(KEY_RELEASED) {
   int key;
   int scancode;
   int mods;
