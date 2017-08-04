@@ -62,13 +62,21 @@ int main() {
 
   window.setClearColor(0.f, 0.f, 0.f);
 
+  double previous_time = glfwGetTime();
   while (window.isOpen()) {
-    window.clear();
-    my_test.update(0.1f);
-    my_test.render();
-    window.swapBuffers();
+    double current_time = glfwGetTime();
+    double dt = current_time - previous_time;
 
-    glfwPollEvents();
+    my_test.update(static_cast<float>(dt));
+    my_test.render();
+
+    static int counter = 0;
+    if (counter++ == 60) {
+      std::cout << 1.0 / dt << std::endl;
+      counter = 0;
+    }
+
+    previous_time = current_time;
   }
 
   std::cin.ignore();

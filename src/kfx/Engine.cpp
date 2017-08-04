@@ -4,7 +4,8 @@ namespace kfx {
 Engine::Engine(Window& window)
     : m_window(window),
       m_game_object_factory(m_mesh_manager, m_shader_manager),
-      m_keyboard_input_manager(m_message_box, window) {
+      m_keyboard_input_manager(m_message_box, window),
+      m_renderer3d(m_message_box, *this) {
   m_window.setGLFWUserData(this);
 }
 
@@ -20,10 +21,17 @@ void Engine::update(float dt) {
   for (auto& system : m_systems) {
     system->update(dt);
   }
+
+  m_message_box.distributeMessages();
 }
 
 void Engine::render() {
   // ...
+  m_window.clear();
+
+  m_renderer3d.render();
+
+  m_window.swapBuffers();
 }
 
 Window& Engine::getWindow() {

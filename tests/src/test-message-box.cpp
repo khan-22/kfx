@@ -36,10 +36,10 @@ SCENARIO("Sending messages over a message box", "[message]") {
   kfx::MessageBox message_box;
 
   GIVEN("A debug message listener") {
-    kfx::MessageArgument debug_message(kfx::StandardEventMessage::TEST1);
-    auto* data = reinterpret_cast<
-        kfx::EventArgumentData<kfx::StandardEventMessage::TEST1>*>(
-        debug_message.data.get());
+    kfx::MessageArgument debug_message;
+    debug_message.init<kfx::StandardEventMessage::TEST1>();
+    auto* data =
+        debug_message.getDataPointer<kfx::StandardEventMessage::TEST1>();
 
     data->message = "...";
 
@@ -54,10 +54,10 @@ SCENARIO("Sending messages over a message box", "[message]") {
     }
 
     WHEN("sending a non-debug message") {
-      kfx::MessageArgument test_message(kfx::StandardEventMessage::TEST2);
-      auto* data = reinterpret_cast<
-          kfx::EventArgumentData<kfx::StandardEventMessage::TEST2>*>(
-          test_message.data.get());
+      kfx::MessageArgument test_message;
+      test_message.init<kfx::StandardEventMessage::TEST2>();
+      auto* data =
+          test_message.getDataPointer<kfx::StandardEventMessage::TEST2>();
 
       data->message = "...";
 

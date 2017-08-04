@@ -17,15 +17,15 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
                                            int scancode, int action, int mods) {
   Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
 
-  MessageArgument message(StandardEventMessage::KEY_ACTION);
-  auto* data =
-      reinterpret_cast<EventArgumentData<StandardEventMessage::KEY_ACTION>*>(
-          message.data.get());
+  MessageArgument arg;
+  arg.init<StandardEventMessage::KEY_ACTION>();
+  auto* data = arg.getDataPointer<StandardEventMessage::KEY_ACTION>();
+
   data->action = action;
   data->key = key;
   data->scancode = scancode;
   data->mods = mods;
 
-  engine->getMessageBox().postMessage(message);
+  engine->getMessageBox().postMessage(arg);
 }
 }

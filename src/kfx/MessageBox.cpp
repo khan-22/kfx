@@ -37,13 +37,14 @@ void MessageBox::postMessage(MessageArgument& message) {
 
 void MessageBox::distributeMessages() {
   while (!m_message_queue.empty()) {
-    MessageArgument current_message = std::move(m_message_queue.front());
-    m_message_queue.pop();
+    MessageArgument& current_message = m_message_queue.front();
 
     for (auto registered_listener :
          m_registered_listeners[current_message.type]) {
       registered_listener->tell(current_message);
     }
+
+    m_message_queue.pop();
   }
 }
 }

@@ -50,6 +50,8 @@ add_library(
   
   system/GraphicsSystem3D.cpp
   system/System.cpp
+  
+  graphics/Renderer3D.cpp
 )
 
 

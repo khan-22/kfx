@@ -23,6 +23,8 @@
 #include "kfx/KeyboardInputPeripheral.h"
 #include "kfx/Window.h"
 
+#include "kfx/graphics/Renderer3D.h"
+
 namespace kfx {
 class Engine {
  public:
@@ -63,6 +65,9 @@ class Engine {
 
   // Factory
   GameObjectFactory m_game_object_factory;
+
+  // Rendering
+  Renderer3D m_renderer3d;
 };
 }
 #endif  // ENGINE_H
