@@ -1,11 +1,11 @@
-prefix=/usr/storage/projects/kfx
+prefix=C:/Program Files (x86)/kfx
 exec_prefix=${prefix}
-libdir=/usr/storage/projects/kfx/lib
+libdir=C:/Program Files (x86)/kfx/lib
 includedir=${prefix}/include
 
 Name: glew
 Description: The OpenGL Extension Wrangler library
 Version: 2.0.0
 Cflags: -I${includedir} 
-Libs: -L${libdir} -lGLEW
+Libs: -L${libdir} -lglew32
 Requires: glu
