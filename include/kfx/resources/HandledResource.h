@@ -44,11 +44,17 @@ void HandledResource<T>::validate_handles() {
 
 template <typename T>
 Handle HandledResource<T>::addResourceEntry() {
+  // Try to get a handle before filling it with a new
+  // resource...
+  Handle new_handle = m_handle_manager.addEntry(nullptr);
+  if (new_handle == Handle::NULL_HANDLE) {
+    return Handle::NULL_HANDLE;
+  }
+
   resource.emplace_back();
   Resource<T>& new_resource = resource.back();
-
-  Handle new_handle = m_handle_manager.addEntry(&new_resource);
-	new_resource.handle = new_handle;
+  m_handle_manager.updateEntry(new_handle, &new_resource);
+  new_resource.handle = new_handle;
 
   validate_handles();
   return new_handle;

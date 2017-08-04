@@ -31,7 +31,7 @@ class GameObjectFactory {
   Handle addComponent(Handle game_object_handle, ComponentType component_type);
   void removeComponent(Handle game_object_handle, ComponentType component_type);
 
- private:
+ protected:
   HandledResource<GameObject> m_game_objects;
 
   HandledResource<TransformComponent> m_transform_components;

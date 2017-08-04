@@ -1,0 +1,31 @@
+Components that may be needed:
+
+MeshComponent:
+  ABOUT:
+  A component which "renders" a mesh with a specific
+  material (shader+texture).
+  It only sends the request for the mesh to be drawn
+  to the renderer.
+  HOW?:
+    Observer?
+      It shouldn't necessarily be immediate, but
+      the renderer could still queue up requests.
+      There is a somewhat nice decoupling by not using
+      a direct reference...
+      Question is if the observer pattern helps here, or 
+      if a message box should be used...
+  
+CameraComponent:
+  ABOUT:
+  A component which specifies a viewport onto which
+  the scene will be rendered. It only sends a request
+  to the renderer.
+  
+FpsControlComponent:
+  ABOUT:
+  The object looks around with the mouse, and moves in the
+  direction of where the user looks with the WASD keys.
+
+
+    
+
