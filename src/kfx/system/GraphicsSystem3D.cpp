@@ -54,7 +54,7 @@ void GraphicsSystem3D::update(float dt) {
     // Mesh* mesh = meshes.getResourceEntry(mesh_component->mesh_handle);
     // Shader* shader = shaders.getResourceEntry(mesh_component->shader_handle);
 
-    m_total_time += 0.05f;
+    m_total_time += 6.28f * dt;
     glm::vec3 point_at =
         glm::vec3(sinf(m_total_time) * 2.f, 0.f, cosf(m_total_time) * 2.f);
 
