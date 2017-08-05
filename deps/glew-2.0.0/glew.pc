@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 prefix=C:/Program Files (x86)/kfx
 exec_prefix=${prefix}
 libdir=C:/Program Files (x86)/kfx/lib
-=======
-prefix=/usr/local
-exec_prefix=${prefix}
-libdir=/usr/local/lib
->>>>>>> 30d2df965dcca694d7ad6c01d83d169cc92fa17c
 includedir=${prefix}/include
 
 Name: glew
