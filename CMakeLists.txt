@@ -32,6 +32,9 @@ add_subdirectory(deps/glfw)
 # Glew dependency
 add_subdirectory(deps/glew-2.0.0/build/cmake)
 
+# lodepng
+add_subdirectory(deps/lodepng)
+
 # The main source code of the library
 add_subdirectory(src/kfx)
 
