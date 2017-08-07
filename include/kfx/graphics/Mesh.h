@@ -14,7 +14,6 @@
 
 namespace kfx {
 struct Mesh {
- public:
   enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
 
   std::vector<Vertex3D> vertices;
