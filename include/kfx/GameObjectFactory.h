@@ -13,13 +13,15 @@
 
 #include "kfx/resources/MeshManager.h"
 #include "kfx/resources/ShaderManager.h"
+#include "kfx/resources/TextureManager.h"
 
 #include "kfx/resources/HandledResource.h"
 
 namespace kfx {
 class GameObjectFactory {
  public:
-  GameObjectFactory(MeshManager& mesh_manager, ShaderManager& shader_manager);
+  GameObjectFactory(MeshManager& mesh_manager, ShaderManager& shader_manager,
+                    TextureManager& texture_manager);
 
   Handle createTestObject();
 
@@ -39,6 +41,7 @@ class GameObjectFactory {
 
   MeshManager& m_mesh_manager;
   ShaderManager& m_shader_manager;
+  TextureManager& m_texture_manager;
 };
 }
 #endif  // GAME_OBJECT_FACTORY_H

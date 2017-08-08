@@ -13,8 +13,9 @@
 namespace kfx {
 class TestFactory : public GameObjectFactory {
  public:
-  TestFactory(MeshManager& mesh_manager, ShaderManager& shader_manager)
-      : GameObjectFactory(mesh_manager, shader_manager) {}
+  TestFactory(MeshManager& mesh_manager, ShaderManager& shader_manager,
+              TextureManager& texture_manager)
+      : GameObjectFactory(mesh_manager, shader_manager, texture_manager) {}
 
   Handle createUnitTestObject() {
     // ...
@@ -33,7 +34,9 @@ SCENARIO("Creating a test object", "[factory]") {
   GIVEN("A(n implementation of) GameObjectFactory") {
     kfx::MeshManager mesh_manager;
     kfx::ShaderManager shader_manager;
-    kfx::TestFactory factory = kfx::TestFactory(mesh_manager, shader_manager);
+    kfx::TextureManager texture_manager;
+    kfx::TestFactory factory =
+        kfx::TestFactory(mesh_manager, shader_manager, texture_manager);
     WHEN("creating a unit test object") {
       kfx::Handle handle = factory.createUnitTestObject();
 
