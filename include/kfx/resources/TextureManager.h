@@ -24,6 +24,8 @@ class TextureManager final {
 
   Handle getTextureByName(const std::string name);
 
+  HandledResource<Texture>& getTextures();
+
  private:
   std::unordered_map<std::string, Handle> m_name_to_handle_map;
 

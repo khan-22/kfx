@@ -35,4 +35,6 @@ Handle TextureManager::getTextureByName(const std::string name) {
     return Handle::NULL_HANDLE;
   }
 }
+
+HandledResource<Texture>& TextureManager::getTextures() { return m_textures; }
 }
