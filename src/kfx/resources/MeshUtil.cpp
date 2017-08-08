@@ -19,6 +19,8 @@ Mesh meshFromData(const std::vector<Vertex3D>& vertices,
   glBindVertexArray(mesh.vertex_array_object);
 
   glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);
 
   glGenBuffers(Mesh::NUM_BUFFERS, mesh.vertex_buffer_objects);
 
@@ -28,6 +30,10 @@ Mesh meshFromData(const std::vector<Vertex3D>& vertices,
                vertices.data(), GL_STATIC_DRAW);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), 0);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex3D),
+                        (void*)offsetof(Vertex3D, uv));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D),
+                        (void*)offsetof(Vertex3D, normal));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
                mesh.vertex_buffer_objects[Mesh::INDEX_BUFFER]);
