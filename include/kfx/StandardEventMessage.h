@@ -84,6 +84,7 @@ EVENT_ARGUMENT_DATA(StandardEventMessage::RENDER_MESH) {
   glm::mat4 model_transform;
   Handle mesh;
   Handle shader;
+  Handle texture;
 };
 }
 

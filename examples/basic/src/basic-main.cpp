@@ -18,14 +18,14 @@ class MyTest : public kfx::Engine {
 
     std::vector<kfx::Vertex3D> vertices = {
         {{-1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{-1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 1.f, -1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 1.f, -1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, -1.f, -1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
 
         {{-1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{-1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 1.f, 1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 1.f, 1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, -1.f, 1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
     };
     std::vector<GLuint> indices = {
         0, 1, 2, 0, 2, 3,  // Front
@@ -39,6 +39,8 @@ class MyTest : public kfx::Engine {
     m_mesh_manager.loadMeshFromMemory("test", vertices, indices);
 
     m_shader_manager.loadShaderFromFile("./res/shaders/basic");
+
+    m_texture_manager.loadTextureFromFile("./res/textures/test");
 
     m_game_object_factory.createTestObject();
   }

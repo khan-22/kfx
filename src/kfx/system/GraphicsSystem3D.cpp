@@ -70,6 +70,7 @@ void GraphicsSystem3D::update(float dt) {
     data->model_transform = transform_component->getModel();
     data->mesh = mesh_component->mesh_handle;
     data->shader = mesh_component->shader_handle;
+    data->texture = mesh_component->texture_handle;
 
     m_message_box.postMessage(arg);
 

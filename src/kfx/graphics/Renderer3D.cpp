@@ -10,6 +10,8 @@ Renderer3D::Renderer3D(MessageBox& message_box, Engine& engine)
     : EventListener(message_box), m_engine(engine) {
   //
   m_message_box.registerListener(this, StandardEventMessage::RENDER_MESH);
+
+  glEnable(GL_DEPTH_TEST);
 }
 
 Renderer3D::~Renderer3D() {
@@ -29,6 +31,7 @@ void Renderer3D::tell(MessageArgument& arg) {
   draw_call.model_transform = data->model_transform;
   draw_call.mesh = data->mesh;
   draw_call.shader = data->shader;
+  draw_call.texture = data->texture;
   m_draw_calls.push_back(draw_call);
 }
 
@@ -36,6 +39,7 @@ void Renderer3D::render() {
   //
   auto& mesh_manager = m_engine.getMeshManager();
   auto& shader_manager = m_engine.getShaderManager();
+  auto& texture_manager = m_engine.getTextureManager();
 
   for (auto& draw_call : m_draw_calls) {
     //
@@ -44,6 +48,9 @@ void Renderer3D::render() {
 
     Mesh* current_mesh =
         mesh_manager.getMeshes().getResourceEntry(draw_call.mesh);
+
+    Texture* current_texture =
+        texture_manager.getTextures().getResourceEntry(draw_call.texture);
 
     glUseProgram(current_shader->program);
 
@@ -56,6 +63,10 @@ void Renderer3D::render() {
     GLuint MVP_location =
         glGetUniformLocation(current_shader->program, "u_MVP");
     glUniformMatrix4fv(MVP_location, 1, GL_FALSE, &MVP[0][0]);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, current_texture->texture);
+    glUniform1i(glGetUniformLocation(current_shader->program, "u_diffuse"), 0);
 
     glBindVertexArray(current_mesh->vertex_array_object);
     glDrawElements(GL_TRIANGLES, current_mesh->draw_count, GL_UNSIGNED_INT, 0);
