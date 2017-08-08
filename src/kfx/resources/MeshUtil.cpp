@@ -12,7 +12,7 @@ Mesh meshFromData(const std::vector<Vertex3D>& vertices,
   kfx_contract(indices.size() > 0);
   // ...
   Mesh mesh;
-  mesh.vertices = vertices;
+  //  mesh.vertices = vertices;
   mesh.draw_count = indices.size();
 
   glGenVertexArrays(1, &mesh.vertex_array_object);

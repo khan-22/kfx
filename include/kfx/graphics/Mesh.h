@@ -16,7 +16,7 @@ namespace kfx {
 struct Mesh {
   enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
 
-  std::vector<Vertex3D> vertices;
+  // std::vector<Vertex3D> vertices;
 
   GLuint draw_count;
 
