@@ -33,10 +33,9 @@ SCENARIO("Adding a mesh to the mesh manager", "[mesh]") {
     std::vector<GLuint> indices = {0, 1, 2};
 
     WHEN("being loaded into the mesh manager") {
+      kfx::Handle mesh_handle =
+          mesh_manager.loadMeshFromMemory("test", vertices, indices);
       THEN("a valid handle to the mesh object is returned") {
-        kfx::Handle mesh_handle =
-            mesh_manager.loadMeshFromMemory("test", vertices, indices);
-
         REQUIRE(mesh_handle.m_is_initialized == true);
 
         kfx::Mesh* mesh =
@@ -52,6 +51,53 @@ SCENARIO("Adding a mesh to the mesh manager", "[mesh]") {
           auto& meshes = mesh_manager.getMeshes();
 
           REQUIRE(meshes.resource.size() == 1);
+        }
+      }
+
+      AND_WHEN("more meshes are loaded into the mesh manager") {
+        kfx::Handle mesh_handle_2 =
+            mesh_manager.loadMeshFromMemory("test2", vertices, indices);
+        kfx::Handle mesh_handle_3 =
+            mesh_manager.loadMeshFromMemory("test3", vertices, indices);
+        kfx::Handle mesh_handle_4 =
+            mesh_manager.loadMeshFromMemory("test4", vertices, indices);
+
+        THEN("they all remain valid") {
+          REQUIRE(mesh_handle.m_is_initialized == true);
+          REQUIRE(mesh_handle_2.m_is_initialized == true);
+          REQUIRE(mesh_handle_3.m_is_initialized == true);
+          REQUIRE(mesh_handle_4.m_is_initialized == true);
+
+          kfx::Mesh* mesh =
+              mesh_manager.getMeshes().getResourceEntry(mesh_handle);
+          kfx::Mesh* mesh_2 =
+              mesh_manager.getMeshes().getResourceEntry(mesh_handle_2);
+          kfx::Mesh* mesh_3 =
+              mesh_manager.getMeshes().getResourceEntry(mesh_handle_3);
+          kfx::Mesh* mesh_4 =
+              mesh_manager.getMeshes().getResourceEntry(mesh_handle_4);
+
+          REQUIRE(glIsVertexArray(mesh->vertex_array_object) == GL_TRUE);
+          REQUIRE(glIsVertexArray(mesh_2->vertex_array_object) == GL_TRUE);
+          REQUIRE(glIsVertexArray(mesh_3->vertex_array_object) == GL_TRUE);
+          REQUIRE(glIsVertexArray(mesh_4->vertex_array_object) == GL_TRUE);
+          for (int i = 0; i < kfx::Mesh::NUM_BUFFERS; i++) {
+            REQUIRE(glIsBuffer(mesh->vertex_buffer_objects[i]) == GL_TRUE);
+            REQUIRE(glIsBuffer(mesh_2->vertex_buffer_objects[i]) == GL_TRUE);
+            REQUIRE(glIsBuffer(mesh_3->vertex_buffer_objects[i]) == GL_TRUE);
+            REQUIRE(glIsBuffer(mesh_4->vertex_buffer_objects[i]) == GL_TRUE);
+          }
+
+          REQUIRE(mesh->draw_count > 0);
+          REQUIRE(mesh_2->draw_count > 0);
+          REQUIRE(mesh_3->draw_count > 0);
+          REQUIRE(mesh_4->draw_count > 0);
+
+          AND_THEN("the meshes are added to the array of meshes") {
+            auto& meshes = mesh_manager.getMeshes();
+
+            REQUIRE(meshes.resource.size() == 4);
+          }
         }
       }
     }

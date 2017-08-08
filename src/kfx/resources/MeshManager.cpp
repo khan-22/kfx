@@ -24,13 +24,13 @@ Handle MeshManager::loadMeshFromMemory(const std::string name,
   // Place the new mesh into the array of meshes
   // m_meshes.emplace_back();
   // Mesh& mesh = m_meshes.back();
-  Handle mesh_handle = m_meshes.addResourceEntry();
+  Handle mesh_handle = m_meshes.addResourceEntry(vertices, indices);
   if (mesh_handle == Handle::NULL_HANDLE) {
     return Handle::NULL_HANDLE;
   }
 
-  Mesh* mesh = m_meshes.getResourceEntry(mesh_handle);
-  *mesh = util::meshFromData(vertices, indices);
+  // Mesh* mesh = m_meshes.getResourceEntry(mesh_handle);
+  // *mesh = util::meshFromData(vertices, indices);
 
   // Create a new handle to the resources
   // Handle mesh_handle = m_mesh_handle_manager.addEntry(&mesh);

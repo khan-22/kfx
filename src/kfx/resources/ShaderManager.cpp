@@ -31,10 +31,11 @@ Handle ShaderManager::loadShaderFromFile(const std::string path) {
   GLuint fragment_shader =
       util::shaderStageFromData(fragment_shader_source, GL_FRAGMENT_SHADER);
 
-  Handle shader_handle = m_shaders.addResourceEntry();
-  Shader* shader = m_shaders.getResourceEntry(shader_handle);
-  *shader = util::shaderProgramFromStages(vertex_shader, geometry_shader,
-                                          fragment_shader);
+  Handle shader_handle = m_shaders.addResourceEntry(
+      vertex_shader, geometry_shader, fragment_shader);
+  // Shader* shader = m_shaders.getResourceEntry(shader_handle);
+  //*shader = util::shaderProgramFromStages(vertex_shader, geometry_shader,
+  //                                        fragment_shader);
 
   m_name_to_handle_map[shader_name] = shader_handle;
 

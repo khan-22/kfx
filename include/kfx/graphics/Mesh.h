@@ -14,14 +14,25 @@
 
 namespace kfx {
 struct Mesh {
-  enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
+  Mesh(const std::vector<Vertex3D>& vertices,
+       const std::vector<GLuint>& indices);
+  Mesh(Mesh&& other);
+  ~Mesh();
 
+  void operator=(Mesh&& other);
+
+  enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
   // std::vector<Vertex3D> vertices;
 
   GLuint draw_count;
 
   GLuint vertex_array_object;
   GLuint vertex_buffer_objects[NUM_BUFFERS];
+
+ private:
+  // Copying is not allowed
+  Mesh(const Mesh& other) = delete;
+  void operator=(const Mesh& other) = delete;
 };
 }
 #endif  // MESH_H

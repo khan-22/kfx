@@ -13,14 +13,14 @@ Handle TextureManager::loadTextureFromFile(const std::string path) {
     return found_handle;
   }
 
-  Handle texture_handle = m_textures.addResourceEntry();
+  Image image = util::loadImage(path);
+  Handle texture_handle = m_textures.addResourceEntry(image);
   if (texture_handle == Handle::NULL_HANDLE) {
     return Handle::NULL_HANDLE;
   }
-  Image image = util::loadImage(path);
 
-  Texture* texture = m_textures.getResourceEntry(texture_handle);
-  *texture = util::textureFromImage(image);
+  // Texture* texture = m_textures.getResourceEntry(texture_handle);
+  // *texture = util::textureFromImage(image);
 
   m_name_to_handle_map[texture_name] = texture_handle;
 

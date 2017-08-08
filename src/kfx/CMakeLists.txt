@@ -54,6 +54,9 @@ add_library(
   system/System.cpp
   
   graphics/Renderer3D.cpp
+  graphics/Mesh.cpp
+  graphics/Shader.cpp
+  graphics/Texture.cpp
 )
 
 

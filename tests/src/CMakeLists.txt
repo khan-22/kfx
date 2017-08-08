@@ -6,6 +6,7 @@ add_executable(kfx_tests
 
   test-file-utilities.cpp
   test-shader-utilities.cpp
+  # test-mesh-utilities.cpp
 
   test-mesh-manager.cpp
   test-handle-manager.cpp
