@@ -47,6 +47,8 @@ add_library(
   resources/MeshUtil.cpp
   resources/ShaderManager.cpp
   resources/ShaderUtil.cpp
+  resources/TextureManager.cpp
+  resources/TextureUtil.cpp
   
   system/GraphicsSystem3D.cpp
   system/System.cpp
