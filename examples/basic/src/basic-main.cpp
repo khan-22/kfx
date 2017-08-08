@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+#include <kfx/Clock.h>
 #include <kfx/Engine.h>
 #include <kfx/Window.h>
 
@@ -64,10 +65,9 @@ int main() {
 
   window.setClearColor(0.f, 0.f, 0.f);
 
-  double previous_time = glfwGetTime();
+  kfx::Clock clock;
   while (window.isOpen()) {
-    double current_time = glfwGetTime();
-    double dt = current_time - previous_time;
+    double dt = clock.reset();
 
     my_test.update(static_cast<float>(dt));
     my_test.render();
@@ -77,8 +77,6 @@ int main() {
       std::cout << 1.0 / dt << std::endl;
       counter = 0;
     }
-
-    previous_time = current_time;
   }
 
   std::cin.ignore();

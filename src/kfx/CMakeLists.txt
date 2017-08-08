@@ -32,6 +32,7 @@ add_library(
   
   Assert.cpp
   Components.cpp
+  Clock.cpp
   Engine.cpp
   GameObject.cpp
   GameObjectFactory.cpp
