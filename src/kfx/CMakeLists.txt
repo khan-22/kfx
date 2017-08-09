@@ -58,6 +58,7 @@ add_library(
   graphics/Mesh.cpp
   graphics/Shader.cpp
   graphics/Texture.cpp
+  graphics/BasicMaterial.cpp
 )
 
 
