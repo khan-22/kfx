@@ -50,6 +50,8 @@ add_library(
   resources/ShaderUtil.cpp
   resources/TextureManager.cpp
   resources/TextureUtil.cpp
+  resources/MaterialParser.cpp
+  resources/MaterialManager.cpp
   
   system/GraphicsSystem3D.cpp
   system/System.cpp
@@ -58,7 +60,8 @@ add_library(
   graphics/Mesh.cpp
   graphics/Shader.cpp
   graphics/Texture.cpp
-  graphics/BasicMaterial.cpp
+  #graphics/BasicMaterial.cpp
+  graphics/Material.cpp
 )
 
 

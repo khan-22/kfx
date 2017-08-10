@@ -38,8 +38,9 @@ class TransformComponent final {
 class MeshComponent final {
  public:
   Handle mesh_handle;
-  Handle shader_handle;
-  Handle texture_handle;
+  Handle material_handle;
+  // Handle shader_handle;
+  // Handle texture_handle;
 
  private:
 };

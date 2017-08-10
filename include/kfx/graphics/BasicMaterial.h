@@ -7,10 +7,10 @@
 #define BASIC_MATERIAL_H
 
 #include "kfx/Handle.h"
-#include "kfx/graphics/MaterialInterface.h"
+#include "kfx/graphics/Material.h"
 
 namespace kfx {
-class BasicMaterial final : public MaterialInterface {
+class BasicMaterial final : public Material {
  public:
   BasicMaterial(ShaderManager& shader_manager, TextureManager& texture_manager);
   virtual ~BasicMaterial() final override = default;

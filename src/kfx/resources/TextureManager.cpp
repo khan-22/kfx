@@ -13,7 +13,9 @@ Handle TextureManager::loadTextureFromFile(const std::string path) {
     return found_handle;
   }
 
-  Image image = util::loadImage(path);
+  std::string extended_path = "./res/textures/" + path + ".png";
+
+  Image image = util::loadImage(extended_path);
   Handle texture_handle = m_textures.addResourceEntry(image);
   if (texture_handle == Handle::NULL_HANDLE) {
     return Handle::NULL_HANDLE;

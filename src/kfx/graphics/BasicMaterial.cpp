@@ -6,7 +6,7 @@
 namespace kfx {
 BasicMaterial::BasicMaterial(ShaderManager& shader_manager,
                              TextureManager& texture_manager)
-    : MaterialInterface(shader_manager, texture_manager) {}
+    : Material(shader_manager, texture_manager) {}
 
 void BasicMaterial::bind() {
   //

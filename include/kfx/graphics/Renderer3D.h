@@ -31,8 +31,9 @@ class Renderer3D : public EventListener {
   struct DrawCall {
     glm::mat4 model_transform;
     Handle mesh;
-    Handle shader;
-    Handle texture;
+    Handle material;
+    // Handle shader;
+    // Handle texture;
   };
   std::vector<DrawCall> m_draw_calls;
 

@@ -4,10 +4,14 @@
 /***********************************/
 
 #include <iostream>
+#include <sstream>
+#include <string>
 
 #include <kfx/Clock.h>
 #include <kfx/Engine.h>
 #include <kfx/Window.h>
+
+#include <kfx/resources/MaterialParser.h>
 
 class MyTest : public kfx::Engine {
  public:
@@ -39,9 +43,10 @@ class MyTest : public kfx::Engine {
 
     m_mesh_manager.loadMeshFromMemory("test", vertices, indices);
 
-    m_shader_manager.loadShaderFromFile("./res/shaders/basic");
+    m_shader_manager.loadShaderFromFile("basic");
+    m_texture_manager.loadTextureFromFile("test");
 
-    m_texture_manager.loadTextureFromFile("./res/textures/test");
+    m_material_manager.loadMaterialFromFile("test-material");
 
     m_game_object_factory.createTestObject();
   }
@@ -57,6 +62,14 @@ int main() {
 #else
   std::cout << "Release" << std::endl;
 #endif  // NDEBUG
+
+  //   std::string test_material = R"(Basic {
+  //   $Diffuse = "test.png";
+  // })";
+
+  //   kfx::MaterialParser parser;
+  //   std::istringstream stream(test_material);
+  //   parser.parse(stream);
 
   kfx::Window window(640, 480, "basic example");
 

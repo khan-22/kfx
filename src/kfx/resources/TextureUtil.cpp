@@ -10,10 +10,8 @@ namespace util {
 Image loadImage(std::string path) {
   Image image;
 
-  std::string file_path = path + ".png";
-
   unsigned error =
-      lodepng::decode(image.data, image.width, image.height, file_path.c_str());
+      lodepng::decode(image.data, image.width, image.height, path.c_str());
 
   kfx_contract(error == 0);
 

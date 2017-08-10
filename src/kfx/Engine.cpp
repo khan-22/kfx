@@ -3,10 +3,11 @@
 namespace kfx {
 Engine::Engine(Window& window)
     : m_window(window),
-      m_game_object_factory(m_mesh_manager, m_shader_manager,
-                            m_texture_manager),
+      m_game_object_factory(m_mesh_manager, m_shader_manager, m_texture_manager,
+                            m_material_manager),
       m_keyboard_input_manager(m_message_box, window),
-      m_renderer3d(m_message_box, *this) {
+      m_renderer3d(m_message_box, *this),
+      m_material_manager(m_shader_manager, m_texture_manager) {
   m_window.setGLFWUserData(this);
 }
 
@@ -53,6 +54,10 @@ ShaderManager& Engine::getShaderManager() {
 
 TextureManager& Engine::getTextureManager() {
   return m_texture_manager;  // <-
+}
+
+MaterialManager& Engine::getMaterialManager() {
+  return m_material_manager;  // <-
 }
 
 KeyboardInputPeripheral& Engine::getKeyboardInputPeripheral() {

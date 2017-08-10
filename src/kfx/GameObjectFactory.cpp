@@ -7,10 +7,12 @@
 namespace kfx {
 GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
                                      ShaderManager &shader_manager,
-                                     TextureManager &texture_manager)
+                                     TextureManager &texture_manager,
+                                     MaterialManager &material_manager)
     : m_mesh_manager(mesh_manager),
       m_shader_manager(shader_manager),
-      m_texture_manager(texture_manager) {
+      m_texture_manager(texture_manager),
+      m_material_manager(material_manager) {
   // ...
 }
 
@@ -31,8 +33,12 @@ Handle GameObjectFactory::createTestObject() {
 
   // Set up components
   mesh_component->mesh_handle = m_mesh_manager.getMeshByName("test");
-  mesh_component->shader_handle = m_shader_manager.getShaderByName("basic");
-  mesh_component->texture_handle = m_texture_manager.getTextureByName("test");
+  mesh_component->material_handle =
+      m_material_manager.getMaterialByName("test-material");
+  // mesh_component->shader_handle =
+  // m_shader_manager.getShaderByName("basic");
+  // mesh_component->texture_handle =
+  // m_texture_manager.getTextureByName("test");
   kfx_contract(mesh_component->mesh_handle != Handle::NULL_HANDLE);
 
   // Return object handle

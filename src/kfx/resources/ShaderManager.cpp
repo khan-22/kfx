@@ -13,9 +13,12 @@ Handle ShaderManager::loadShaderFromFile(const std::string path) {
     return found_handle;
   }
 
-  std::string vertex_shader_path = path + "/" + shader_name + ".vs";
-  std::string geometry_shader_path = path + "/" + shader_name + ".gs";
-  std::string fragment_shader_path = path + "/" + shader_name + ".fs";
+  std::string vertex_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".vs";
+  std::string geometry_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".gs";
+  std::string fragment_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".fs";
 
   std::string vertex_shader_source =
       util::loadFileIntoStream(vertex_shader_path).str();

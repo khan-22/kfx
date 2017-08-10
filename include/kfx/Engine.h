@@ -17,9 +17,15 @@
 
 #include "kfx/system/GraphicsSystem3D.h"
 
+/** Managers **/
 #include "kfx/resources/MeshManager.h"
+
 #include "kfx/resources/ShaderManager.h"
+
 #include "kfx/resources/TextureManager.h"
+
+#include "kfx/resources/MaterialManager.h"
+/** -------- **/
 
 #include "kfx/KeyboardInputPeripheral.h"
 #include "kfx/Window.h"
@@ -44,6 +50,7 @@ class Engine {
   MeshManager& getMeshManager();
   ShaderManager& getShaderManager();
   TextureManager& getTextureManager();
+  MaterialManager& getMaterialManager();
 
   KeyboardInputPeripheral& getKeyboardInputPeripheral();
 
@@ -62,6 +69,7 @@ class Engine {
   MeshManager m_mesh_manager;
   ShaderManager m_shader_manager;
   TextureManager m_texture_manager;
+  MaterialManager m_material_manager;
 
   // Peripherals
   KeyboardInputPeripheral m_keyboard_input_manager;
