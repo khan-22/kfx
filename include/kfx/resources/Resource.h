@@ -13,7 +13,7 @@ template <typename T>
 struct Resource final {
  public:
   template <typename... MArgs>
-  Resource(MArgs... mArgs);
+  Resource(MArgs&&... mArgs);
 
   Handle handle;
   T value;
@@ -21,7 +21,7 @@ struct Resource final {
 
 template <typename T>
 template <typename... MArgs>
-Resource<T>::Resource(MArgs... mArgs)
+Resource<T>::Resource(MArgs&&... mArgs)
     : handle(Handle::NULL_HANDLE), value(std::forward<MArgs>(mArgs)...) {
   //...
 }

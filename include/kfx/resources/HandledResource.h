@@ -22,7 +22,7 @@ class HandledResource {
   std::vector<Resource<T>> resource;
 
   template <typename... MArgs>
-  Handle addResourceEntry(MArgs... mArgs);
+  Handle addResourceEntry(MArgs&&... mArgs);
 
   T* getResourceEntry(Handle handle);
   void removeResourceEntry(Handle handle);
@@ -46,7 +46,7 @@ void HandledResource<T>::validate_handles() {
 
 template <typename T>
 template <typename... MArgs>
-Handle HandledResource<T>::addResourceEntry(MArgs... mArgs) {
+Handle HandledResource<T>::addResourceEntry(MArgs&&... mArgs) {
   // Try to get a handle before filling it with a new
   // resource...
   Handle new_handle = m_handle_manager.addEntry(nullptr);
