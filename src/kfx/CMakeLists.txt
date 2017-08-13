@@ -54,6 +54,7 @@ add_library(
   resources/MaterialManager.cpp
   
   system/GraphicsSystem3D.cpp
+  system/MeshSystem.cpp
   system/System.cpp
   
   graphics/Renderer3D.cpp
