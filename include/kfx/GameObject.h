@@ -14,8 +14,18 @@
 namespace kfx {
 class GameObject {
  public:
-  Handle getComponent(ComponentType type);
-  bool hasComponent(ComponentType type);
+  union {
+    struct {
+      uint32_t id;
+    };
+    struct {
+      uint32_t index : 22;
+      uint32_t counter : 10;
+    };
+  };
+
+  [[deprecated]] Handle getComponent(ComponentType type);
+  [[deprecated]] bool hasComponent(ComponentType type);
 
  private:
   std::array<Handle, ComponentType::NUM_TYPES> m_components;
