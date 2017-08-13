@@ -28,7 +28,7 @@ void Renderer3D::tell(MessageArgument& arg) {
   // DrawCall3D& draw_call = m_draw_calls.back();
 
   DrawCall draw_call;
-  draw_call.model_transform = data->model_transform;
+  draw_call.world_transform = data->world_transform;
   draw_call.mesh = data->mesh;
   draw_call.material = data->material;
   //   draw_call.shader = data->shader;
@@ -68,7 +68,7 @@ void Renderer3D::render() {
         glm::perspective(glm::pi<float>() / 2.f, 640.f / 640.f, 0.01f, 1000.f) *
         glm::lookAt(glm::vec3(5.f, 5.f, 5.f), glm::vec3(0, 0, 0),
                     glm::vec3(0.f, 1.f, 0.f)) *
-        draw_call.model_transform;
+        draw_call.world_transform;
 
     GLuint MVP_location = current_material->getLocation("u_MVP");
     glUniformMatrix4fv(MVP_location, 1, GL_FALSE, &MVP[0][0]);

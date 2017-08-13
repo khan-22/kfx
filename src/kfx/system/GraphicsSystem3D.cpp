@@ -67,7 +67,7 @@ void GraphicsSystem3D::update(float dt) {
     arg.init<StandardEventMessage::RENDER_MESH>();
     auto* data = arg.getDataPointer<StandardEventMessage::RENDER_MESH>();
 
-    data->model_transform = transform_component->getModel();
+    data->world_transform = transform_component->getModel();
     data->mesh = mesh_component->mesh_handle;
     data->material = mesh_component->material_handle;
     // data->shader = mesh_component->shader_handle;

@@ -29,7 +29,7 @@ class Renderer3D : public EventListener {
 
  private:
   struct DrawCall {
-    glm::mat4 model_transform;
+    glm::mat4 world_transform;
     Handle mesh;
     Handle material;
     // Handle shader;
