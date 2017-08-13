@@ -14,17 +14,20 @@ Engine::Engine(Window& window)
 void Engine::init() {
   // ...
 
-  m_systems.push_back(std::make_unique<GraphicsSystem3D>(m_message_box, this));
+  // m_systems.push_back(std::make_unique<GraphicsSystem3D>(m_message_box,
+  // this));
 }
 
 void Engine::update(float dt) {
-  m_message_box.distributeMessages();
+  // Do stuff that depends on input
 
-  for (auto& system : m_systems) {
-    system->update(dt);
-  }
+  m_mesh_system.renderAll();
 
   m_message_box.distributeMessages();
+
+  // for (auto& system : m_systems) {
+  //   system->update(dt);
+  // }
 }
 
 void Engine::render() {

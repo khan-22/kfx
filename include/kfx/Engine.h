@@ -32,6 +32,9 @@
 
 #include "kfx/graphics/Renderer3D.h"
 
+#include "kfx/system/MeshSystem.h"
+#include "kfx/system/TransformSystem.h"
+
 namespace kfx {
 class Engine {
  public:
@@ -57,7 +60,9 @@ class Engine {
   GameObjectFactory& getGameObjectFactory();
 
  protected:
-  std::vector<std::unique_ptr<System>> m_systems;
+  // std::vector<std::unique_ptr<System>> m_systems;
+  TransformSystem m_transform_system;
+  MeshSystem m_mesh_system;
 
   // "Outside" references
   Window& m_window;
