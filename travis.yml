@@ -1,0 +1,17 @@
+language: cpp
+sudo: required
+
+compiler:
+  - clang
+  - gcc
+
+install: true
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script:
+  - pwd
+  - make
