@@ -22,7 +22,10 @@ Handle MaterialManager::loadMaterialFromFile(const std::string path) {
 
   // May be inefficient... Reconsider?
   std::istringstream stream(util::loadFileIntoStream(extended_path).str());
-  MaterialParser::Fields fields = m_material_parser.parse(stream);
+  KfxResult<MaterialParser::Fields> result = m_material_parser.parse(stream);
+  if (result.second != KfxStatus::SUCCESS) {
+    return Handle::NULL_HANDLE;
+  }
 
   Handle material_handle =
       m_materials.addResourceEntry(m_shader_manager, m_texture_manager);
@@ -34,12 +37,12 @@ Handle MaterialManager::loadMaterialFromFile(const std::string path) {
 
   Material* material = m_materials.getResourceEntry(material_handle);
 
-  if (fields.getType() == "Basic") {
+  if (result.first.getType() == "Basic") {
     material->setShader(m_shader_manager.loadShaderFromFile("basic"));
 
     Handle diffuse_handle = Handle::NULL_HANDLE;
     std::string diffuse_file;
-    if (fields.find("$Diffuse", diffuse_file)) {
+    if (result.first.find("$Diffuse", diffuse_file)) {
       diffuse_handle = m_texture_manager.loadTextureFromFile(diffuse_file);
     } else {
       diffuse_handle =

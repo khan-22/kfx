@@ -18,15 +18,24 @@ MaterialParser::MaterialParser() {
   registerFunction("END_OF_STATEMENT", &MaterialParser::END_OF_STATEMENT);
 }
 
-MaterialParser::Fields MaterialParser::parse(std::istringstream& stream) {
+KfxResult<MaterialParser::Fields> MaterialParser::parse(
+    std::istringstream& stream) {
   ParseTree root;
   parseRule(root, stream, "MATERIAL");
   // root.print();
 
-  Fields result;
+  KfxResult<MaterialParser::Fields> result;
+  result.second = KfxStatus::SUCCESS;
+
   ParseTree* current_node = &root;
 
-  result.setType(current_node->goTo("SHADER_TYPE")->lexeme);
+  ParseTree* shader_type_node = current_node->goTo("SHADER_TYPE");
+  if (shader_type_node == nullptr) {
+    result.second = KfxStatus::FAILURE;
+    return result;
+  }
+
+  result.first.setType(shader_type_node->lexeme);
 
   while ((current_node = current_node->goTo("FIELD", false)) != nullptr) {
     std::string parameter = current_node->goTo("PARAMETER")->lexeme;
@@ -34,7 +43,7 @@ MaterialParser::Fields MaterialParser::parse(std::istringstream& stream) {
 
     // Strip the \" from either end.
     value = value.substr(1, value.length() - 2);
-    result.add(parameter, value);
+    result.first.add(parameter, value);
   }
 
   return result;

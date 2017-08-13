@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "kfx/Result.h"
+
 namespace kfx {
 
 /*
@@ -54,7 +56,7 @@ class MaterialParser {
   };
 
   MaterialParser();
-  Fields parse(std::istringstream& stream);
+  KfxResult<Fields> parse(std::istringstream& stream);
 
  private:
   struct ParseTree {
