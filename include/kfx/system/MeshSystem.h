@@ -18,7 +18,7 @@ namespace kfx {
 class MeshSystem : public EventListener {
  public:
   MeshSystem(MessageBox& message_box);
-  ~MeshSystem();
+  ~MeshSystem() final override;
 
   void addMesh(GameObject game_object, Handle mesh, Handle material);
   void removeMesh(GameObject game_object);
