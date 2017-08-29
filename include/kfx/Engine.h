@@ -60,15 +60,15 @@ class Engine {
   GameObjectFactory& getGameObjectFactory();
 
  protected:
+  // Message Box
+  MessageBox m_message_box;
+
   // std::vector<std::unique_ptr<System>> m_systems;
   TransformSystem m_transform_system;
   MeshSystem m_mesh_system;
 
   // "Outside" references
   Window& m_window;
-
-  // Message Box
-  MessageBox m_message_box;
 
   // Resource managers
   MeshManager m_mesh_manager;
