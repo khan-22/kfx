@@ -55,6 +55,7 @@ add_library(
   
   system/GraphicsSystem3D.cpp
   system/MeshSystem.cpp
+  system/TransformSystem.cpp
   system/System.cpp
   
   graphics/Renderer3D.cpp
