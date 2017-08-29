@@ -24,11 +24,15 @@ GameObject GameObjectFactory::addGameObject() {
   //
   GameObject new_object;
 
-  if (m_game_objects.size() < 
-    new_object.index
+  // TEMPORARY
+  new_object.index = m_game_objects.size();
+  new_object.counter = 0;
+  m_game_objects.emplace_back(new_object);
+
+  return new_object;
 }
 
-GameObject GameObjectFactory::removeGameObject() {
+void GameObjectFactory::removeGameObject(GameObject game_object) {
   //
 }
 
@@ -62,7 +66,7 @@ GameObject GameObjectFactory::createTestObject() {
 
   GameObject object = addGameObject();
 
-  m_transform_system.addTransform(object, glm::vec3(0.f, 0.f, 0.f),
+  m_transform_system.addTransform(object, glm::vec3(3.f, 0.f, 0.f),
                                   glm::vec3(0.f, 0.f, 0.f));
   m_mesh_system.addMesh(object, m_mesh_manager.getMeshByName("test"),
                         m_material_manager.getMaterialByName("test-material"));

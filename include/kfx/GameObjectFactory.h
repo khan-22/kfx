@@ -32,7 +32,7 @@ class GameObjectFactory {
                     TransformSystem& transform_system, MeshSystem& mesh_system);
 
   GameObject addGameObject();
-  GameObject removeGameObject();
+  void removeGameObject(GameObject game_object);
 
   GameObject createTestObject();
 
