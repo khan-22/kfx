@@ -82,7 +82,7 @@ target_include_directories(kfx
 
 target_compile_features(kfx
   PUBLIC 
-    cxx_std_14
+    cxx_std_17
     # cxx_final
     # cxx_lambdas
     # cxx_nullptr
