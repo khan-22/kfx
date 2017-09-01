@@ -10,6 +10,8 @@ Renderer3D::Renderer3D(MessageBox& message_box, Engine& engine)
     : EventListener(message_box), m_engine(engine) {
   //
   m_message_box.registerListener(this, StandardEventMessage::RENDER_MESH);
+
+  glEnable(GL_DEPTH_TEST);
 }
 
 Renderer3D::~Renderer3D() {
@@ -26,9 +28,11 @@ void Renderer3D::tell(MessageArgument& arg) {
   // DrawCall3D& draw_call = m_draw_calls.back();
 
   DrawCall draw_call;
-  draw_call.model_transform = data->model_transform;
+  draw_call.world_transform = data->world_transform;
   draw_call.mesh = data->mesh;
-  draw_call.shader = data->shader;
+  draw_call.material = data->material;
+  //   draw_call.shader = data->shader;
+  //   draw_call.texture = data->texture;
   m_draw_calls.push_back(draw_call);
 }
 
@@ -36,25 +40,37 @@ void Renderer3D::render() {
   //
   auto& mesh_manager = m_engine.getMeshManager();
   auto& shader_manager = m_engine.getShaderManager();
+  auto& texture_manager = m_engine.getTextureManager();
+  auto& material_manager = m_engine.getMaterialManager();
 
   for (auto& draw_call : m_draw_calls) {
     //
-    Shader* current_shader =
-        shader_manager.getShaders().getResourceEntry(draw_call.shader);
+    // Shader* current_shader =
+    //     shader_manager.getShaders().getResourceEntry(draw_call.shader);
 
     Mesh* current_mesh =
         mesh_manager.getMeshes().getResourceEntry(draw_call.mesh);
 
-    glUseProgram(current_shader->program);
+    // Texture* current_texture =
+    //     texture_manager.getTextures().getResourceEntry(draw_call.texture);
+
+    // glUseProgram(current_shader->program);
+    // glActiveTexture(GL_TEXTURE0);
+    // glBindTexture(GL_TEXTURE_2D, current_texture->texture);
+    // glUniform1i(glGetUniformLocation(current_shader->program, "u_diffuse"),
+    // 0);
+    Material* current_material =
+        material_manager.getMaterials().getResourceEntry(draw_call.material);
+
+    current_material->bind();
 
     glm::mat4 MVP =
         glm::perspective(glm::pi<float>() / 2.f, 640.f / 640.f, 0.01f, 1000.f) *
         glm::lookAt(glm::vec3(5.f, 5.f, 5.f), glm::vec3(0, 0, 0),
                     glm::vec3(0.f, 1.f, 0.f)) *
-        draw_call.model_transform;
+        draw_call.world_transform;
 
-    GLuint MVP_location =
-        glGetUniformLocation(current_shader->program, "u_MVP");
+    GLuint MVP_location = current_material->getLocation("u_MVP");
     glUniformMatrix4fv(MVP_location, 1, GL_FALSE, &MVP[0][0]);
 
     glBindVertexArray(current_mesh->vertex_array_object);

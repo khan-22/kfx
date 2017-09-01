@@ -4,9 +4,14 @@
 /***********************************/
 
 #include <iostream>
+#include <sstream>
+#include <string>
 
+#include <kfx/Clock.h>
 #include <kfx/Engine.h>
 #include <kfx/Window.h>
+
+#include <kfx/resources/MaterialParser.h>
 
 class MyTest : public kfx::Engine {
  public:
@@ -18,14 +23,14 @@ class MyTest : public kfx::Engine {
 
     std::vector<kfx::Vertex3D> vertices = {
         {{-1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{-1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, -1.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 1.f, -1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 1.f, -1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, -1.f, -1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
 
         {{-1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{-1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{1.f, -1.f, 1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 1.f, 1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 1.f, 1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, -1.f, 1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
     };
     std::vector<GLuint> indices = {
         0, 1, 2, 0, 2, 3,  // Front
@@ -38,7 +43,10 @@ class MyTest : public kfx::Engine {
 
     m_mesh_manager.loadMeshFromMemory("test", vertices, indices);
 
-    m_shader_manager.loadShaderFromFile("./res/shaders/basic");
+    m_shader_manager.loadShaderFromFile("basic");
+    m_texture_manager.loadTextureFromFile("test");
+
+    m_material_manager.loadMaterialFromFile("test-material");
 
     m_game_object_factory.createTestObject();
   }
@@ -55,6 +63,14 @@ int main() {
   std::cout << "Release" << std::endl;
 #endif  // NDEBUG
 
+  //   std::string test_material = R"(Basic {
+  //   $Diffuse = "test.png";
+  // })";
+
+  //   kfx::MaterialParser parser;
+  //   std::istringstream stream(test_material);
+  //   parser.parse(stream);
+
   kfx::Window window(640, 480, "basic example");
 
   MyTest my_test(window);
@@ -62,10 +78,9 @@ int main() {
 
   window.setClearColor(0.f, 0.f, 0.f);
 
-  double previous_time = glfwGetTime();
+  kfx::Clock clock;
   while (window.isOpen()) {
-    double current_time = glfwGetTime();
-    double dt = current_time - previous_time;
+    double dt = clock.reset();
 
     my_test.update(static_cast<float>(dt));
     my_test.render();
@@ -75,8 +90,6 @@ int main() {
       std::cout << 1.0 / dt << std::endl;
       counter = 0;
     }
-
-    previous_time = current_time;
   }
 
   std::cin.ignore();

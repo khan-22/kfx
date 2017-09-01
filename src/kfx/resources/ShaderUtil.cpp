@@ -60,40 +60,40 @@ GLuint shaderStageFromData(std::string source, GLenum stage) {
 
 Shader shaderProgramFromStages(GLuint vertex_shader, GLuint geometry_shader,
                                GLuint fragment_shader) {
-  Shader shader;
-  shader.program = glCreateProgram();
+  // Shader shader;
+  // shader.program = glCreateProgram();
 
-  glAttachShader(shader.program, vertex_shader);
-  if (geometry_shader > 0) {
-    glAttachShader(shader.program, geometry_shader);
-  }
-  glAttachShader(shader.program, fragment_shader);
+  // glAttachShader(shader.program, vertex_shader);
+  // if (geometry_shader > 0) {
+  //   glAttachShader(shader.program, geometry_shader);
+  // }
+  // glAttachShader(shader.program, fragment_shader);
 
-  glLinkProgram(shader.program);
+  // glLinkProgram(shader.program);
 
-  // If something goes wrong, print the error and simply kfx_ the process...
-  // I currently don't want the process to continue should there be anything
-  // wrong with the shaders.
-  GLint link_status = GL_FALSE;
-  glGetProgramiv(shader.program, GL_LINK_STATUS, &link_status);
-  if (link_status == GL_FALSE) {
-    GLint log_length = 0;
-    glGetProgramiv(shader.program, GL_INFO_LOG_LENGTH, &log_length);
+  // // If something goes wrong, print the error and simply kfx_ the process...
+  // // I currently don't want the process to continue should there be anything
+  // // wrong with the shaders.
+  // GLint link_status = GL_FALSE;
+  // glGetProgramiv(shader.program, GL_LINK_STATUS, &link_status);
+  // if (link_status == GL_FALSE) {
+  //   GLint log_length = 0;
+  //   glGetProgramiv(shader.program, GL_INFO_LOG_LENGTH, &log_length);
 
-    GLchar* link_log = new GLchar[static_cast<size_t>(log_length)];
+  //   GLchar* link_log = new GLchar[static_cast<size_t>(log_length)];
 
-    glGetProgramInfoLog(shader.program, log_length, nullptr, link_log);
+  //   glGetProgramInfoLog(shader.program, log_length, nullptr, link_log);
 
-    std::cerr << "^=========================^" << std::endl;
-    std::cerr << "shader linking error!\n" << link_log << std::endl;
-    std::cerr << "v=========================v" << std::endl;
+  //   std::cerr << "^=========================^" << std::endl;
+  //   std::cerr << "shader linking error!\n" << link_log << std::endl;
+  //   std::cerr << "v=========================v" << std::endl;
 
-    delete[] link_log;
+  //   delete[] link_log;
 
-    kfx_abort();
-  }
+  //   kfx_abort();
+  // }
 
-  return shader;
+  // return shader;
 }
 }
 }

@@ -32,6 +32,7 @@ add_library(
   
   Assert.cpp
   Components.cpp
+  Clock.cpp
   Engine.cpp
   GameObject.cpp
   GameObjectFactory.cpp
@@ -47,11 +48,22 @@ add_library(
   resources/MeshUtil.cpp
   resources/ShaderManager.cpp
   resources/ShaderUtil.cpp
+  resources/TextureManager.cpp
+  resources/TextureUtil.cpp
+  resources/MaterialParser.cpp
+  resources/MaterialManager.cpp
   
   system/GraphicsSystem3D.cpp
+  system/MeshSystem.cpp
+  system/TransformSystem.cpp
   system/System.cpp
   
   graphics/Renderer3D.cpp
+  graphics/Mesh.cpp
+  graphics/Shader.cpp
+  graphics/Texture.cpp
+  #graphics/BasicMaterial.cpp
+  graphics/Material.cpp
 )
 
 
@@ -70,7 +82,7 @@ target_include_directories(kfx
 
 target_compile_features(kfx
   PUBLIC 
-    cxx_std_14
+    cxx_std_17
     # cxx_final
     # cxx_lambdas
     # cxx_nullptr
@@ -78,7 +90,7 @@ target_compile_features(kfx
     # cxx_range_for
 )
 
-target_link_libraries(kfx glfw glew)
+target_link_libraries(kfx glfw glew lodepng)
 
 # So that VS recognizes our resource files
 set_target_properties(kfx PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
@@ -94,6 +106,10 @@ set_target_properties(glfw PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE
 set_target_properties(glew PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set_target_properties(glew PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
 set_target_properties(glew PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
+
+set_target_properties(lodepng PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+set_target_properties(lodepng PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
+set_target_properties(lodepng PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib")
 
 # Do I need this?
 # install(TARGETS kfx EXPORT kfxTargets

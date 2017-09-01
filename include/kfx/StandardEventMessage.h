@@ -11,6 +11,8 @@
 #include <glm/glm.hpp>
 #include <string>
 
+#include "kfx/GameObject.h"
+
 #include "kfx/Handle.h"
 
 namespace kfx {
@@ -25,6 +27,8 @@ enum Type {
   KEY_ACTION,
 
   RENDER_MESH,
+
+  UPDATED_WORLD_TRANSFORM,
 
   NUM_TYPES,
   CUSTOM_MESSAGE_EXTENSION = NUM_TYPES
@@ -81,9 +85,17 @@ EVENT_ARGUMENT_DATA(StandardEventMessage::KEY_ACTION) {
 
 EVENT_ARGUMENT_DATA(StandardEventMessage::RENDER_MESH) {
   EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::RENDER_MESH);
-  glm::mat4 model_transform;
+  glm::mat4 world_transform;
   Handle mesh;
-  Handle shader;
+  Handle material;
+  // Handle shader;
+  // Handle texture;
+};
+
+EVENT_ARGUMENT_DATA(StandardEventMessage::UPDATED_WORLD_TRANSFORM) {
+  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::UPDATED_WORLD_TRANSFORM);
+  GameObject object;
+  glm::mat4 world_transform;
 };
 }
 

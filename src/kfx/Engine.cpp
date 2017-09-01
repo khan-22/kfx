@@ -3,26 +3,36 @@
 namespace kfx {
 Engine::Engine(Window& window)
     : m_window(window),
-      m_game_object_factory(m_mesh_manager, m_shader_manager),
+      m_transform_system(m_message_box),
+      m_mesh_system(m_message_box),
+      m_game_object_factory(m_mesh_manager, m_shader_manager, m_texture_manager,
+                            m_material_manager, m_transform_system,
+                            m_mesh_system),
       m_keyboard_input_manager(m_message_box, window),
-      m_renderer3d(m_message_box, *this) {
+      m_renderer3d(m_message_box, *this),
+      m_material_manager(m_shader_manager, m_texture_manager) {
   m_window.setGLFWUserData(this);
 }
 
 void Engine::init() {
   // ...
 
-  m_systems.push_back(std::make_unique<GraphicsSystem3D>(m_message_box, this));
+  // m_systems.push_back(std::make_unique<GraphicsSystem3D>(m_message_box,
+  // this));
 }
 
 void Engine::update(float dt) {
-  m_message_box.distributeMessages();
-
-  for (auto& system : m_systems) {
-    system->update(dt);
-  }
+  // Do stuff that depends on input
 
   m_message_box.distributeMessages();
+
+  m_mesh_system.renderAll();
+
+  m_message_box.distributeMessages();
+
+  // for (auto& system : m_systems) {
+  //   system->update(dt);
+  // }
 }
 
 void Engine::render() {
@@ -48,6 +58,14 @@ MeshManager& Engine::getMeshManager() {
 
 ShaderManager& Engine::getShaderManager() {
   return m_shader_manager;  // <-
+}
+
+TextureManager& Engine::getTextureManager() {
+  return m_texture_manager;  // <-
+}
+
+MaterialManager& Engine::getMaterialManager() {
+  return m_material_manager;  // <-
 }
 
 KeyboardInputPeripheral& Engine::getKeyboardInputPeripheral() {

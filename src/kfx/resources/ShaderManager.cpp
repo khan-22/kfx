@@ -13,9 +13,12 @@ Handle ShaderManager::loadShaderFromFile(const std::string path) {
     return found_handle;
   }
 
-  std::string vertex_shader_path = path + "/" + shader_name + ".vs";
-  std::string geometry_shader_path = path + "/" + shader_name + ".gs";
-  std::string fragment_shader_path = path + "/" + shader_name + ".fs";
+  std::string vertex_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".vs";
+  std::string geometry_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".gs";
+  std::string fragment_shader_path =
+      "./res/shaders/" + path + "/" + shader_name + ".fs";
 
   std::string vertex_shader_source =
       util::loadFileIntoStream(vertex_shader_path).str();
@@ -31,10 +34,11 @@ Handle ShaderManager::loadShaderFromFile(const std::string path) {
   GLuint fragment_shader =
       util::shaderStageFromData(fragment_shader_source, GL_FRAGMENT_SHADER);
 
-  Handle shader_handle = m_shaders.addResourceEntry();
-  Shader* shader = m_shaders.getResourceEntry(shader_handle);
-  *shader = util::shaderProgramFromStages(vertex_shader, geometry_shader,
-                                          fragment_shader);
+  Handle shader_handle = m_shaders.addResourceEntry(
+      vertex_shader, geometry_shader, fragment_shader);
+  // Shader* shader = m_shaders.getResourceEntry(shader_handle);
+  //*shader = util::shaderProgramFromStages(vertex_shader, geometry_shader,
+  //                                        fragment_shader);
 
   m_name_to_handle_map[shader_name] = shader_handle;
 

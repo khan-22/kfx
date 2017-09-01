@@ -6,6 +6,7 @@
 #include <Catch/catch.hpp>
 
 #include <kfx/Assert.h>
+#include <kfx/graphics/Shader.h>
 #include <kfx/resources/ShaderUtil.h>
 
 #include <GLFW/glfw3.h>
@@ -245,10 +246,9 @@ SCENARIO("Creating a shader program", "util") {
         "Vertex, Geometry and Fragment shaders are passed to "
         "shaderProgramFromStages(vert, geom, frag)") {
       THEN("the function returns a valid shader object") {
-        REQUIRE(glIsProgram(kfx::util::shaderProgramFromStages(
-                                vertex_shader_handle, geometry_shader_handle,
-                                fragment_shader_handle)
-                                .program) == GL_TRUE);
+        kfx::Shader shader(vertex_shader_handle, geometry_shader_handle,
+                           fragment_shader_handle);
+        REQUIRE(glIsProgram(shader.program) == GL_TRUE);
       }
     }
 
@@ -256,9 +256,8 @@ SCENARIO("Creating a shader program", "util") {
         "Only vertex and fragment shaders are passed to "
         "shaderProgramFromStages(vert, geom, frag)") {
       THEN("the function returns a valid shader object") {
-        REQUIRE(glIsProgram(kfx::util::shaderProgramFromStages(
-                                vertex_shader_handle, 0, fragment_shader_handle)
-                                .program) == GL_TRUE);
+        kfx::Shader shader(vertex_shader_handle, 0, fragment_shader_handle);
+        REQUIRE(glIsProgram(shader.program) == GL_TRUE);
       }
     }
 
@@ -266,9 +265,8 @@ SCENARIO("Creating a shader program", "util") {
         "Only the vertex shader is passed to "
         "shaderProgramFromStages(vert, geom, frag)") {
       THEN("the function returns a valid shader object") {
-        REQUIRE(glIsProgram(kfx::util::shaderProgramFromStages(
-                                vertex_shader_handle, 0, 0)
-                                .program) == GL_TRUE);
+        kfx::Shader shader(vertex_shader_handle, 0, 0);
+        REQUIRE(glIsProgram(shader.program) == GL_TRUE);
       }
     }
 
@@ -276,9 +274,8 @@ SCENARIO("Creating a shader program", "util") {
         "Only the geometry shader is passed to "
         "shaderProgramFromStages(vert, geom, frag)") {
       THEN("the function aborts") {
-        REQUIRE_THROWS_AS(
-            kfx::util::shaderProgramFromStages(geometry_shader_handle, 0, 0),
-            kfx::KfxAbortFailure);
+        REQUIRE_THROWS_AS(kfx::Shader(geometry_shader_handle, 0, 0),
+                          kfx::KfxAbortFailure);
       }
     }
 
@@ -286,9 +283,8 @@ SCENARIO("Creating a shader program", "util") {
         "Only the fragment shader is passed to "
         "shaderProgramFromStages(vert, geom, frag)") {
       THEN("the function returns a valid shader object") {
-        REQUIRE(glIsProgram(kfx::util::shaderProgramFromStages(
-                                0, 0, fragment_shader_handle)
-                                .program) == GL_TRUE);
+        kfx::Shader shader(0, 0, fragment_shader_handle);
+        REQUIRE(glIsProgram(shader.program) == GL_TRUE);
       }
     }
   }

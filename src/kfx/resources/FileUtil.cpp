@@ -12,7 +12,7 @@ std::vector<std::string> breakDownPath(std::string path) {
 
   std::istringstream string_stream(path);
 
-// Test if the string is a valid path
+  // Test if the string is a valid path
   bool is_valid = true;
   for (auto it = path.begin(); it != path.end(); it++) {
     if (std::isspace(*it) != 0) {

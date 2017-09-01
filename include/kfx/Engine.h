@@ -17,13 +17,23 @@
 
 #include "kfx/system/GraphicsSystem3D.h"
 
+/** Managers **/
 #include "kfx/resources/MeshManager.h"
+
 #include "kfx/resources/ShaderManager.h"
+
+#include "kfx/resources/TextureManager.h"
+
+#include "kfx/resources/MaterialManager.h"
+/** -------- **/
 
 #include "kfx/KeyboardInputPeripheral.h"
 #include "kfx/Window.h"
 
 #include "kfx/graphics/Renderer3D.h"
+
+#include "kfx/system/MeshSystem.h"
+#include "kfx/system/TransformSystem.h"
 
 namespace kfx {
 class Engine {
@@ -42,23 +52,29 @@ class Engine {
 
   MeshManager& getMeshManager();
   ShaderManager& getShaderManager();
+  TextureManager& getTextureManager();
+  MaterialManager& getMaterialManager();
 
   KeyboardInputPeripheral& getKeyboardInputPeripheral();
 
   GameObjectFactory& getGameObjectFactory();
 
  protected:
-  std::vector<std::unique_ptr<System>> m_systems;
+  // Message Box
+  MessageBox m_message_box;
+
+  // std::vector<std::unique_ptr<System>> m_systems;
+  TransformSystem m_transform_system;
+  MeshSystem m_mesh_system;
 
   // "Outside" references
   Window& m_window;
 
-  // Message Box
-  MessageBox m_message_box;
-
   // Resource managers
   MeshManager m_mesh_manager;
   ShaderManager m_shader_manager;
+  TextureManager m_texture_manager;
+  MaterialManager m_material_manager;
 
   // Peripherals
   KeyboardInputPeripheral m_keyboard_input_manager;
