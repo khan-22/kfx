@@ -42,3 +42,4 @@ BACKUP_CMakeLists.txt
 Win32
 CMakeSettings.json
 deps/glew-2.0.0/glew.pc
+backup
