@@ -9,7 +9,7 @@ namespace kfx {
 Renderer3D::Renderer3D(MessageBox& message_box, Engine& engine)
     : EventListener(message_box), m_engine(engine) {
   //
-  m_message_box.registerListener(this, StandardEventMessage::RENDER_MESH);
+  m_message_box.registerListener<RenderMesh>(this);
 
   glEnable(GL_DEPTH_TEST);
 }
@@ -19,21 +19,14 @@ Renderer3D::~Renderer3D() {
   m_message_box.unregisterListener(this);
 }
 
-void Renderer3D::tell(MessageArgument& arg) {
-  //
-
-  auto* data = arg.getDataPointer<StandardEventMessage::RENDER_MESH>();
-
-  // m_draw_calls.emplace_back();
-  // DrawCall3D& draw_call = m_draw_calls.back();
-
-  DrawCall draw_call;
-  draw_call.world_transform = data->world_transform;
-  draw_call.mesh = data->mesh;
-  draw_call.material = data->material;
-  //   draw_call.shader = data->shader;
-  //   draw_call.texture = data->texture;
-  m_draw_calls.push_back(draw_call);
+void Renderer3D::tell(Message& msg) {
+  if (auto data = std::get_if<RenderMesh>(&msg)) {
+    DrawCall draw_call;
+    draw_call.world_transform = data->world_transform;
+    draw_call.mesh = data->mesh;
+    draw_call.material = data->material;
+    m_draw_calls.push_back(draw_call);
+  }
 }
 
 void Renderer3D::render() {

@@ -93,14 +93,7 @@ void TransformSystem::TransformComponent::updateWorldTransform(
 
   world_transform = translation_matrix * rotation_matrix;  //* scale_matrix;
 
-  MessageArgument arg;
-  arg.init<StandardEventMessage::UPDATED_WORLD_TRANSFORM>();
-  auto* data =
-      arg.getDataPointer<StandardEventMessage::UPDATED_WORLD_TRANSFORM>();
-
-  data->object = object;
-  data->world_transform = world_transform;
-
-  message_box.postMessage(arg);
+  Message msg = UpdatedWorldTransform{object, world_transform};
+  message_box.postMessage(msg);
 }
 }

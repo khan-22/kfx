@@ -5,8 +5,7 @@
 
 namespace kfx {
 MeshSystem::MeshSystem(MessageBox& message_box) : EventListener(message_box) {
-  m_message_box.registerListener(this,
-                                 StandardEventMessage::UPDATED_WORLD_TRANSFORM);
+  m_message_box.registerListener<UpdatedWorldTransform>(this);
 }
 
 MeshSystem::~MeshSystem() { m_message_box.unregisterListener(this); }
@@ -50,25 +49,19 @@ Handle MeshSystem::material(GameObject game_object) {
   m_components[m_object_to_component_index[game_object.index]].material;
 }
 
-void MeshSystem::tell(MessageArgument& arg) {
-  auto* data =
-      arg.getDataPointer<StandardEventMessage::UPDATED_WORLD_TRANSFORM>();
-
-  m_components[m_object_to_component_index[data->object.index]]
-      .world_transform = data->world_transform;
+void MeshSystem::tell(Message& msg) {
+  if (auto data = std::get_if<UpdatedWorldTransform>(&msg)) {
+    m_components[m_object_to_component_index[data->object.index]]
+        .world_transform = data->world_transform;
+  }
 }
 
 void MeshSystem::renderAll() {
   for (auto& component : m_components) {
-    MessageArgument arg;
-    arg.init<StandardEventMessage::RENDER_MESH>();
-    auto* data = arg.getDataPointer<StandardEventMessage::RENDER_MESH>();
+    Message msg = RenderMesh{component.world_transform, component.mesh,
+                             component.material};
 
-    data->world_transform = component.world_transform;
-    data->mesh = component.mesh;
-    data->material = component.material;
-
-    m_message_box.postMessage(arg);
+    m_message_box.postMessage(msg);
   }
 }
 }

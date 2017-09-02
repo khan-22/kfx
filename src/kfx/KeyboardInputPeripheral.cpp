@@ -17,15 +17,7 @@ void KeyboardInputPeripheral::key_callback(GLFWwindow* window, int key,
                                            int scancode, int action, int mods) {
   Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
 
-  MessageArgument arg;
-  arg.init<StandardEventMessage::KEY_ACTION>();
-  auto* data = arg.getDataPointer<StandardEventMessage::KEY_ACTION>();
-
-  data->action = action;
-  data->key = key;
-  data->scancode = scancode;
-  data->mods = mods;
-
-  engine->getMessageBox().postMessage(arg);
+  Message msg = KeyAction{action, key, scancode, mods};
+  engine->getMessageBox().postMessage(msg);
 }
 }

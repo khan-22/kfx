@@ -25,7 +25,7 @@ class MeshSystem : public EventListener {
   Handle mesh(GameObject game_object);
   Handle material(GameObject game_object);
 
-  void tell(MessageArgument& arg) final override;
+  void tell(Message& msg) final override;
 
   // Temporary until a better solution is found...
   void renderAll();

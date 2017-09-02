@@ -23,7 +23,7 @@ class Renderer3D : public EventListener {
   Renderer3D(MessageBox& message_box, Engine& engine);
   ~Renderer3D() final override;
 
-  void tell(MessageArgument& arg) final override;
+  void tell(Message& msg) final override;
 
   void render();
 

@@ -10,6 +10,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <variant>
 
 #include "kfx/GameObject.h"
 
@@ -17,61 +18,19 @@
 
 namespace kfx {
 
-namespace StandardEventMessage {
-enum Type {
-  TEST1,
-  TEST2,
-
-  DEBUG,
-
-  KEY_ACTION,
-
-  RENDER_MESH,
-
-  UPDATED_WORLD_TRANSFORM,
-
-  NUM_TYPES,
-  CUSTOM_MESSAGE_EXTENSION = NUM_TYPES
-};
-}
-
-namespace detail {
-// A common base struct that allows storing pointers to data members of
-// different type
-struct EventArgumentDataBase {
-  virtual ~EventArgumentDataBase() = default;
-};
-}
-
-template <StandardEventMessage::Type T>
-struct EventArgumentData : public detail::EventArgumentDataBase {
-  virtual ~EventArgumentData<T>() final override = default;
-};
-
-#define EVENT_ARGUMENT_DATA(enum) \
-  template <>                     \
-  struct EventArgumentData<enum> : public detail::EventArgumentDataBase
-
-#define EVENT_ARGUMENT_DESTRUCTOR(enum) \
-  ~EventArgumentData<enum>() final override = default;
-
-EVENT_ARGUMENT_DATA(StandardEventMessage::TEST1) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::TEST1);
+struct Test1 {
   std::string message;
 };
 
-EVENT_ARGUMENT_DATA(StandardEventMessage::TEST2) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::TEST2);
+struct Test2 {
   std::string message;
 };
 
-EVENT_ARGUMENT_DATA(StandardEventMessage::DEBUG) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::DEBUG);
+struct Debug {
   std::string message;
 };
 
-EVENT_ARGUMENT_DATA(StandardEventMessage::KEY_ACTION) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::KEY_ACTION);
+struct KeyAction {
   int action;
   int key;
   int scancode;
@@ -83,8 +42,7 @@ EVENT_ARGUMENT_DATA(StandardEventMessage::KEY_ACTION) {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
-EVENT_ARGUMENT_DATA(StandardEventMessage::RENDER_MESH) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::RENDER_MESH);
+struct RenderMesh {
   glm::mat4 world_transform;
   Handle mesh;
   Handle material;
@@ -92,11 +50,28 @@ EVENT_ARGUMENT_DATA(StandardEventMessage::RENDER_MESH) {
   // Handle texture;
 };
 
-EVENT_ARGUMENT_DATA(StandardEventMessage::UPDATED_WORLD_TRANSFORM) {
-  EVENT_ARGUMENT_DESTRUCTOR(StandardEventMessage::UPDATED_WORLD_TRANSFORM);
+struct UpdatedWorldTransform {
   GameObject object;
   glm::mat4 world_transform;
 };
+
+// ...
+
+#define IMPL_MESSAGE_TYPES \
+  Test1, Test2, Debug, KeyAction, RenderMesh, UpdatedWorldTransform
+
+using Message = std::variant<IMPL_MESSAGE_TYPES>;
+
+namespace detail {
+template <typename... TArgs>
+constexpr std::size_t tArgCount() {
+  return sizeof...(TArgs);
+}
+}
+
+constexpr std::size_t numberOfMessageTypes() {
+  return detail::tArgCount<IMPL_MESSAGE_TYPES>();
+}
 }
 
 #endif  // MESSAGE_H

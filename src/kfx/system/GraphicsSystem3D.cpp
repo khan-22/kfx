@@ -12,7 +12,7 @@ GraphicsSystem3D::GraphicsSystem3D(MessageBox& message_box, Engine* engine)
     : System(engine), EventListener(message_box), m_total_time(0.f) {
   // ...
 
-  m_message_box.registerListener(this, StandardEventMessage::KEY_ACTION);
+  m_message_box.registerListener<KeyAction>(this);
 }
 
 GraphicsSystem3D::~GraphicsSystem3D() {
@@ -98,15 +98,13 @@ void GraphicsSystem3D::update(float dt) {
   // }
 }
 
-void GraphicsSystem3D::tell(MessageArgument& arg) {
-  kfx_contract(arg.type == StandardEventMessage::KEY_ACTION);
-
-  auto* data = arg.getDataPointer<StandardEventMessage::KEY_ACTION>();
-
-  switch (data->action) {
-    case GLFW_PRESS: {
-      m_total_time = 0.f;
-      break;
+void GraphicsSystem3D::tell(Message& msg) {
+  if (auto data = std::get_if<KeyAction>(&msg)) {
+    switch (data->action) {
+      case GLFW_PRESS: {
+        m_total_time = 0.f;
+        break;
+      }
     }
   }
 }

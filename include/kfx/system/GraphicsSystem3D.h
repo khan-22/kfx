@@ -21,7 +21,7 @@ class GraphicsSystem3D final : public System, public EventListener {
 
   void update(float dt) final override;
 
-  void tell(MessageArgument& arg) final override;
+  void tell(Message& msg) final override;
 
  private:
   float m_total_time;

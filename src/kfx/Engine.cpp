@@ -22,17 +22,11 @@ void Engine::init() {
 }
 
 void Engine::update(float dt) {
-  // Do stuff that depends on input
-
   m_message_box.distributeMessages();
 
   m_mesh_system.renderAll();
 
   m_message_box.distributeMessages();
-
-  // for (auto& system : m_systems) {
-  //   system->update(dt);
-  // }
 }
 
 void Engine::render() {

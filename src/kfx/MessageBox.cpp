@@ -6,19 +6,6 @@
 #include <algorithm>
 
 namespace kfx {
-void MessageBox::registerListener(EventListener* listener,
-                                  StandardEventMessage::Type type) {
-  // If the listener already exists in this category, ignore the request...
-  for (auto registered_listener : m_registered_listeners[type]) {
-    if (listener == registered_listener) {
-      return;
-    }
-  }
-
-  // Otherwise, add it to the category
-  m_registered_listeners[type].push_back(listener);
-}
-
 void MessageBox::unregisterListener(EventListener* listener) {
   for (auto& listener_category : m_registered_listeners) {
     auto it =
@@ -31,16 +18,16 @@ void MessageBox::unregisterListener(EventListener* listener) {
   }
 }
 
-void MessageBox::postMessage(MessageArgument& message) {
-  m_message_queue.push(std::move(message));
+void MessageBox::postMessage(Message& message) {
+  m_message_queue.push(message);
 }
 
 void MessageBox::distributeMessages() {
   while (!m_message_queue.empty()) {
-    MessageArgument& current_message = m_message_queue.front();
+    Message& current_message = m_message_queue.front();
 
     for (auto registered_listener :
-         m_registered_listeners[current_message.type]) {
+         m_registered_listeners[current_message.index()]) {
       registered_listener->tell(current_message);
     }
 
