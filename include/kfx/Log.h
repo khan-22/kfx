@@ -8,29 +8,26 @@
 
 #include <stdio.h>
 
+#include "kfx/resources/FileUtil.h"
+
 namespace kfx {
 namespace detail {
-
-extern FILE* log_file;
-
-void beginLogging();
-
-template <typename... MArgs>
-void log(const char* file, int line, const char* format, MArgs... mArgs) {
-  printf(format, std::forward<MArgs>(mArgs)...);
-  fprintf(log_file, format, std::forward<MArgs>(mArgs)...);
+template <typename... TArgs>
+void log(TArgs... t) {
+  (std::cout << ... << t) << '\n';
 }
 
-void finishLogging();
+template <typename... TArgs>
+void log_error(TArgs... t) {
+  (std::cerr << ... << t) << '\n';
+}
 }
 }
 
-#define START_LOG() detail::beginLogging();
+#define LOG(...) detail::log(__VA_ARGS__);
 
-#define LOG(fmt, ...) detail::log(__FILE__, __LINE__, fmt "\n", __VA_ARGS__);
-#define LOG_ERROR(fmt, ...) \
-  detail::log(__FILE__, __LINE__, "ERROR: " fmt "\n", __VA_ARGS__);
-
-#define FINISH_LOG() detail::finishLogging();
+#define LOG_ERROR(...)                                                     \
+  detail::log_error(kfx::util::breakDownPath(__FILE__).back(), " @ Line ", \
+                    __LINE__, "\n---> ERROR: ", __VA_ARGS__);
 
 #endif  // LOG_H
