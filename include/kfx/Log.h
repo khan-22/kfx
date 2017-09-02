@@ -24,10 +24,10 @@ void log_error(TArgs... t) {
 }
 }
 
-#define LOG(...) detail::log(__VA_ARGS__);
+#define LOG(...) kfx::detail::log(__VA_ARGS__);
 
-#define LOG_ERROR(...)                                                     \
-  detail::log_error(kfx::util::breakDownPath(__FILE__).back(), " @ Line ", \
-                    __LINE__, "\n---> ERROR: ", __VA_ARGS__);
+#define LOG_ERROR(...)                                              \
+  kfx::detail::log_error(kfx::util::breakDownPath(__FILE__).back(), \
+                         " @ Line ", __LINE__, "\n---> ERROR: ", __VA_ARGS__);
 
 #endif  // LOG_H
