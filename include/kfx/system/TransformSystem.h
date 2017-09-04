@@ -31,6 +31,7 @@ class TransformSystem {
 
   glm::mat4 getWorldTransform(GameObject game_object);
 
+  void clearDirtyComponents();
   const std::vector<GameObject>& queryDirtyComponents();
 
  private:

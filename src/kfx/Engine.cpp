@@ -27,6 +27,9 @@ void Engine::update(float dt) {
   m_mesh_system.renderAll();
 
   m_message_box.distributeMessages();
+
+  // Should be done to all queryable systems
+  m_transform_system.clearDirtyComponents();
 }
 
 void Engine::render() {

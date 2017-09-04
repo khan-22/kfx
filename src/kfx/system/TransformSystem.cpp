@@ -76,6 +76,8 @@ glm::mat4 TransformSystem::getWorldTransform(GameObject game_object) {
   return objectToComponent(game_object).world_transform;
 }
 
+void TransformSystem::clearDirtyComponents() { m_dirty_components.clear(); }
+
 const std::vector<GameObject>& TransformSystem::queryDirtyComponents() {
   return m_dirty_components;
 }
