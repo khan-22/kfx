@@ -29,7 +29,9 @@ class TransformSystem {
   void setLocalPosition(GameObject game_object, glm::vec3 position);
   void setLocalRotation(GameObject game_object, glm::vec3 rotation);
 
-  glm::mat4 getWorldTransform(GameObject game_object) const;
+  glm::mat4 getWorldTransform(GameObject game_object);
+
+  const std::vector<GameObject>& queryDirtyComponents();
 
  private:
   struct TransformComponent {
@@ -38,8 +40,13 @@ class TransformSystem {
     glm::vec3 local_position;
     glm::vec3 local_rotation;
 
-    void updateWorldTransform(MessageBox& message_box);
+    void updateWorldTransform();
   };
+
+  TransformComponent& objectToComponent(GameObject game_object);
+  void markComponentDirty(GameObject object);
+
+  std::vector<GameObject> m_dirty_components;
 
   std::vector<uint32_t> m_object_to_component_index;
   std::vector<TransformComponent> m_components;

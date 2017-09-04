@@ -17,7 +17,8 @@ void TransformSystem::addTransform(GameObject game_object, glm::vec3 position,
   new_component.object = game_object;
   new_component.local_position = position;
   new_component.local_rotation = rotation;
-  new_component.updateWorldTransform(m_message_box);
+  new_component.updateWorldTransform();
+  markComponentDirty(game_object);
 
   m_components.push_back(new_component);
 
@@ -55,29 +56,31 @@ glm::vec3 TransformSystem::getLocalRotation(GameObject game_object) const {
 
 void TransformSystem::setLocalPosition(GameObject game_object,
                                        glm::vec3 position) {
-  TransformComponent& component =
-      m_components[m_object_to_component_index[game_object.index]];
+  TransformComponent& component = objectToComponent(game_object);
 
   component.local_position = position;
-  component.updateWorldTransform(m_message_box);
+  component.updateWorldTransform();
+  markComponentDirty(game_object);
 }
 
 void TransformSystem::setLocalRotation(GameObject game_object,
                                        glm::vec3 rotation) {
-  TransformComponent& component =
-      m_components[m_object_to_component_index[game_object.index]];
+  TransformComponent& component = objectToComponent(game_object);
 
   component.local_rotation = rotation;
-  component.updateWorldTransform(m_message_box);
+  component.updateWorldTransform();
+  markComponentDirty(game_object);
 }
 
-glm::mat4 TransformSystem::getWorldTransform(GameObject game_object) const {
-  return m_components[m_object_to_component_index[game_object.index]]
-      .world_transform;
+glm::mat4 TransformSystem::getWorldTransform(GameObject game_object) {
+  return objectToComponent(game_object).world_transform;
 }
 
-void TransformSystem::TransformComponent::updateWorldTransform(
-    MessageBox& message_box) {
+const std::vector<GameObject>& TransformSystem::queryDirtyComponents() {
+  return m_dirty_components;
+}
+
+void TransformSystem::TransformComponent::updateWorldTransform() {
   glm::mat4 translation_matrix = glm::translate(local_position);
 
   glm::mat4 rot_x_matrix =
@@ -93,7 +96,22 @@ void TransformSystem::TransformComponent::updateWorldTransform(
 
   world_transform = translation_matrix * rotation_matrix;  //* scale_matrix;
 
-  Message msg = UpdatedWorldTransform{object, world_transform};
-  message_box.postMessage(msg);
+  //   Message msg = UpdatedWorldTransform{object, world_transform};
+  //   message_box.postMessage(msg);
+}
+
+TransformSystem::TransformComponent& TransformSystem::objectToComponent(
+    GameObject game_object) {
+  return m_components[m_object_to_component_index[game_object.index]];
+}
+
+void TransformSystem::markComponentDirty(GameObject object) {
+  for (auto& dirty_object : m_dirty_components) {
+    if (dirty_object.id == object.id) {
+      return;
+    }
+  }
+
+  m_dirty_components.push_back(object);
 }
 }

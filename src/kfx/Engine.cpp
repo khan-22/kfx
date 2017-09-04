@@ -4,7 +4,7 @@ namespace kfx {
 Engine::Engine(Window& window)
     : m_window(window),
       m_transform_system(m_message_box),
-      m_mesh_system(m_message_box),
+      m_mesh_system(m_message_box, m_transform_system),
       m_game_object_factory(m_mesh_manager, m_shader_manager, m_texture_manager,
                             m_material_manager, m_transform_system,
                             m_mesh_system),
