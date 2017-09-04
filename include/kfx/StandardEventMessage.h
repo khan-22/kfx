@@ -42,6 +42,18 @@ struct KeyAction {
   bool superPressed() { return mods & GLFW_MOD_SUPER; }
 };
 
+struct MouseAction {
+  int button;
+  int action;
+  int mods;
+  float xpos, ypos;
+};
+
+struct MouseMove {
+  float dx, dy;
+  float xpos, ypos;
+};
+
 struct RenderMesh {
   glm::mat4 world_transform;
   Handle mesh;
@@ -57,8 +69,9 @@ struct UpdatedWorldTransform {
 
 // ...
 
-#define IMPL_MESSAGE_TYPES \
-  Test1, Test2, Debug, KeyAction, RenderMesh, UpdatedWorldTransform
+#define IMPL_MESSAGE_TYPES                                            \
+  Test1, Test2, Debug, KeyAction, MouseAction, MouseMove, RenderMesh, \
+      UpdatedWorldTransform
 
 using Message = std::variant<IMPL_MESSAGE_TYPES>;
 
