@@ -30,15 +30,10 @@ class MeshManager final {
 
   HandledResource<Mesh>& getMeshes();
 
-  // HandleManager& getHandleManager();
-
  private:
   std::unordered_map<std::string, Handle> m_name_to_handle_map;
 
   HandledResource<Mesh> m_meshes;
-
-  // HandleManager m_mesh_handle_manager;
-  // std::vector<Mesh> m_meshes;
 };
 }
 #endif  // MESH_MANAGER_H

@@ -7,12 +7,11 @@
 #define MATERIAL_PARSER_H
 
 #include <functional>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
-#include "kfx/Result.h"
 
 namespace kfx {
 
@@ -56,7 +55,7 @@ class MaterialParser {
   };
 
   MaterialParser();
-  KfxResult<Fields> parse(std::istringstream& stream);
+  std::optional<Fields> parse(std::istringstream& stream);
 
  private:
   struct ParseTree {
