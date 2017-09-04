@@ -90,7 +90,7 @@ target_compile_features(kfx
     # cxx_range_for
 )
 
-target_link_libraries(kfx glfw glew lodepng)
+target_link_libraries(kfx stdc++fs glfw glew lodepng)
 
 # So that VS recognizes our resource files
 set_target_properties(kfx PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
