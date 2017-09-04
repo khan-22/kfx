@@ -39,6 +39,8 @@ class Window final {
   std::string getTitle() const;
 
   void setKeyCallback(GLFWkeyfun func);
+  void setMousePositionCallback(GLFWcursorposfun func);
+  void setMouseButtonCallback(GLFWmousebuttonfun func);
 
  private:
   int m_width;

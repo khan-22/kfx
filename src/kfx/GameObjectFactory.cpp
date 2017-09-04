@@ -10,13 +10,15 @@ GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
                                      TextureManager &texture_manager,
                                      MaterialManager &material_manager,
                                      TransformSystem &transform_system,
-                                     MeshSystem &mesh_system)
+                                     MeshSystem &mesh_system,
+                                     FpsInputSystem &fps_input_system)
     : m_mesh_manager(mesh_manager),
       m_shader_manager(shader_manager),
       m_texture_manager(texture_manager),
       m_material_manager(material_manager),
       m_transform_system(transform_system),
-      m_mesh_system(mesh_system) {
+      m_mesh_system(mesh_system),
+      m_fps_input_system(fps_input_system) {
   // ...
 }
 
@@ -64,14 +66,16 @@ GameObject GameObjectFactory::createTestObject() {
   // // Return object handle
   // return object_handle;
 
-  GameObject object = addGameObject();
+  GameObject game_object = addGameObject();
 
-  m_transform_system.addTransform(object, glm::vec3(3.f, 0.f, 0.f),
+  m_transform_system.addTransform(game_object, glm::vec3(3.f, 0.f, 0.f),
                                   glm::vec3(0.f, 0.f, 0.f));
-  m_mesh_system.addMesh(object, m_mesh_manager.getMeshByName("test"),
+  m_mesh_system.addMesh(game_object, m_mesh_manager.getMeshByName("test"),
                         m_material_manager.getMaterialByName("test-material"));
 
-  return object;
+  m_fps_input_system.addFpsControls(game_object);
+
+  return game_object;
 }
 
 // HandledResource<GameObject> &GameObjectFactory::getGameObjects() {

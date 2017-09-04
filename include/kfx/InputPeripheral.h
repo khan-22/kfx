@@ -13,6 +13,7 @@ namespace kfx {
 class InputPeripheral {
  public:
   InputPeripheral(MessageBox& message_box) : m_message_box(message_box) {}
+  virtual ~InputPeripheral() = default;
 
  protected:
   MessageBox& m_message_box;

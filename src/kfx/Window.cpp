@@ -63,6 +63,14 @@ void Window::setKeyCallback(GLFWkeyfun func) {
   glfwSetKeyCallback(m_window, func);
 }
 
+void Window::setMousePositionCallback(GLFWcursorposfun func) {
+  glfwSetCursorPosCallback(m_window, func);
+}
+
+void Window::setMouseButtonCallback(GLFWmousebuttonfun func) {
+  glfwSetMouseButtonCallback(m_window, func);
+}
+
 int Window::getWidth() const { return m_width; }
 int Window::getHeight() const { return m_height; }
 std::string Window::getTitle() const { return m_title; }

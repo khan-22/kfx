@@ -5,10 +5,12 @@ Engine::Engine(Window& window)
     : m_window(window),
       m_transform_system(m_message_box),
       m_mesh_system(m_message_box, m_transform_system),
+      m_fps_input_system(m_message_box, m_transform_system),
       m_game_object_factory(m_mesh_manager, m_shader_manager, m_texture_manager,
                             m_material_manager, m_transform_system,
-                            m_mesh_system),
+                            m_mesh_system, m_fps_input_system),
       m_keyboard_input_manager(m_message_box, window),
+      m_mouse_input_manager(m_message_box, window),
       m_renderer3d(m_message_box, *this),
       m_material_manager(m_shader_manager, m_texture_manager) {
   m_window.setGLFWUserData(this);
@@ -23,6 +25,8 @@ void Engine::init() {
 
 void Engine::update(float dt) {
   m_message_box.distributeMessages();
+
+  m_fps_input_system.applyInput(dt);
 
   m_mesh_system.renderAll();
 

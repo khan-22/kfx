@@ -40,6 +40,7 @@ class MeshSystem /* : public EventListener*/ {
     Handle material;
   };
 
+  bool objectHasComponent(GameObject game_object);
   MeshComponent& objectToComponent(GameObject game_object);
 
   MessageBox& m_message_box;

@@ -64,8 +64,10 @@ Handle MeshSystem::material(GameObject game_object) {
 
 void MeshSystem::renderAll() {
   for (auto& dirty_object : m_transform_system.queryDirtyComponents()) {
-    objectToComponent(dirty_object).world_transform =
-        m_transform_system.getWorldTransform(dirty_object);
+    if (objectHasComponent(dirty_object)) {
+      objectToComponent(dirty_object).world_transform =
+          m_transform_system.getWorldTransform(dirty_object);
+    }
   }
 
   for (auto& component : m_components) {
@@ -74,6 +76,15 @@ void MeshSystem::renderAll() {
 
     m_message_box.postMessage(msg);
   }
+}
+
+bool MeshSystem::objectHasComponent(GameObject game_object) {
+  for (auto& component : m_components) {
+    if (component.object.id == game_object.id) {
+      return true;
+    }
+  }
+  return false;
 }
 
 MeshSystem::MeshComponent& MeshSystem::objectToComponent(

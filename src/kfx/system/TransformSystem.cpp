@@ -30,8 +30,7 @@ void TransformSystem::addTransform(GameObject game_object, glm::vec3 position,
 }
 
 void TransformSystem::removeTransform(GameObject game_object) {
-  TransformComponent& this_component =
-      m_components[m_object_to_component_index[game_object.index]];
+  TransformComponent& this_component = objectToComponent(game_object);
   TransformComponent& last_component = m_components.back();
 
   this_component = last_component;

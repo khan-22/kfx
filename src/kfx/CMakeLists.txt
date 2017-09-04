@@ -42,6 +42,7 @@ add_library(
   Window.cpp
   ObservableSubject.cpp
   KeyboardInputPeripheral.cpp
+  MouseInputPeripheral.cpp
   
   resources/FileUtil.cpp
   resources/MeshManager.cpp
@@ -53,6 +54,7 @@ add_library(
   resources/MaterialParser.cpp
   resources/MaterialManager.cpp
   
+  system/FpsInputSystem.cpp
   system/GraphicsSystem3D.cpp
   system/MeshSystem.cpp
   system/TransformSystem.cpp

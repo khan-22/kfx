@@ -28,10 +28,12 @@
 /** -------- **/
 
 #include "kfx/KeyboardInputPeripheral.h"
+#include "kfx/MouseInputPeripheral.h"
 #include "kfx/Window.h"
 
 #include "kfx/graphics/Renderer3D.h"
 
+#include "kfx/system/FpsInputSystem.h"
 #include "kfx/system/MeshSystem.h"
 #include "kfx/system/TransformSystem.h"
 
@@ -66,6 +68,7 @@ class Engine {
   // std::vector<std::unique_ptr<System>> m_systems;
   TransformSystem m_transform_system;
   MeshSystem m_mesh_system;
+  FpsInputSystem m_fps_input_system;
 
   // "Outside" references
   Window& m_window;
@@ -78,6 +81,7 @@ class Engine {
 
   // Peripherals
   KeyboardInputPeripheral m_keyboard_input_manager;
+  MouseInputPeripheral m_mouse_input_manager;
 
   // Factory
   GameObjectFactory m_game_object_factory;
