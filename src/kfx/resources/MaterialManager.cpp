@@ -31,7 +31,6 @@ Handle MaterialManager::loadMaterialFromFile(const fs::path path) {
 
   Handle material_handle =
       m_materials.addResourceEntry(m_shader_manager, m_texture_manager);
-  // Handle material_handle = Handle::NULL_HANDLE;
 
   if (material_handle == Handle::NULL_HANDLE) {
     return Handle::NULL_HANDLE;
