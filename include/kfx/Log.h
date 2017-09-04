@@ -44,8 +44,8 @@ struct LogGuard {
 
 #define LOG(...) kfx::detail::log(__VA_ARGS__);
 
-#define LOG_ERROR(...)                                              \
-  kfx::detail::log_error(kfx::util::breakDownPath(__FILE__).back(), \
-                         " @ Line ", __LINE__, "\n---> ERROR: ", __VA_ARGS__);
+#define LOG_ERROR(...)                                                        \
+  kfx::detail::log_error(fs::path(__FILE__).filename(), " @ Line ", __LINE__, \
+                         "\n---> ERROR: ", __VA_ARGS__);
 
 #endif  // LOG_H

@@ -15,12 +15,13 @@
 #include "kfx/graphics/Mesh.h"
 #include "kfx/graphics/Vertex3D.h"
 
+#include "kfx/resources/FileUtil.h"
 #include "kfx/resources/HandledResource.h"
 
 namespace kfx {
 class MeshManager final {
  public:
-  Handle loadMeshFromFile(const std::string path);
+  Handle loadMeshFromFile(const fs::path path);
   Handle loadMeshFromMemory(const std::string name,
                             const std::vector<Vertex3D>& vertices,
                             const std::vector<GLuint>& indices);

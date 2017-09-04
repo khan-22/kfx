@@ -9,14 +9,16 @@
 #include <string>
 #include <vector>
 
+#include <optional>
+
 #include "kfx/graphics/Image.h"
 #include "kfx/graphics/Texture.h"
 
+#include "kfx/resources/FileUtil.h"
+
 namespace kfx {
 namespace util {
-Image loadImage(std::string path);
-
-Texture textureFromImage(const Image& image);
+std::optional<Image> loadImage(fs::path path);
 }
 }
 

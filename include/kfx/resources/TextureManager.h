@@ -17,10 +17,12 @@
 
 #include "kfx/resources/HandledResource.h"
 
+#include "kfx/resources/FileUtil.h"
+
 namespace kfx {
 class TextureManager final {
  public:
-  Handle loadTextureFromFile(const std::string path);
+  Handle loadTextureFromFile(const fs::path path);
 
   Handle getTextureByName(const std::string name);
 
@@ -30,6 +32,8 @@ class TextureManager final {
   std::unordered_map<std::string, Handle> m_name_to_handle_map;
 
   HandledResource<Texture> m_textures;
+
+  const fs::path RESOURCE_PATH = "./res/textures";
 };
 }
 #endif  // TEXTURE_MANAGER_H

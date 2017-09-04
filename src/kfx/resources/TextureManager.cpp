@@ -4,8 +4,8 @@
 #include "kfx/resources/TextureUtil.h"
 
 namespace kfx {
-Handle TextureManager::loadTextureFromFile(const std::string path) {
-  std::string texture_name = util::breakDownPath(path).back();
+Handle TextureManager::loadTextureFromFile(const fs::path path) {
+  std::string texture_name = path.filename();
 
   // If the texture has already been loaded, return the handle
   Handle found_handle = getTextureByName(texture_name);
@@ -13,16 +13,18 @@ Handle TextureManager::loadTextureFromFile(const std::string path) {
     return found_handle;
   }
 
-  std::string extended_path = "./res/textures/" + path + ".png";
+  fs::path extended_path = RESOURCE_PATH / path;
+  extended_path += ".png";
 
-  Image image = util::loadImage(extended_path);
-  Handle texture_handle = m_textures.addResourceEntry(image);
-  if (texture_handle == Handle::NULL_HANDLE) {
+  std::optional<Image> image = util::loadImage(extended_path);
+  if (!image) {
     return Handle::NULL_HANDLE;
   }
 
-  // Texture* texture = m_textures.getResourceEntry(texture_handle);
-  // *texture = util::textureFromImage(image);
+  Handle texture_handle = m_textures.addResourceEntry(*image);
+  if (texture_handle == Handle::NULL_HANDLE) {
+    return Handle::NULL_HANDLE;
+  }
 
   m_name_to_handle_map[texture_name] = texture_handle;
 

@@ -13,10 +13,12 @@
 #include "kfx/graphics/Shader.h"
 #include "kfx/resources/HandledResource.h"
 
+#include "kfx/resources/FileUtil.h"
+
 namespace kfx {
 class ShaderManager final {
  public:
-  Handle loadShaderFromFile(const std::string path);
+  Handle loadShaderFromFile(const fs::path path);
 
   Handle getShaderByName(const std::string name);
 
@@ -26,6 +28,8 @@ class ShaderManager final {
   std::unordered_map<std::string, Handle> m_name_to_handle_map;
 
   HandledResource<Shader> m_shaders;
+
+  const fs::path RESOURCE_PATH = "./res/shaders";
 };
 }
 #endif  // SHADER_MANAGER_H

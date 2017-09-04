@@ -11,11 +11,13 @@
 #include <string>
 #include <vector>
 
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
+
 namespace kfx {
 namespace util {
-std::vector<std::string> breakDownPath(std::string path);
-
-std::stringstream loadFileIntoStream(std::string path);
+std::stringstream loadFileIntoStream(fs::path path);
 }
 }
 

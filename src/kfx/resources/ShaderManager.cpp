@@ -5,37 +5,34 @@
 #include "kfx/resources/ShaderUtil.h"
 
 namespace kfx {
-Handle ShaderManager::loadShaderFromFile(const std::string path) {
-  std::string shader_name = util::breakDownPath(path).back();
+Handle ShaderManager::loadShaderFromFile(const fs::path path) {
+  std::string shader_name = path.filename();
 
   Handle found_handle = getShaderByName(shader_name);
   if (found_handle != Handle::NULL_HANDLE) {
     return found_handle;
   }
 
-  std::string vertex_shader_path =
-      "./res/shaders/" + path + "/" + shader_name + ".vs";
-  std::string geometry_shader_path =
-      "./res/shaders/" + path + "/" + shader_name + ".gs";
-  std::string fragment_shader_path =
-      "./res/shaders/" + path + "/" + shader_name + ".fs";
+  fs::path vert_shader_path = RESOURCE_PATH / path / (shader_name + ".vs");
+  fs::path geom_shader_path = RESOURCE_PATH / path / (shader_name + ".gs");
+  fs::path frag_shader_path = RESOURCE_PATH / path / (shader_name + ".fs");
 
-  std::string vertex_shader_source =
-      util::loadFileIntoStream(vertex_shader_path).str();
-  std::string geometry_shader_source =
-      util::loadFileIntoStream(geometry_shader_path).str();
-  std::string fragment_shader_source =
-      util::loadFileIntoStream(fragment_shader_path).str();
+  std::string vert_shader_source =
+      util::loadFileIntoStream(vert_shader_path).str();
+  std::string geom_shader_source =
+      util::loadFileIntoStream(geom_shader_path).str();
+  std::string frag_shader_source =
+      util::loadFileIntoStream(frag_shader_path).str();
 
-  GLuint vertex_shader =
-      util::shaderStageFromData(vertex_shader_source, GL_VERTEX_SHADER);
-  GLuint geometry_shader =
-      util::shaderStageFromData(geometry_shader_source, GL_GEOMETRY_SHADER);
-  GLuint fragment_shader =
-      util::shaderStageFromData(fragment_shader_source, GL_FRAGMENT_SHADER);
+  GLuint vert_shader =
+      util::shaderStageFromData(vert_shader_source, GL_VERTEX_SHADER);
+  GLuint geom_shader =
+      util::shaderStageFromData(geom_shader_source, GL_GEOMETRY_SHADER);
+  GLuint frag_shader =
+      util::shaderStageFromData(frag_shader_source, GL_FRAGMENT_SHADER);
 
-  Handle shader_handle = m_shaders.addResourceEntry(
-      vertex_shader, geometry_shader, fragment_shader);
+  Handle shader_handle =
+      m_shaders.addResourceEntry(vert_shader, geom_shader, frag_shader);
   // Shader* shader = m_shaders.getResourceEntry(shader_handle);
   //*shader = util::shaderProgramFromStages(vertex_shader, geometry_shader,
   //                                        fragment_shader);

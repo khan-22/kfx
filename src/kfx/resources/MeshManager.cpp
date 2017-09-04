@@ -5,7 +5,7 @@
 #include "kfx/Assert.h"
 
 namespace kfx {
-Handle loadMeshFromFile(const std::string path) {
+Handle loadMeshFromFile(const fs::path path) {
   // Not implemented yet
   kfx_contract(false);
 

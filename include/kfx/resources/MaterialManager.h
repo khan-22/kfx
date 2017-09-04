@@ -18,13 +18,15 @@
 #include "kfx/resources/ShaderManager.h"
 #include "kfx/resources/TextureManager.h"
 
+#include "kfx/resources/FileUtil.h"
+
 namespace kfx {
 class MaterialManager {
  public:
   MaterialManager(ShaderManager& shader_manager,
                   TextureManager& texture_manager);
 
-  Handle loadMaterialFromFile(const std::string path);
+  Handle loadMaterialFromFile(const fs::path path);
   Handle loadMaterialFromMemory(const std::string name,
                                 const std::string description);
 
@@ -41,6 +43,8 @@ class MaterialManager {
 
   ShaderManager& m_shader_manager;
   TextureManager& m_texture_manager;
+
+  const fs::path RESOURCE_PATH = "./res/materials";
 };
 }
 #endif  // MATERIAL_MANAGER_H

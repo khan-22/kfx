@@ -10,15 +10,16 @@ MaterialManager::MaterialManager(ShaderManager& shader_manager,
                                  TextureManager& texture_manager)
     : m_shader_manager(shader_manager), m_texture_manager(texture_manager) {}
 
-Handle MaterialManager::loadMaterialFromFile(const std::string path) {
-  std::string material_name = util::breakDownPath(path).back();
+Handle MaterialManager::loadMaterialFromFile(const fs::path path) {
+  std::string material_name = path.filename();
 
   Handle found_handle = getMaterialByName(material_name);
   if (found_handle != Handle::NULL_HANDLE) {
     return found_handle;
   }
 
-  std::string extended_path = "./res/materials/" + path + ".mat";
+  fs::path extended_path = RESOURCE_PATH / path;
+  extended_path += ".mat";
 
   // May be inefficient... Reconsider?
   std::istringstream stream(util::loadFileIntoStream(extended_path).str());
