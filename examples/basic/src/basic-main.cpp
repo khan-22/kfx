@@ -41,14 +41,34 @@ class MyTest : public kfx::Engine {
         0, 4, 7, 0, 7, 3,  // Bottom
     };
 
+    std::vector<kfx::Vertex3D> vertices2 = {
+        {{-1.f, 0.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 0.f, 1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 0.f, 1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
+        {{1.f, 0.f, -1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
+    };
+    std::vector<GLuint> indices2 = {
+        0, 1, 2, 0, 2, 3,
+    };
+
+    const float SIZE = 32.f;
+    for (auto& vertex : vertices2) {
+      vertex.pos *= SIZE;
+      vertex.uv *= SIZE;
+    }
+
     m_mesh_manager.loadMeshFromMemory("test", vertices, indices);
+    m_mesh_manager.loadMeshFromMemory("floor", vertices2, indices2);
 
     m_shader_manager.loadShaderFromFile("basic");
     m_texture_manager.loadTextureFromFile("test");
 
     m_material_manager.loadMaterialFromFile("test-material");
+    m_material_manager.loadMaterialFromFile("missing");
 
     m_game_object_factory.createTestObject();
+    m_game_object_factory.createStaticObject("floor", "missing",
+                                             glm::vec3(0.f, -1.f, 0.f));
   }
 
  private:
