@@ -15,7 +15,6 @@ add_executable(kfx_tests
   test-message-box.cpp
   test-handled-resource.cpp
   test-window.cpp
-  test-observer.cpp
 )
 
 target_include_directories(kfx_tests
