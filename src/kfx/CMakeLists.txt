@@ -39,7 +39,6 @@ add_library(
   HandleManager.cpp
   MessageBox.cpp 
   Window.cpp
-  ObservableSubject.cpp
   KeyboardInputPeripheral.cpp
   MouseInputPeripheral.cpp
   
