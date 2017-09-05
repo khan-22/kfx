@@ -47,7 +47,7 @@ class FpsInputSystem : public EventListener {
   std::vector<uint32_t> m_object_to_component_index;
   std::vector<FpsInputComponent> m_components;
 
-  float dx, dy;
+  float mouse_dx, mouse_dy;
   enum MOVEMENT_FLAGS {
     FORWARD,
     LEFT,

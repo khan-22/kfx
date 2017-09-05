@@ -8,10 +8,12 @@ FpsInputSystem::FpsInputSystem(MessageBox& message_box,
     : EventListener(message_box), m_transform_system(transform_system) {
   m_message_box.registerListener<KeyAction>(this);
   m_message_box.registerListener<MouseMove>(this);
-  dx = dy = 0.f;
+  mouse_dx = mouse_dy = 0.f;
 }
 
-FpsInputSystem::~FpsInputSystem() { m_message_box.unregisterListener(this); }
+FpsInputSystem::~FpsInputSystem() {
+  m_message_box.unregisterListener(this);  //
+}
 
 void FpsInputSystem::addFpsControls(GameObject game_object) {
   FpsInputComponent new_component;
@@ -62,9 +64,9 @@ void FpsInputSystem::tell(Message& msg) {
         break;
     }
   } else if (auto data = std::get_if<MouseMove>(&msg)) {
-    dx += data->dx;
-    dy += data->dy;
-    LOG("Mouse message received: ", data->dx, "  ", data->dy);
+    mouse_dx += data->dx;
+    mouse_dy += data->dy;
+    // LOG("Mouse message received: ", data->dx, "  ", data->dy);
   }
 }
 
@@ -78,30 +80,67 @@ void FpsInputSystem::applyInput(float dt) {
     }
   }
 
-  glm::vec3 delta_position(0.f);
+  float forward_factor = 0.f;
+  float left_factor = 0.f;
   if (m_active_movement.test(FORWARD)) {
-    delta_position.z += 1.f;
+    forward_factor += 1.f;
   }
   if (m_active_movement.test(BACKWARD)) {
-    delta_position.z -= 1.f;
+    forward_factor -= 1.f;
   }
   if (m_active_movement.test(LEFT)) {
-    delta_position.x += 1.f;
+    left_factor += 1.f;
   }
   if (m_active_movement.test(RIGHT)) {
-    delta_position.x -= 1.f;
+    left_factor -= 1.f;
   }
 
-  delta_position.y = -dy;
-  delta_position *= dt;
-
   for (auto& component : m_components) {
+    /*
+      [ cy    sy*sp     -sy*cp ]
+      [ 0     cp        sp     ]
+      [ sy    -sp*cy    cy*cp  ]
+    */
+    component.local_rotation.x += -mouse_dy * dt;  // Pitch
+    component.local_rotation.y += -mouse_dx * dt;  // Yaw
+
+    const float PI = glm::pi<float>();
+    const float HALF_PI = PI / 2.f;
+    if (component.local_rotation.x >= HALF_PI) {
+      component.local_rotation.x = HALF_PI - 0.01f;
+    } else if (component.local_rotation.x < -HALF_PI) {
+      component.local_rotation.x = -HALF_PI + 0.01f;
+    }
+
+    const float TWO_PI = 2.f * PI;
+    if (component.local_rotation.y >= TWO_PI) {
+      component.local_rotation.y -= TWO_PI;
+    } else if (component.local_rotation.y < 0.f) {
+      component.local_rotation.y += TWO_PI;
+    }
+
+    m_transform_system.setLocalRotation(component.object,
+                                        component.local_rotation);
+
+    const float CY = cosf(component.local_rotation.y);
+    const float SY = sinf(component.local_rotation.y);
+    const float CP = cosf(component.local_rotation.x);
+    const float SP = sinf(component.local_rotation.x);
+
+    const glm::vec3 forward_vector{-SY * CP, SP, -CY * CP};
+    const glm::vec3 left_vector{-CY, 0.f, SY};
+
+    const float SPEED = 4.f;
+
+    glm::vec3 delta_position = SPEED * dt * (forward_vector * forward_factor +
+                                             left_vector * left_factor);
+
     component.local_position += delta_position;
     m_transform_system.setLocalPosition(component.object,
                                         component.local_position);
   }
 
-  dx = dy = 0.f;
+  mouse_dx = mouse_dy = 0.f;
 }
 
 bool FpsInputSystem::objectHasComponent(GameObject game_object) {
