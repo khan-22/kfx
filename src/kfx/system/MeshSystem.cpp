@@ -6,16 +6,9 @@
 namespace kfx {
 MeshSystem::MeshSystem(MessageBox& message_box,
                        TransformSystem& transform_system)
-    : m_message_box(message_box),
-      m_transform_system(transform_system)
-//: EventListener(message_box)
-{
-  // m_message_box.registerListener<UpdatedWorldTransform>(this);
-}
+    : m_message_box(message_box), m_transform_system(transform_system) {}
 
-MeshSystem::~MeshSystem() {
-  // m_message_box.unregisterListener(this);
-}
+MeshSystem::~MeshSystem() {}
 
 void MeshSystem::addMesh(GameObject game_object, Handle mesh, Handle material) {
   MeshComponent new_component;
