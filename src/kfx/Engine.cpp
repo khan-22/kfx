@@ -27,17 +27,13 @@ void Engine::update(float dt) {
   m_message_box.distributeMessages();
 
   m_fps_input_system.applyInput(dt);
-
   m_mesh_system.renderAll();
-
-  m_message_box.distributeMessages();
 
   // Should be done to all queryable systems
   m_transform_system.clearDirtyComponents();
 }
 
 void Engine::render() {
-  // ...
   m_window.clear();
 
   m_renderer3d.render();
