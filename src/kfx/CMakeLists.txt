@@ -34,7 +34,6 @@ add_library(
   Components.cpp
   Clock.cpp
   Engine.cpp
-  GameObject.cpp
   GameObjectFactory.cpp
   Handle.cpp
   HandleManager.cpp

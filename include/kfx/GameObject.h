@@ -24,11 +24,11 @@ class GameObject {
     };
   };
 
-  [[deprecated]] Handle getComponent(ComponentType type);
-  [[deprecated]] bool hasComponent(ComponentType type);
+  // [[deprecated]] Handle getComponent(ComponentType type);
+  // [[deprecated]] bool hasComponent(ComponentType type);
 
  private:
-  std::array<Handle, ComponentType::NUM_TYPES> m_components;
+  // std::array<Handle, ComponentType::NUM_TYPES> m_components;
 
   friend class GameObjectFactory;
 };
