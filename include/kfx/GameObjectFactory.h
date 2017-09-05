@@ -38,6 +38,9 @@ class GameObjectFactory {
 
   GameObject createTestObject();
 
+  GameObject createStaticObject(std::string mesh_name,
+                                std::string material_name, glm::vec3 position);
+
   // HandledResource<GameObject>& getGameObjects();
 
   // HandledResource<TransformComponent>& getTransformComponents();
