@@ -6,8 +6,8 @@
 #include <Catch/catch.hpp>
 
 #include <kfx/Assert.h>
-#include <kfx/graphics/Shader.h>
-#include <kfx/resources/ShaderUtil.h>
+#include <kfx/res/Shader.h>
+#include <kfx/res/ShaderUtil.h>
 
 #include <GLFW/glfw3.h>
 

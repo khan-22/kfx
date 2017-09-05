@@ -12,11 +12,11 @@
 
 #include "kfx/Handle.h"
 #include "kfx/HandleManager.h"
-#include "kfx/graphics/Mesh.h"
-#include "kfx/graphics/Vertex3D.h"
+#include "kfx/res/Mesh.h"
+#include "kfx/res/Vertex3D.h"
 
-#include "kfx/resources/FileUtil.h"
-#include "kfx/resources/HandledResource.h"
+#include "kfx/res/FileUtil.h"
+#include "kfx/res/HandledResource.h"
 
 namespace kfx {
 class MeshManager final {

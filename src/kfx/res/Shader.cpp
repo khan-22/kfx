@@ -1,4 +1,4 @@
-#include "kfx/graphics/Shader.h"
+#include "kfx/res/Shader.h"
 
 #include <iostream>
 

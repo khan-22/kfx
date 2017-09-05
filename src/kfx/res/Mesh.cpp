@@ -1,4 +1,4 @@
-#include "kfx/graphics/Mesh.h"
+#include "kfx/res/Mesh.h"
 
 #include "kfx/Assert.h"
 

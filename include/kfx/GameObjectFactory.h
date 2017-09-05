@@ -13,12 +13,12 @@
 #include "kfx/Handle.h"
 #include "kfx/HandleManager.h"
 
-#include "kfx/resources/MaterialManager.h"
-#include "kfx/resources/MeshManager.h"
-#include "kfx/resources/ShaderManager.h"
-#include "kfx/resources/TextureManager.h"
+#include "kfx/res/MaterialManager.h"
+#include "kfx/res/MeshManager.h"
+#include "kfx/res/ShaderManager.h"
+#include "kfx/res/TextureManager.h"
 
-#include "kfx/resources/HandledResource.h"
+#include "kfx/res/HandledResource.h"
 
 #include "kfx/system/FpsInputSystem.h"
 #include "kfx/system/MeshSystem.h"

@@ -1,4 +1,4 @@
-#include "kfx/resources/MeshUtil.h"
+#include "kfx/res/MeshUtil.h"
 
 #include <GL/glew.h>
 

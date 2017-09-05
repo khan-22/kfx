@@ -6,7 +6,7 @@
 #include <Catch/catch.hpp>
 
 #include <kfx/Assert.h>
-#include <kfx/resources/FileUtil.h>
+#include <kfx/res/FileUtil.h>
 
 #include <string>
 

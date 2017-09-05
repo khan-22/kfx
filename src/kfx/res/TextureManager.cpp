@@ -1,7 +1,7 @@
-#include "kfx/resources/TextureManager.h"
+#include "kfx/res/TextureManager.h"
 
-#include "kfx/resources/FileUtil.h"
-#include "kfx/resources/TextureUtil.h"
+#include "kfx/res/FileUtil.h"
+#include "kfx/res/TextureUtil.h"
 
 namespace kfx {
 Handle TextureManager::loadTextureFromFile(const fs::path path) {

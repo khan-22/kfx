@@ -11,10 +11,10 @@
 
 #include <optional>
 
-#include "kfx/graphics/Image.h"
-#include "kfx/graphics/Texture.h"
+#include "kfx/res/Image.h"
+#include "kfx/res/Texture.h"
 
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 namespace kfx {
 namespace util {

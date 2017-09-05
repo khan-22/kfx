@@ -1,4 +1,4 @@
-#include "kfx/resources/ShaderUtil.h"
+#include "kfx/res/ShaderUtil.h"
 
 #include <iostream>
 #include "kfx/Assert.h"

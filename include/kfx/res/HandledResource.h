@@ -11,7 +11,7 @@
 
 #include "kfx/Handle.h"
 #include "kfx/HandleManager.h"
-#include "kfx/resources/Resource.h"
+#include "kfx/res/Resource.h"
 
 namespace kfx {
 template <typename T>

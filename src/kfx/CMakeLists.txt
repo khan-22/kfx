@@ -42,27 +42,28 @@ add_library(
   KeyboardInputPeripheral.cpp
   MouseInputPeripheral.cpp
   
-  resources/FileUtil.cpp
-  resources/MeshManager.cpp
-  resources/MeshUtil.cpp
-  resources/ShaderManager.cpp
-  resources/ShaderUtil.cpp
-  resources/TextureManager.cpp
-  resources/TextureUtil.cpp
-  resources/MaterialParser.cpp
-  resources/MaterialManager.cpp
+  res/FileUtil.cpp
+  res/MeshManager.cpp
+  res/MeshUtil.cpp
+  res/ShaderManager.cpp
+  res/ShaderUtil.cpp
+  res/TextureManager.cpp
+  res/TextureUtil.cpp
+  res/MaterialParser.cpp
+  res/MaterialManager.cpp
   
+  res/Renderer3D.cpp
+  res/Mesh.cpp
+  res/Shader.cpp
+  res/Texture.cpp
+  res/Material.cpp
+
   system/FpsInputSystem.cpp
   system/GraphicsSystem3D.cpp
   system/MeshSystem.cpp
   system/TransformSystem.cpp
   system/System.cpp
   
-  graphics/Renderer3D.cpp
-  graphics/Mesh.cpp
-  graphics/Shader.cpp
-  graphics/Texture.cpp
-  graphics/Material.cpp
 )
 
 

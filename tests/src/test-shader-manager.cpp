@@ -7,7 +7,7 @@
 
 #include <fstream>
 
-#include <kfx/resources/ShaderManager.h>
+#include <kfx/res/ShaderManager.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

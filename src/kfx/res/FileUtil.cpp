@@ -1,4 +1,4 @@
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 #include <algorithm>
 #include <cctype>

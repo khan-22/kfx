@@ -11,14 +11,14 @@
 #include <vector>
 
 #include "kfx/Handle.h"
-#include "kfx/graphics/Material.h"
-#include "kfx/resources/HandledResource.h"
-#include "kfx/resources/MaterialParser.h"
+#include "kfx/res/HandledResource.h"
+#include "kfx/res/Material.h"
+#include "kfx/res/MaterialParser.h"
 
-#include "kfx/resources/ShaderManager.h"
-#include "kfx/resources/TextureManager.h"
+#include "kfx/res/ShaderManager.h"
+#include "kfx/res/TextureManager.h"
 
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 namespace kfx {
 class MaterialManager {

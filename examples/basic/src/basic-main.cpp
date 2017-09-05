@@ -11,7 +11,7 @@
 #include <kfx/Engine.h>
 #include <kfx/Window.h>
 
-#include <kfx/resources/MaterialParser.h>
+#include <kfx/res/MaterialParser.h>
 
 class MyTest : public kfx::Engine {
  public:

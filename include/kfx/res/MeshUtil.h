@@ -8,8 +8,8 @@
 
 #include <vector>
 
-#include "kfx/graphics/Mesh.h"
-#include "kfx/graphics/Vertex3D.h"
+#include "kfx/res/Mesh.h"
+#include "kfx/res/Vertex3D.h"
 
 namespace kfx {
 namespace util {

@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 
 #include <kfx/Assert.h>
-#include <kfx/resources/MeshUtil.h>
+#include <kfx/res/MeshUtil.h>
 
 SCENARIO("Creating a mesh", "[util]") {
   REQUIRE(glfwInit() == GLFW_TRUE);

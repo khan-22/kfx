@@ -9,7 +9,7 @@
 #include <GL/glew.h>
 #include <string>
 
-#include "kfx/graphics/Shader.h"
+#include "kfx/res/Shader.h"
 
 namespace kfx {
 namespace util {

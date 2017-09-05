@@ -1,4 +1,4 @@
-#include "kfx/graphics/Material.h"
+#include "kfx/res/Material.h"
 
 #include "kfx/Assert.h"
 

@@ -5,7 +5,7 @@
 
 #include <Catch/catch.hpp>
 
-#include <kfx/resources/MeshManager.h>
+#include <kfx/res/MeshManager.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

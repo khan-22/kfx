@@ -1,4 +1,4 @@
-#include "kfx/graphics/Texture.h"
+#include "kfx/res/Texture.h"
 
 namespace kfx {
 

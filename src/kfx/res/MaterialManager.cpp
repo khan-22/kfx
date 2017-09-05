@@ -1,8 +1,8 @@
-#include "kfx/resources/MaterialManager.h"
+#include "kfx/res/MaterialManager.h"
 
 #include <sstream>
 
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 namespace kfx {
 

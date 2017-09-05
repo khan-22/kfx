@@ -6,8 +6,8 @@
 #ifndef GRAPHICS_SYSTEM_3D_H
 #define GRAPHICS_SYSTEM_3D_H
 
-#include "kfx/resources/MeshManager.h"
-#include "kfx/resources/ShaderManager.h"
+#include "kfx/res/MeshManager.h"
+#include "kfx/res/ShaderManager.h"
 #include "kfx/system/System.h"
 
 #include "kfx/EventListener.h"

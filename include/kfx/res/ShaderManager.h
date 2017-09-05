@@ -10,10 +10,10 @@
 #include <unordered_map>
 
 #include "kfx/Handle.h"
-#include "kfx/graphics/Shader.h"
-#include "kfx/resources/HandledResource.h"
+#include "kfx/res/HandledResource.h"
+#include "kfx/res/Shader.h"
 
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 namespace kfx {
 class ShaderManager final {

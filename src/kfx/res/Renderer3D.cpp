@@ -1,4 +1,4 @@
-#include "kfx/graphics/Renderer3D.h"
+#include "kfx/res/Renderer3D.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

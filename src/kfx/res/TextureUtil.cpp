@@ -1,4 +1,4 @@
-#include "kfx/resources/TextureUtil.h"
+#include "kfx/res/TextureUtil.h"
 
 #include <GL/glew.h>
 #include <lodepng/lodepng.h>

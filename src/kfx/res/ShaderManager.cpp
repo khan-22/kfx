@@ -1,8 +1,8 @@
 
-#include "kfx/resources/ShaderManager.h"
+#include "kfx/res/ShaderManager.h"
 
-#include "kfx/resources/FileUtil.h"
-#include "kfx/resources/ShaderUtil.h"
+#include "kfx/res/FileUtil.h"
+#include "kfx/res/ShaderUtil.h"
 
 namespace kfx {
 Handle ShaderManager::loadShaderFromFile(const fs::path path) {

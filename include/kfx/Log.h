@@ -9,7 +9,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "kfx/resources/FileUtil.h"
+#include "kfx/res/FileUtil.h"
 
 namespace kfx {
 namespace detail {

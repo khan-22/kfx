@@ -8,7 +8,7 @@
 
 #include <GL/glew.h>
 
-#include "kfx/graphics/Image.h"
+#include "kfx/res/Image.h"
 
 namespace kfx {
 struct Texture {

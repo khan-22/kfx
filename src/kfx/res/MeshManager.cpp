@@ -1,6 +1,6 @@
-#include "kfx/resources/MeshManager.h"
+#include "kfx/res/MeshManager.h"
 
-#include "kfx/resources/MeshUtil.h"
+#include "kfx/res/MeshUtil.h"
 
 #include "kfx/Assert.h"
 

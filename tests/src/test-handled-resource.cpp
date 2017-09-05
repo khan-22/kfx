@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include <kfx/resources/HandledResource.h>
+#include <kfx/res/HandledResource.h>
 
 SCENARIO("Adding and removing from a HandledResource", "[resource]") {
   GIVEN("A handled resource") {

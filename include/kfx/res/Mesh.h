@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "kfx/Handle.h"
-#include "kfx/graphics/Vertex3D.h"
+#include "kfx/res/Vertex3D.h"
 
 namespace kfx {
 struct Mesh {

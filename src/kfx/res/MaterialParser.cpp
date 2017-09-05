@@ -1,4 +1,4 @@
-#include "kfx/resources/MaterialParser.h"
+#include "kfx/res/MaterialParser.h"
 
 #include <iostream>
 #include <regex>

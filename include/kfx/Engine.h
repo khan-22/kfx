@@ -18,20 +18,20 @@
 #include "kfx/system/GraphicsSystem3D.h"
 
 /** Managers **/
-#include "kfx/resources/MeshManager.h"
+#include "kfx/res/MeshManager.h"
 
-#include "kfx/resources/ShaderManager.h"
+#include "kfx/res/ShaderManager.h"
 
-#include "kfx/resources/TextureManager.h"
+#include "kfx/res/TextureManager.h"
 
-#include "kfx/resources/MaterialManager.h"
+#include "kfx/res/MaterialManager.h"
 /** -------- **/
 
 #include "kfx/KeyboardInputPeripheral.h"
 #include "kfx/MouseInputPeripheral.h"
 #include "kfx/Window.h"
 
-#include "kfx/graphics/Renderer3D.h"
+#include "kfx/res/Renderer3D.h"
 
 #include "kfx/system/FpsInputSystem.h"
 #include "kfx/system/MeshSystem.h"

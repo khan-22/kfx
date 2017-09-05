@@ -9,8 +9,8 @@
 #include <array>
 
 #include "kfx/Handle.h"
-#include "kfx/resources/ShaderManager.h"
-#include "kfx/resources/TextureManager.h"
+#include "kfx/res/ShaderManager.h"
+#include "kfx/res/TextureManager.h"
 
 namespace kfx {
 class Material {
