@@ -26,8 +26,8 @@ class MeshSystem /* : public EventListener*/ {
 
   void addMesh(GameObject game_object, Handle mesh, Handle material);
   void removeMesh(GameObject game_object);
-  Handle mesh(GameObject game_object);
-  Handle material(GameObject game_object);
+  Handle getMesh(GameObject game_object);
+  Handle getMaterial(GameObject game_object);
 
   // void tell(Message& msg) final override;
 

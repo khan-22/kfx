@@ -19,11 +19,11 @@ void MeshSystem::removeMesh(GameObject game_object) {
   m_single_component_system.removeComponentFromObject(game_object);
 }
 
-Handle MeshSystem::mesh(GameObject game_object) {
+Handle MeshSystem::getMesh(GameObject game_object) {
   return m_single_component_system.objectToComponent(game_object).mesh;
 }
 
-Handle MeshSystem::material(GameObject game_object) {
+Handle MeshSystem::getMaterial(GameObject game_object) {
   return m_single_component_system.objectToComponent(game_object).material;
 }
 
