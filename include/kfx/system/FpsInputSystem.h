@@ -17,6 +17,8 @@
 
 #include "kfx/system/TransformSystem.h"
 
+#include "kfx/system/SingleComponentSystem.h"
+
 namespace kfx {
 class FpsInputSystem : public EventListener {
  public:
@@ -37,15 +39,9 @@ class FpsInputSystem : public EventListener {
     glm::vec3 local_rotation;
   };
 
-  bool objectHasComponent(GameObject game_object);
-  FpsInputComponent& objectToComponent(GameObject game_object);
-
-  // std::vector<KeyAction> m_queued_keypresses;
+  SingleComponentSystem<FpsInputComponent, false> m_single_component_system;
 
   TransformSystem& m_transform_system;
-
-  std::vector<uint32_t> m_object_to_component_index;
-  std::vector<FpsInputComponent> m_components;
 
   float mouse_dx, mouse_dy;
   enum MOVEMENT_FLAGS {

@@ -30,7 +30,7 @@ void Engine::update(float dt) {
   m_mesh_system.renderAll();
 
   // Should be done to all queryable systems
-  m_transform_system.clearDirtyComponents();
+  m_transform_system.clearDirtyObjects();
 }
 
 void Engine::render() {

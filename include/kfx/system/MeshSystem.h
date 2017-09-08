@@ -16,6 +16,8 @@
 
 #include "kfx/system/TransformSystem.h"
 
+#include "kfx/system/SingleComponentSystem.h"
+
 namespace kfx {
 class MeshSystem /* : public EventListener*/ {
  public:
@@ -40,15 +42,11 @@ class MeshSystem /* : public EventListener*/ {
     Handle material;
   };
 
-  bool objectHasComponent(GameObject game_object);
-  MeshComponent& objectToComponent(GameObject game_object);
+  SingleComponentSystem<MeshComponent, false> m_single_component_system;
 
   MessageBox& m_message_box;
 
   TransformSystem& m_transform_system;
-
-  std::vector<uint32_t> m_object_to_component_index;
-  std::vector<MeshComponent> m_components;
 };
 }
 #endif  // MESH_SYSTEM_H

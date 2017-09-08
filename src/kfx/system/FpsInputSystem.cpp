@@ -16,34 +16,14 @@ FpsInputSystem::~FpsInputSystem() {
 }
 
 void FpsInputSystem::addFpsControls(GameObject game_object) {
-  FpsInputComponent new_component;
-  new_component.object = game_object;
-  new_component.local_position =
-      m_transform_system.getLocalPosition(game_object);
-  new_component.local_rotation =
-      m_transform_system.getLocalRotation(game_object);
-
-  m_components.push_back(new_component);
-
-  if (m_object_to_component_index.size() < game_object.index + 1) {
-    m_object_to_component_index.resize(game_object.index + 1);
-  }
-
-  m_object_to_component_index[game_object.index] = m_components.size() - 1;
+  m_single_component_system.addComponentToObject(
+      game_object,  //
+      m_transform_system.getLocalPosition(game_object),
+      m_transform_system.getLocalRotation(game_object));
 }
 
 void FpsInputSystem::removeFpsControls(GameObject game_object) {
-  FpsInputComponent& this_component = objectToComponent(game_object);
-  FpsInputComponent& last_component = m_components.back();
-
-  this_component = last_component;
-  m_components.pop_back();
-
-  GameObject last_object = last_component.object;
-  m_object_to_component_index[last_object.index] =
-      m_object_to_component_index[game_object.index];
-
-  m_object_to_component_index[game_object.index] = 0;
+  m_single_component_system.removeComponentFromObject(game_object);
 }
 
 void FpsInputSystem::tell(Message& msg) {
@@ -71,11 +51,11 @@ void FpsInputSystem::tell(Message& msg) {
 }
 
 void FpsInputSystem::applyInput(float dt) {
-  for (auto& dirty_object : m_transform_system.queryDirtyComponents()) {
-    if (objectHasComponent(dirty_object)) {
-      objectToComponent(dirty_object).local_position =
+  for (auto& dirty_object : m_transform_system.queryDirtyObjects()) {
+    if (m_single_component_system.objectHasComponent(dirty_object)) {
+      m_single_component_system.objectToComponent(dirty_object).local_position =
           m_transform_system.getLocalPosition(dirty_object);
-      objectToComponent(dirty_object).local_rotation =
+      m_single_component_system.objectToComponent(dirty_object).local_rotation =
           m_transform_system.getLocalRotation(dirty_object);
     }
   }
@@ -95,7 +75,7 @@ void FpsInputSystem::applyInput(float dt) {
     left_factor -= 1.f;
   }
 
-  for (auto& component : m_components) {
+  for (auto& component : m_single_component_system.getComponents()) {
     /*
       [ cy    sy*sp     -sy*cp ]
       [ 0     cp        sp     ]
@@ -141,19 +121,5 @@ void FpsInputSystem::applyInput(float dt) {
   }
 
   mouse_dx = mouse_dy = 0.f;
-}
-
-bool FpsInputSystem::objectHasComponent(GameObject game_object) {
-  for (auto& component : m_components) {
-    if (component.object.id == game_object.id) {
-      return true;
-    }
-  }
-  return false;
-}
-
-FpsInputSystem::FpsInputComponent& FpsInputSystem::objectToComponent(
-    GameObject game_object) {
-  return m_components[m_object_to_component_index[game_object.index]];
 }
 }

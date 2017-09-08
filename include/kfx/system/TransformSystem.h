@@ -14,6 +14,8 @@
 #include "kfx/Handle.h"
 #include "kfx/MessageBox.h"
 
+#include "kfx/system/SingleComponentSystem.h"
+
 namespace kfx {
 class TransformSystem {
  public:
@@ -24,15 +26,15 @@ class TransformSystem {
                     glm::vec3 rotation);
   void removeTransform(GameObject game_object);
 
-  glm::vec3 getLocalPosition(GameObject game_object) const;
-  glm::vec3 getLocalRotation(GameObject game_object) const;
+  glm::vec3 getLocalPosition(GameObject game_object);
+  glm::vec3 getLocalRotation(GameObject game_object);
   void setLocalPosition(GameObject game_object, glm::vec3 position);
   void setLocalRotation(GameObject game_object, glm::vec3 rotation);
 
   glm::mat4 getWorldTransform(GameObject game_object);
 
-  void clearDirtyComponents();
-  const std::vector<GameObject>& queryDirtyComponents();
+  void clearDirtyObjects();
+  const std::vector<GameObject>& queryDirtyObjects();
 
  private:
   struct TransformComponent {
@@ -40,17 +42,11 @@ class TransformSystem {
     glm::mat4 world_transform;
     glm::vec3 local_position;
     glm::vec3 local_rotation;
-
-    void updateWorldTransform();
   };
 
-  TransformComponent& objectToComponent(GameObject game_object);
-  void markComponentDirty(GameObject object);
+  void updateWorldTransform(GameObject game_object);
 
-  std::vector<GameObject> m_dirty_components;
-
-  std::vector<uint32_t> m_object_to_component_index;
-  std::vector<TransformComponent> m_components;
+  SingleComponentSystem<TransformComponent, true> m_single_component_system;
 
   MessageBox& m_message_box;
 };
