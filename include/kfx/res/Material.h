@@ -24,7 +24,7 @@ class Material {
   void setTexture(unsigned int unit, Handle handle);
   void setShader(Handle handle);
 
-  GLuint getLocation(const char* name);
+  GLuint getLocation(std::string name);
 
  protected:
   ShaderManager& m_shader_manager;

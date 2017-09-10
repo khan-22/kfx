@@ -40,9 +40,9 @@ void Material::setTexture(unsigned int unit, Handle handle) {
 
 void Material::setShader(Handle handle) { m_shader_handle = handle; }
 
-GLuint Material::getLocation(const char* name) {
+GLuint Material::getLocation(std::string name) {
   return glGetUniformLocation(
       m_shader_manager.getShaders().getResourceEntry(m_shader_handle)->program,
-      name);
+      name.c_str());
 }
 }
