@@ -40,12 +40,15 @@ class MyTest : public kfx::Engine {
         1, 5, 6, 1, 6, 2,  // Top
         0, 4, 7, 0, 7, 3,  // Bottom
     };
+    for (auto& vertex : vertices) {
+      vertex.normal = glm::normalize(vertex.pos);
+    }
 
     std::vector<kfx::Vertex3D> vertices2 = {
-        {{-1.f, 0.f, -1.f}, {0.f, 0.f}, {0.f, 0.f, 0.f}},
-        {{-1.f, 0.f, 1.f}, {0.f, 1.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 0.f, 1.f}, {1.f, 1.f}, {0.f, 0.f, 0.f}},
-        {{1.f, 0.f, -1.f}, {1.f, 0.f}, {0.f, 0.f, 0.f}},
+        {{-1.f, 0.f, -1.f}, {0.f, 0.f}, {0.f, 1.f, 0.f}},
+        {{-1.f, 0.f, 1.f}, {0.f, 1.f}, {0.f, 1.f, 0.f}},
+        {{1.f, 0.f, 1.f}, {1.f, 1.f}, {0.f, 1.f, 0.f}},
+        {{1.f, 0.f, -1.f}, {1.f, 0.f}, {0.f, 1.f, 0.f}},
     };
     std::vector<GLuint> indices2 = {
         0, 1, 2, 0, 2, 3,
@@ -65,10 +68,14 @@ class MyTest : public kfx::Engine {
 
     m_material_manager.loadMaterialFromFile("test-material");
     m_material_manager.loadMaterialFromFile("missing");
+    m_material_manager.loadMaterialFromFile("grime_tiles");
 
     m_game_object_factory.createTestObject();
-    m_game_object_factory.createStaticObject("floor", "missing",
+    m_game_object_factory.createStaticObject("floor", "grime_tiles",
                                              glm::vec3(0.f, -1.f, 0.f));
+
+    m_game_object_factory.createStaticObject("test", "test-material",
+                                             glm::vec3(0.f, 0.f, 0.f));
   }
 
  private:
