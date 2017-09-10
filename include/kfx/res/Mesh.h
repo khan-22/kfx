@@ -12,6 +12,8 @@
 #include "kfx/Handle.h"
 #include "kfx/res/Vertex3D.h"
 
+#include "kfx/res/VertexArrayObject.h"
+
 namespace kfx {
 struct Mesh {
   Mesh(const std::vector<Vertex3D>& vertices,
@@ -21,13 +23,7 @@ struct Mesh {
 
   void operator=(Mesh&& other);
 
-  enum { VERTEX_BUFFER, INDEX_BUFFER, NUM_BUFFERS };
-  // std::vector<Vertex3D> vertices;
-
-  GLuint draw_count;
-
-  GLuint vertex_array_object;
-  GLuint vertex_buffer_objects[NUM_BUFFERS];
+  StaticVertexArrayObject vertex_array_object;
 
  private:
   // Copying is not allowed

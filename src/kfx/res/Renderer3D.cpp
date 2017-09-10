@@ -89,7 +89,8 @@ void Renderer3D::render() {
     // glUniform1fv(radius_location, MAX_LIGHTS, &radiuses[0]);
 
     glBindVertexArray(current_mesh->vertex_array_object);
-    glDrawElements(GL_TRIANGLES, current_mesh->draw_count, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, current_mesh->vertex_array_object.getCount(),
+                   GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
   }
 
