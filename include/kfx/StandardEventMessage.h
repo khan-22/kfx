@@ -67,11 +67,21 @@ struct UpdatedWorldTransform {
   glm::mat4 world_transform;
 };
 
+struct SubmitViewport {
+  glm::mat4 view_transform;
+};
+
+struct SubmitPointLight {
+  glm::vec3 position;
+  glm::vec3 color;
+  float radius;
+};
+
 // ...
 
 #define IMPL_MESSAGE_TYPES                                            \
   Test1, Test2, Debug, KeyAction, MouseAction, MouseMove, RenderMesh, \
-      UpdatedWorldTransform
+      UpdatedWorldTransform, SubmitViewport, SubmitPointLight
 
 using Message = std::variant<IMPL_MESSAGE_TYPES>;
 
