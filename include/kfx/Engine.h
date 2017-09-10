@@ -33,8 +33,10 @@
 
 #include "kfx/res/Renderer3D.h"
 
+#include "kfx/system/CameraSystem.h"
 #include "kfx/system/FpsInputSystem.h"
 #include "kfx/system/MeshSystem.h"
+#include "kfx/system/PointLightSystem.h"
 #include "kfx/system/TransformSystem.h"
 
 namespace kfx {
@@ -69,6 +71,8 @@ class Engine {
   TransformSystem m_transform_system;
   MeshSystem m_mesh_system;
   FpsInputSystem m_fps_input_system;
+  CameraSystem m_camera_system;
+  PointLightSystem m_point_light_system;
 
   // "Outside" references
   Window& m_window;

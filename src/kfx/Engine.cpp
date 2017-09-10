@@ -6,9 +6,12 @@ Engine::Engine(Window& window)
       m_transform_system(m_message_box),
       m_mesh_system(m_message_box, m_transform_system),
       m_fps_input_system(m_message_box, m_transform_system),
+      m_camera_system(m_message_box, m_transform_system),
+      m_point_light_system(m_message_box, m_transform_system),
       m_game_object_factory(m_mesh_manager, m_shader_manager, m_texture_manager,
                             m_material_manager, m_transform_system,
-                            m_mesh_system, m_fps_input_system),
+                            m_mesh_system, m_fps_input_system, m_camera_system,
+                            m_point_light_system),
       m_keyboard_input_manager(m_message_box, window),
       m_mouse_input_manager(m_message_box, window),
       m_renderer3d(m_message_box, *this),
@@ -28,6 +31,10 @@ void Engine::update(float dt) {
 
   m_fps_input_system.applyInput(dt);
   m_mesh_system.renderAll();
+  m_camera_system.submitCameras();
+  m_point_light_system.submitLights();
+
+  m_message_box.distributeMessages();
 
   // Should be done to all queryable systems
   m_transform_system.clearDirtyObjects();

@@ -20,8 +20,10 @@
 
 #include "kfx/res/HandledResource.h"
 
+#include "kfx/system/CameraSystem.h"
 #include "kfx/system/FpsInputSystem.h"
 #include "kfx/system/MeshSystem.h"
+#include "kfx/system/PointLightSystem.h"
 #include "kfx/system/TransformSystem.h"
 
 namespace kfx {
@@ -31,7 +33,9 @@ class GameObjectFactory {
                     TextureManager& texture_manager,
                     MaterialManager& material_manager,
                     TransformSystem& transform_system, MeshSystem& mesh_system,
-                    FpsInputSystem& fps_input_system);
+                    FpsInputSystem& fps_input_system,
+                    CameraSystem& camera_system,
+                    PointLightSystem& point_light_system);
 
   GameObject addGameObject();
   void removeGameObject(GameObject game_object);
@@ -66,6 +70,8 @@ class GameObjectFactory {
   TransformSystem& m_transform_system;
   MeshSystem& m_mesh_system;
   FpsInputSystem& m_fps_input_system;
+  CameraSystem& m_camera_system;
+  PointLightSystem& m_point_light_system;
 };
 }
 #endif  // GAME_OBJECT_FACTORY_H

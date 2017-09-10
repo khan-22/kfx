@@ -5,20 +5,21 @@
 #include "kfx/Assert.h"
 
 namespace kfx {
-GameObjectFactory::GameObjectFactory(MeshManager &mesh_manager,
-                                     ShaderManager &shader_manager,
-                                     TextureManager &texture_manager,
-                                     MaterialManager &material_manager,
-                                     TransformSystem &transform_system,
-                                     MeshSystem &mesh_system,
-                                     FpsInputSystem &fps_input_system)
+GameObjectFactory::GameObjectFactory(
+    MeshManager &mesh_manager, ShaderManager &shader_manager,
+    TextureManager &texture_manager, MaterialManager &material_manager,
+    TransformSystem &transform_system, MeshSystem &mesh_system,
+    FpsInputSystem &fps_input_system, CameraSystem &camera_system,
+    PointLightSystem &point_light_system)
     : m_mesh_manager(mesh_manager),
       m_shader_manager(shader_manager),
       m_texture_manager(texture_manager),
       m_material_manager(material_manager),
       m_transform_system(transform_system),
       m_mesh_system(mesh_system),
-      m_fps_input_system(fps_input_system) {
+      m_fps_input_system(fps_input_system),
+      m_camera_system(camera_system),
+      m_point_light_system(point_light_system) {
   // ...
 }
 
@@ -43,10 +44,15 @@ GameObject GameObjectFactory::createTestObject() {
 
   m_transform_system.addTransform(game_object, glm::vec3(3.f, 0.f, 0.f),
                                   glm::vec3(0.f, 0.f, 0.f));
-  m_mesh_system.addMesh(game_object, m_mesh_manager.getMeshByName("test"),
-                        m_material_manager.getMaterialByName("test-material"));
+  // m_mesh_system.addMesh(game_object, m_mesh_manager.getMeshByName("test"),
+  //                      m_material_manager.getMaterialByName("test-material"));
 
   m_fps_input_system.addFpsControls(game_object);
+
+  m_camera_system.addCamera(game_object);
+
+  m_point_light_system.addPointLight(game_object, {0.f, 0.f, 0.f},
+                                     {1.f, 1.f, 1.f}, 15.f);
 
   return game_object;
 }
