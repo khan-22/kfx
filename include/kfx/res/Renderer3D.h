@@ -37,6 +37,15 @@ class Renderer3D : public EventListener {
   };
   std::vector<DrawCall> m_draw_calls;
 
+  struct PointLight {
+    glm::vec3 position;
+    glm::vec3 color;
+    float radius;
+  };
+  std::vector<PointLight> m_point_lights;
+
+  glm::mat4 m_view_transform;
+
   Engine& m_engine;
 };
 }

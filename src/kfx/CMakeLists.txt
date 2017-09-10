@@ -63,6 +63,8 @@ add_library(
   system/MeshSystem.cpp
   system/TransformSystem.cpp
   system/System.cpp
+  system/CameraSystem.cpp
+  system/PointLightSystem.cpp
   
 )
 
